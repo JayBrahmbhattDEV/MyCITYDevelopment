@@ -1,0 +1,39 @@
+.newrep{
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    top: 30%;
+    right: 50%;    
+}
+
+ion-title{
+    font-family: 'Koulen';
+}
+
+ion-content{
+    --background: url(../media/buildings.png) no-repeat bottom fixed;
+}
+
+.recent{
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    top: 30%;
+    left: 60%;   
+}
+
+.myrep{
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    right: 50%;    
+}
+
+.favs{
+    width: 20%;
+    height: 10%;
+    position: absolute;
+    top: 50%;
+    left: 60%;  
+}
