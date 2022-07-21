@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,29 +10,32 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  isSubmitted = false;
-  constructor(public formBuilder: FormBuilder, private nativeStorage: NativeStorage) { }
+  RegForm: FormGroup;
+  submitted = false;
+
+  constructor(public formBuilder: FormBuilder, public router: Router, public navController: NavController) { }
 
   ngOnInit() {
+    this.RegForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+    })
   }
 
-  LoginForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    email: ['', Validators.required],
-    contact: ['', Validators.required]
-  })
-
-  get errorControl() {
-    return this.LoginForm.controls;
+  get errorCtr() {
+    return this.RegForm.controls;
   }
 
-  submit(){
-    console.log(this.LoginForm.value);
-    this.nativeStorage.setItem('name', this.LoginForm.controls.name.value)
-  .then(
-    () => console.log('Stored item!'),
-    error => console.error('Error storing item', error)
-  );
+  onSubmit() {
+    this.submitted = true;
+    console.log(this.RegForm.value);
   }
   
+  loginRoute(){
+    if(this.RegForm.valid){
+      this.router.navigateByUrl(`/login`)
+    }
+  }
+
 }

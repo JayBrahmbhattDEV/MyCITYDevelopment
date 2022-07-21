@@ -3,12 +3,46 @@ ion-card{
     height: 25rem;
     background-color: rgb(40, 39, 39);
     color: white;
+    border-radius: 5%;
 }
 
 ion-card-title{
     color: azure;
+    font-family: 'Koulen';
+    padding-left: 2rem;
+}
+
+ion-content{
+    background-color: black;
+}
+
+h4{
+    font-size: larger;
+}
+
+span{
+    padding-left: 2rem;
 }
 
 ion-card-subtitle{
     color: azure;
+    font-family: 'Koulen';
+}
+
+.uname{
+    width: 90%;
+    border-radius: 7%;
+    padding-left: 30px;
+}
+
+.mail{
+    width: 90%;
+    border-radius: 7%;
+    padding-left: 30px;
+}
+
+.contactno{
+    width: 90%;
+    border-radius: 7%;
+    padding-left: 30px;
 }

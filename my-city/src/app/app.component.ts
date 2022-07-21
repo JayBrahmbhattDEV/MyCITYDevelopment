@@ -10,7 +10,7 @@ export class AppComponent {
   Pages = [
     {
       title: 'Dashboard',
-      url: '',
+      url: '/dashboard',
       icon: 'albums'
     },
     {
