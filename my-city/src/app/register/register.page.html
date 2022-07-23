@@ -39,7 +39,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" shape="round" color="success" (click)="loginRoute()" expand="block">Submit</ion-button>
+        <ion-button type="submit" shape="round" color="success" [disabled]="this.RegForm.invalid" (click)="loginRoute()" expand="block">Submit</ion-button>
       </ion-col>
     </ion-row>
   </form>

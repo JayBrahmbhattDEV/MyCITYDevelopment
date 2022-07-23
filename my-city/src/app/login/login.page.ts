@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   }
 
   dashRoute(){
-    if(this.LoginForm.valid){
+    if(this.LoginForm.controls.email.valid || this.LoginForm.controls.phone.valid){
       this.router.navigateByUrl(`/dashboard`)
     }
   }
