@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { AccountService } from 'src/services/account.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +14,11 @@ export class LoginPage implements OnInit {
   LoginForm: FormGroup;
   submitted = false;
 
-  constructor(public formBuilder: FormBuilder, public router: Router, public navController: NavController) { }
+  constructor(public formBuilder: FormBuilder, public router: Router, public storage: Storage, public navController: NavController, private accountService: AccountService) { }
 
   ngOnInit() {
     this.LoginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
+      loginVal: ['', [Validators.required]]
     })
   }
 
@@ -25,14 +26,16 @@ export class LoginPage implements OnInit {
     return this.LoginForm.controls;
   }
 
-  onSub() {
-    this.submitted = true;
-    console.log(this.LoginForm.value);
-  }
 
-  dashRoute(){
-    if(this.LoginForm.valid){
-      this.router.navigateByUrl(`/dashboard`)
+  submitForm() {
+    if (this.LoginForm.controls.loginVal.value !== "") {
+      this.submitted = true;
+      this.accountService.login(this.LoginForm.value).subscribe(response => {
+        this.router.navigateByUrl(`/dashboard`)
+      }, e =>{
+        console.log(e);
+      })
     }
+
   }
 }

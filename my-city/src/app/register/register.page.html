@@ -3,15 +3,15 @@
   <ion-card-title>
     <h4>Join Us!</h4>
   </ion-card-title>
-  <form [formGroup]="RegForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="RegForm" novalidate>
     <ion-item class="uname" lines="full">
       <ion-label position="floating">Name</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+    <span class="ion-padding" *ngIf="submitted && controls.name.errors?.required">
       Name is required.
     </span>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+    <span class="ion-padding" *ngIf="submitted && controls.name.errors?.minlength">
       Min 3 chars long.
     </span>
     <hr>
@@ -19,27 +19,27 @@
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
+    <span class="ion-padding" *ngIf="submitted && controls.email.errors?.required">
       Email is required.
     </span>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
+    <span class="ion-padding" *ngIf="submitted && controls.email.errors?.pattern">
       Enter valid email.
     </span>
     <hr>
     <ion-item class="contactno" lines="full">
       <ion-label position="floating">Phone</ion-label>
-      <ion-input maxlength="10" formControlName="phone" type="text" required></ion-input>
+      <ion-input maxlength="10" formControlName="number" type="text" required></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.required">
+    <span class="error ion-padding" *ngIf="submitted && controls.phone.errors?.required">
       Phone number is required.
     </span>
-    <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.pattern">
+    <span class="error ion-padding" *ngIf="submitted && controls.phone.errors?.pattern">
       Number values allowed.
     </span>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" shape="round" color="success" (click)="loginRoute()" expand="block">Submit</ion-button>
+        <ion-button type="submit" shape="round" color="success" [disabled]="this.RegForm.invalid" (click)="loginRoute()" expand="block">Submit</ion-button>
       </ion-col>
     </ion-row>
   </form>
