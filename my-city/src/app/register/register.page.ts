@@ -8,7 +8,8 @@ import {
 import { MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
-import { AccountService } from 'src/services/account.service';
+import { AccountService } from '../services/account.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterPage implements OnInit {
     public navController: NavController,
     public storage: Storage,
     private accountService: AccountService,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private commonService: CommonService
   ) {}
 
   ngOnInit() {
@@ -54,13 +56,31 @@ export class RegisterPage implements OnInit {
   loginRoute() {
     this.submitted = true;
     if (this.RegForm.valid) {
+      this.commonService.presentLoading();
       this.accountService.register(this.RegForm.value).subscribe(
-        (response) => {
-          this.storage.set('user', response);
-          this.router.navigateByUrl(`/login`);
+        (response: any) => {
+          if (response.success) {
+            this.storage.set('user', response);
+            this.commonService.presentToaster({
+              message: response.data.message,
+            });
+            this.commonService.hideLoading();
+            this.router.navigateByUrl(`/login`);
+          } else {
+            this.commonService.presentToaster({
+              message: response.data.message,
+            });
+          }
         },
         (e) => {
-          console.log(e);
+          this.commonService.presentToaster({
+            message:
+              e?.error.message ||
+              'Something went wrong please try again later.',
+            color: 'danger',
+            duration: 3000,
+          });
+          this.commonService.hideLoading();
         }
       );
     }

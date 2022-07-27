@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
-import { AccountService } from 'src/services/account.service';
+import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
