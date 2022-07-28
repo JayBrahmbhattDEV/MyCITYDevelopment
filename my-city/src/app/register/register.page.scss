@@ -1,6 +1,6 @@
 ion-card{
     top: 20%;
-    height: 25rem;
+    height: 30rem;
     background-color: rgb(40, 39, 39);
     color: white;
     border-radius: 5%;
@@ -14,6 +14,15 @@ ion-card-title{
 
 ion-content{
     background-color: black;
+}
+
+.loginopt{
+    padding-left: 15%;
+}
+
+h6{
+    font-family: 'Koulen';
+    font-size: larger;
 }
 
 h4{
