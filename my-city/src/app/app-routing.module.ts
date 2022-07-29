@@ -33,6 +33,10 @@ const routes: Routes = [
   },  {
     path: 'newreport',
     loadChildren: () => import('./newreport/newreport.module').then( m => m.NewreportPageModule)
+  },
+  {
+    path: 'createreport',
+    loadChildren: () => import('./createreport/createreport.module').then( m => m.CreatereportPageModule)
   }
 
 ];
