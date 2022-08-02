@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": { "node": "v14.17.3" },
+  "engines": {
+    "node": "v14.17.3"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,12 +22,16 @@
   },
   "homepage": "https://github.com/Poojan3037/My_City_Server#readme",
   "dependencies": {
+    "@google-cloud/storage": "^6.2.3",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "firebase-admin": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.6",
-    "nodemon": "^2.0.19"
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.19",
+    "salted-md5": "^4.0.2"
   }
 }

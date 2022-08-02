@@ -4,6 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const userRouter = require("./routes/userRoute");
+const recordRouter = require("./routes/recordRoute")
 const connectDB = require("./db/connect");
 
 const PORT = process.env.PORT || 8000;
@@ -13,7 +14,8 @@ const MONGO_URI = process.env.MONGO_URI
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1/user", userRouter)
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/record", recordRouter)
 
 
 const start = async () => {
