@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Route, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-newreport',
@@ -15,13 +15,14 @@ export class NewreportPage implements OnInit {
 
   ngOnInit() {
     this.newReport = this.formBuilder.group({
-        lrash: ['']
+      issue: new FormControl(''),
+      descrip: new FormControl('', Validators.required),
+      location: new FormControl()
     });
   }
 
-  test(){
-    console.log("dwef");
-    
+  selectedIssue(item){
+    console.log(item.detail.value);
   }
 
 }
