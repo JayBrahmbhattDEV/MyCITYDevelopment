@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
   api = environment.api
+  private user$ = new Subject();
   constructor(private http: HttpClient) { }
 
   register<T>(user) {
@@ -18,5 +20,14 @@ export class AccountService {
     const api = `${this.api}/user/login`
     return this.http.post<T>(api, user);
   }
+
+  set userDetails (details:any) {
+    this.user$.next(details);
+  }
+
+  get userDetails () {
+    return this.user$.asObservable();
+  }
+
 
 }

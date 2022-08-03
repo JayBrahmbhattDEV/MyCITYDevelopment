@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
@@ -45,10 +40,6 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  ionViewWillEnter() {
-    this.menuController.enable(false);
-  }
-
   get controls() {
     return this.RegForm.controls;
   }
@@ -86,7 +77,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  alreadyReg(){
+  alreadyReg() {
     this.router.navigateByUrl(`/login`);
   }
 }
