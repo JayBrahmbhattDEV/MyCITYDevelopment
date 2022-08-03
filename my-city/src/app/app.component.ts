@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,27 +8,47 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   activePageTitle = 'Dashboard';
+  userName;
   Pages = [
     {
       title: 'Dashboard',
       url: '/dashboard',
-      icon: 'albums'
+      icon: 'albums',
+      isAuthRequired: true,
+      show: false,
     },
     {
       title: 'Profile',
       url: '/profile',
-      icon: 'person'
+      icon: 'person',
+      isAuthRequired: true,
+      show: false,
     },
     {
       title: 'About Us',
       url: '/about',
-      icon: 'information'
+      icon: 'information',
+      isAuthRequired: false,
+      show: true,
     },
     {
       title: 'Privacy Policy',
       url: '/privacy',
-      icon: 'document-lock'
-    }
+      icon: 'document-lock',
+      isAuthRequired: false,
+      show: true,
+    },
   ];
-  constructor() {}
+
+  constructor(public readonly accountService: AccountService) {
+    this.accountService.userDetails.subscribe((user: any) => {
+      if (!user) {
+        return;
+      }
+      this.userName = user.name;
+      this.Pages.filter((x) => x.isAuthRequired).map((x) => {
+        x.show = user;
+      });
+    });
+  }
 }

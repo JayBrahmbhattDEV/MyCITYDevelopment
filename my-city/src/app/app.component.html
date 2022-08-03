@@ -3,13 +3,28 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Hello! Jay</ion-list-header>
-          <ion-menu-toggle auto-hide="false" *ngFor="let pages of Pages; let i = index">
-            <ion-item (click)="activeIndex = i" routerDirection="root" [routerLink]="[pages.url]" lines="none"
-              detail="false" [class.selected]="activeIndex == i">
-              <ion-icon slot="start" [ios]="pages.icon + '-outline'" [md]="pages.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ pages.title }}</ion-label>
-            </ion-item>
+          <ion-list-header>Hello! {{ userName || 'guest' | titlecase }}</ion-list-header>
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let pages of Pages; let i = index"
+          >
+            <ng-container *ngIf="pages.show">
+              <ion-item
+                (click)="activeIndex = i"
+                routerDirection="root"
+                [routerLink]="[pages.url]"
+                lines="none"
+                detail="false"
+                [class.selected]="activeIndex == i"
+              >
+                <ion-icon
+                  slot="start"
+                  [ios]="pages.icon + '-outline'"
+                  [md]="pages.icon + '-sharp'"
+                ></ion-icon>
+                <ion-label>{{ pages.title }}</ion-label>
+              </ion-item>
+            </ng-container>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
