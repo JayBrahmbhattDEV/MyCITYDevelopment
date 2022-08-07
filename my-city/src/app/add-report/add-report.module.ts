@@ -8,13 +8,17 @@ import { AddReportPageRoutingModule } from './add-report-routing.module';
 
 import { AddReportPage } from './add-report.page';
 
+
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddReportPageRoutingModule
+    AddReportPageRoutingModule,
   ],
-  declarations: [AddReportPage]
+  declarations: [AddReportPage],
+  providers: [Camera]
 })
 export class AddReportPageModule {}

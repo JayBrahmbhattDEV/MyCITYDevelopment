@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonSelect } from '@ionic/angular';
+import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+
 
 @Component({
   selector: 'app-add-report',
@@ -123,24 +125,33 @@ export class AddReportPage implements OnInit {
   ];
 
   subCategoriesTemp = [];
-  isOther = false;
-  constructor() {}
+
+  options: CameraOptions = {
+    quality: 30,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
+  
+  image= 'https://i0.wp.com/www.opindia.com/wp-content/uploads/2021/02/Ahmedabad-630x381-1.jpg?fit=630%2C381&ssl=1';
+
+  constructor(
+    private camera: Camera
+  ) {}
 
   ngOnInit() {}
 
   getSubCategory($event) {
     this.ddSubCategory.value = null;
-    this.isOther = false;
     this.subCategoriesTemp = this.subCategories.filter(
       (x) => x.parent === $event.detail.value
     );
   }
-
-  subCategoryChange($event) {
-    if ($event && $event?.detail?.value?.parent === 7) {
-      this.isOther = true;
-    } else {
-      this.isOther = false;
-    }
+  openCamera() {
+    this.camera.getPicture  (this.options).then(imageData => {
+      this.image = 'data:image/jpeg;base64,' + imageData;
+    }).catch(e => {
+      console.log(e);
+    });
   }
 }
