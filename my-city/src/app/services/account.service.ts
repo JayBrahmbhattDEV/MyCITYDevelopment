@@ -29,5 +29,9 @@ export class AccountService {
     return this.user$.asObservable();
   }
 
+  getProfile(){
+    const api = `${this.api}/user/profile`
+    return this.http.get(api);
+  }
 
 }
