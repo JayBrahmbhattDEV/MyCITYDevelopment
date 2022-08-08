@@ -43,11 +43,16 @@ export class LoginPage implements OnInit {
           this.commonService.hideLoading();
           if (response.success) {
             const { token, user } = response.data;
+            localStorage.setItem("name", response.data.user.name);
+            localStorage.setItem("email", response.data.user.email);
+            localStorage.setItem("dob", response.data.user.dob);
+            localStorage.setItem("phone", response.data.user.phoneNumber);
             this.accountService.userDetails = user;
             this.router.navigateByUrl(`/dashboard`);
           }
         },
         (e) => {
+          this.commonService.hideLoading();
           console.log(e);
         }
       );
