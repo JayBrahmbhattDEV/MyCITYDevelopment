@@ -47,6 +47,7 @@ export class LoginPage implements OnInit {
             localStorage.setItem("email", response.data.user.email);
             localStorage.setItem("dob", response.data.user.dob);
             localStorage.setItem("phone", response.data.user.phoneNumber);
+            localStorage.setItem("token", response.data.token);
             this.accountService.userDetails = user;
             this.router.navigateByUrl(`/dashboard`);
           }

@@ -13,6 +13,7 @@ export class ProfilePage implements OnInit {
   constructor(public accountService: AccountService, public formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    const tokenAuth = localStorage.getItem("token");
     const userName = localStorage.getItem("name");
     const emailId = localStorage.getItem("email");
     const contact = localStorage.getItem("phone");
@@ -22,7 +23,16 @@ export class ProfilePage implements OnInit {
       phone: [contact],
       dob: []
     })
+    
+    this.accountService.getProfile().subscribe((res) =>{
+      console.log(res);
+    })
   }
+
+  IonViewWillEnter(){
+    
+  }
+
 
   
 }
