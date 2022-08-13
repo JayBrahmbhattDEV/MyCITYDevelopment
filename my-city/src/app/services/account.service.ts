@@ -8,6 +8,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class AccountService {
   api = environment.api
+  token = localStorage.getItem("token")
   private user$ = new Subject();
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,11 @@ export class AccountService {
   getProfile(){
     const api = `${this.api}/user/profile`
     return this.http.get(api);
+  }
+
+  updateProfile(data){
+    const api = `${this.api}/user/updateProfile`
+    return this.http.patch(api, data)
   }
 
 }

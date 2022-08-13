@@ -31,11 +31,11 @@
 
     <ion-item class="ion-margin-vertical">
       <ion-label position="floating">Date of birth:</ion-label>&nbsp;
-      <ion-datetime formControlName="dob" presentation="date"></ion-datetime>
+      <ion-datetime (ionChange)="change($event)" formControlName="dob" presentation="date"></ion-datetime>
     </ion-item>
 
     <ion-item>
-      <ion-button class="saveClass">
+      <ion-button (click)="save()" class="saveClass">
         Save &nbsp;
         <ion-icon name="save"></ion-icon>
       </ion-button>
