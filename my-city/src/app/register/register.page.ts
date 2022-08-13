@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
 import { AccountService } from '../services/account.service';
 import { CommonService } from '../services/common.service';
 
@@ -19,14 +18,12 @@ export class RegisterPage implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router,
     public navController: NavController,
-    public storage: Storage,
     private accountService: AccountService,
     private menuController: MenuController,
     private commonService: CommonService
   ) {}
 
   ngOnInit() {
-    this.storage.create();
     this.RegForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: [
@@ -51,7 +48,6 @@ export class RegisterPage implements OnInit {
       this.accountService.register(this.RegForm.value).subscribe(
         (response: any) => {
           if (response.success) {
-            this.storage.set('user', response);
             this.commonService.presentToaster({
               message: response.data.message,
             });

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { AccountService } from '../services/account.service';
-import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
+import { StorageService } from '../services/storage.service';
+import { STORAGE_KEYS } from '../utils/constants';
+
 
 @Component({
   selector: 'app-login',
@@ -18,10 +20,10 @@ export class LoginPage implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
-    public storage: Storage,
     public navController: NavController,
     private accountService: AccountService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public storageService: StorageService,
   ) {}
 
   ngOnInit() {
@@ -43,11 +45,15 @@ export class LoginPage implements OnInit {
           this.commonService.hideLoading();
           if (response.success) {
             const { token, user } = response.data;
+            this.storageService.setData(STORAGE_KEYS.TOKEN, token);
+            this.storageService.setData(STORAGE_KEYS.USER, user);
+            this.accountService.token = token;
             this.accountService.userDetails = user;
-            this.router.navigateByUrl(`/dashboard`);
+            this.router.navigateByUrl(`/home`);
           }
         },
         (e) => {
+          this.commonService.hideLoading();
           console.log(e);
         }
       );

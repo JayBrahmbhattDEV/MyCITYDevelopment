@@ -1,0 +1,11 @@
+08-09-22
+
+ionic cordova plugin add cordova-plugin-camera --save && npm install @awesome-cordova-plugins/camera 
+npm install @awesome-cordova-plugins/core --save
+
+
+ionic cordova plugin remove cordova-plugin-nativestorage --save &&
+npm uninstall @awesome-cordova-plugins/native-storage --save
+
+ionic cordova plugin add cordova-sqlite-storage --save &&
+npm install --save @ionic/storage-angular
