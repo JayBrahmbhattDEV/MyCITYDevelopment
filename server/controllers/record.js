@@ -17,7 +17,7 @@ const postRecord = async (req, res) => {
             date: new Date().toDateString(),
             time: new Date().toTimeString(),
             imgUrl,
-            userId: req.user.user._id,
+            userId: req.user._id,
         });
 
         res.status(201).json({
@@ -39,9 +39,9 @@ const getAllRecords = async (req, res) => {
 };
 
 const getRecordByUser = async (req, res) => {
-    const { user } = req.user;
+
     try {
-        const records = await Record.find({ userId: user._id });
+        const records = await Record.find({ userId: req.user._id });
         res.status(200).json({ success: true, data: records });
     } catch (err) {
         res.status(500).json({ success: false, err });
@@ -50,25 +50,17 @@ const getRecordByUser = async (req, res) => {
 
 const deleteRecord = async (req, res) => {
     const { id } = req.params;
-
     try {
-        const isRecordAvaliable = await Record.findById({ _id: id });
-        if (isRecordAvaliable) {
-
-            const deletedRecord = await Record.findByIdAndDelete({ _id: id });
-            if (deletedRecord) {
-                res
-                    .status(201)
-                    .json({ success: true, message: "Record deleted successfully" });
-            } else {
-                res
-                    .status(404)
-                    .json({ success: false, message: "No record found with given id" });
-            }
+        const deletedRecord = await Record.findByIdAndDelete({ _id: id });
+        if (deletedRecord) {
+            res
+                .status(201)
+                .json({ success: true, message: "Record deleted successfully" });
+        } else {
+            res
+                .status(404)
+                .json({ success: false, message: "No record found with given id" });
         }
-        res
-            .status(404)
-            .json({ success: false, message: "No record found with given id" });
     } catch {
         res.status(500).json({ success: false, err });
     }
@@ -85,30 +77,21 @@ const updateRecord = async (req, res) => {
     }
 
     try {
-        const isRecordAvaliable = await Record.findById({ _id: id });
 
-        if (isRecordAvaliable) {
+        const record = await Record.findByIdAndUpdate({ _id: id }, req.body, {
+            new: true,
+            runValidators: true,
+        });
 
-            const record = await Record.findByIdAndUpdate({ _id: id }, req.body, {
-                new: true,
-                runValidators: true,
-            });
-
-            if (record) {
-                res
-                    .status(201)
-                    .json({ success: true, message: "Record updated successfully" });
-            } else {
-                res
-                    .status(404)
-                    .json({ success: false, message: "No record found with this id" });
-            }
+        if (record) {
+            res
+                .status(201)
+                .json({ success: true, message: "Record updated successfully" });
+        } else {
+            res
+                .status(404)
+                .json({ success: false, message: "No record found with this id" });
         }
-
-        res
-            .status(404)
-            .json({ success: false, message: "No record found with this id" });
-
     } catch (err) {
         res.status(500).json({ success: false, err });
     }
