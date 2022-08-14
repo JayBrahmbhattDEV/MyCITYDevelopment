@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonSelect } from '@ionic/angular';
 
 @Component({
@@ -124,7 +125,7 @@ export class AddReportPage implements OnInit {
 
   subCategoriesTemp = [];
   isOther = false;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -142,5 +143,9 @@ export class AddReportPage implements OnInit {
     } else {
       this.isOther = false;
     }
+  }
+
+  addCord(){
+    this.router.navigateByUrl(`/createreport`);
   }
 }

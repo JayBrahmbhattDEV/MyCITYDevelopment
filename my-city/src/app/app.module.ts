@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
+
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -21,7 +23,9 @@ import { TokenInterceptor } from './services/auth-interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    }],
+    },
+    NativeGeocoder
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

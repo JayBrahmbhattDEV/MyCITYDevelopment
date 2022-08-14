@@ -2,8 +2,11 @@
   <ion-toolbar>
     <ion-title>Your report</ion-title>
   </ion-toolbar>
+  <ion-button (click)="addMarker()">
+    <ion-icon name="locate-outline"></ion-icon>
+  </ion-button>
 </ion-header>
 
 <ion-content>
-
+  <div id="map" style="width: 100%; height: 100%"></div>
 </ion-content>
