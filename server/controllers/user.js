@@ -23,7 +23,8 @@ const login = async (req, res) => {
         });
         const user = await User.findById({ _id: userExist._id });
         if (user && userExist) {
-            var token = jwt.sign({ user }, process.env.JWT_SECRET);
+            const jwtUser = { id: user._id }
+            var token = jwt.sign({ jwtUser }, process.env.JWT_SECRET);
             res.status(201).json({ success: true, data: { user, token } });
         } else {
             res.status(500).json({ success: false, message: "Invalid credentials" });
@@ -33,7 +34,44 @@ const login = async (req, res) => {
     }
 };
 
+const getProfile = async (req, res) => {
+    try {
+        if (req.user) {
+            res.status(200).json({ success: true, data: req.user })
+        } else {
+            res.status(404).json({ success: false, message: "User not found" })
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err });
+    }
+}
+
+const updateProfile = async (req, res, next) => {
+
+
+    const id = req.user._id
+
+    try {
+        if (req.user) {
+
+            const user = await User.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+
+            if (user) {
+                res.status(200).json({ success: true, message: "Profile Updated Successfully" })
+            } else {
+                res.status(404).json({ success: false, message: "User not found" })
+            }
+
+        }
+    } catch (err) {
+        res.status(500).json({ success: false, message: err });
+    }
+}
+
+
 module.exports = {
     registration,
     login,
+    getProfile,
+    updateProfile
 };

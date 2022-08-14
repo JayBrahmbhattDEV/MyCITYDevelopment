@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const User = require("../model/userSchema");
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers["authorization"];
@@ -6,13 +7,16 @@ const authenticateToken = (req, res, next) => {
 
     if (token === null) return res.sendStatus(401);
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
         if (err)
             return res
                 .status(403)
                 .json({ success: false, message: "unauthorized user" });
 
-        req.user = user;
+        if (user) {
+            const resUser = await User.findById({ _id: user.jwtUser.id })
+            req.user = resUser;
+        }
         next();
     });
 };
