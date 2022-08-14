@@ -21,17 +21,15 @@ export class ProfilePage implements OnInit {
       phone: [],
       dob: []
     })
-    
+
     this.accountService.getProfile().subscribe((res: any) =>{
-      this.profileForm.controls.name.setValue(res.data.user.name);
-      this.profileForm.controls.email.setValue(res.data.user.email);
-      this.profileForm.controls.phone.setValue(res.data.user.phoneNumber);
+      this.profileForm.controls.name.setValue(res.data.name);
+      this.profileForm.controls.email.setValue(res.data.email);
+      this.profileForm.controls.phone.setValue(res.data.phoneNumber);
+      console.log(res);
     })
   }
 
-  IonViewWillEnter(){
-    
-  }
 
   save(){
     this.accountService.updateProfile(this.profileForm.value).subscribe((res:any) =>{
