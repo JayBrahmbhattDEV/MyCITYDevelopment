@@ -4,6 +4,8 @@ import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx'
+import { FormsModule } from '@angular/forms';
 
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -15,7 +17,7 @@ import { TokenInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, IonicStorageModule.forRoot({
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule, IonicStorageModule.forRoot({
     name: "mycity"
   }), HttpClientModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -24,7 +26,8 @@ import { TokenInterceptor } from './services/auth-interceptor';
       useClass: TokenInterceptor,
       multi: true,
     },
-    NativeGeocoder
+    NativeGeocoder,
+    Camera
   ],
   bootstrap: [AppComponent],
 })
