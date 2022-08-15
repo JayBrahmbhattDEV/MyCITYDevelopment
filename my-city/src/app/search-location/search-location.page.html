@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title> Search </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      (ionChange)="searchLocation($event)"
+      showCancelButton="never"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item (click)="chooseLocation(location)" *ngFor="let location of locations">
+      <ion-icon slot="start" name="location-outline"></ion-icon>
+      <ion-label class="ion-text-wrap">
+        <h3><b>{{location.label | location}}</b></h3>
+        <p class="ion-text-wrap">{{location.label}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

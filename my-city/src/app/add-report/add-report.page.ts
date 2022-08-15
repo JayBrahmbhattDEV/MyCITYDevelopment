@@ -3,6 +3,7 @@ import { IonSelect } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-report',
@@ -140,7 +141,8 @@ export class AddReportPage implements OnInit {
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
-    private reportService: ReportsService
+    private reportService: ReportsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -228,5 +230,9 @@ export class AddReportPage implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  changeLocation(){
+    this.router.navigateByUrl(`/home`)
   }
 }

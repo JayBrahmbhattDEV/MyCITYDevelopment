@@ -30,7 +30,8 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
+  },
+  {
     path: 'newreport',
     loadChildren: () => import('./newreport/newreport.module').then( m => m.NewreportPageModule)
   },
@@ -41,6 +42,14 @@ const routes: Routes = [
   {
     path: 'add-report',
     loadChildren: () => import('./add-report/add-report.module').then( m => m.AddReportPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'search-location',
+    loadChildren: () => import('./search-location/search-location.module').then( m => m.SearchLocationPageModule)
   }
 
 ];
