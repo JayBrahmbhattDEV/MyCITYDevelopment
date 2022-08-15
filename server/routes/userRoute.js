@@ -7,6 +7,6 @@ const { checkUserExist } = require("../middlewares/userMiddleware")
 userRouter.route("/register").post(checkUserExist, registration)
 userRouter.route("/login").post(login);
 userRouter.route("/profile").get(authenticateToken, getProfile);
-userRouter.route("/updateProfile").patch(authenticateToken, checkUserExist, updateProfile)
+userRouter.route("/updateProfile").patch(authenticateToken, updateProfile)
 
 module.exports = userRouter;

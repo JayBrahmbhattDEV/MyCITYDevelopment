@@ -50,17 +50,35 @@ const updateProfile = async (req, res, next) => {
 
 
     const id = req.user._id
+    var validEmail = true;
+    var validPhoneNumber = true;
 
     try {
         if (req.user) {
-
-            const user = await User.findByIdAndUpdate({ _id: id }, req.body, { new: true });
-
-            if (user) {
-                res.status(200).json({ success: true, message: "Profile Updated Successfully" })
-            } else {
-                res.status(404).json({ success: false, message: "User not found" })
+            if (req.body.email !== req.user.email) {
+                const userExistWithEmail = await User.findOne({ email: req.body.email })
+                userExistWithEmail ? validEmail = false : validEmail = true
+                userExistWithEmail ? res.status(401).json({ success: false, message: "Email is already in use" }) : null
             }
+            if (req.body.phoneNumber !== req.user.phoneNumber) {
+                const userExistWithNumber = await User.findOne({ phoneNumber: req.body.number || req.body.phoneNumber })
+                userExistWithNumber ? validPhoneNumber = false : validPhoneNumber = true
+                userExistWithNumber ? res.status(401).json({ success: false, message: "Phone number is already in use" }) : null
+            }
+
+
+            if (validEmail && validPhoneNumber) {
+
+                const user = await User.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+
+                if (user) {
+                    res.status(200).json({ success: true, message: "Profile Updated Successfully" })
+                } else {
+                    res.status(404).json({ success: false, message: "User not found" })
+                }
+            }
+
+
 
         }
     } catch (err) {
