@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect } from '@ionic/angular';
+import { IonSelect, NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-add-report',
@@ -140,7 +141,9 @@ export class AddReportPage implements OnInit {
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
-    private reportService: ReportsService
+    private reportService: ReportsService,
+    private commonService: CommonService,
+    private navController: NavController
   ) {}
 
   ngOnInit() {
@@ -212,20 +215,29 @@ export class AddReportPage implements OnInit {
   addReport() {
     const blob = this.convertBase64ToBlob(this.image);
     const reportData = new FormData();
-    reportData.append('imgFile', blob, 'problem.jpg');
-    reportData.append('location',JSON.stringify({
-      latitude: '123',
-      longitude: '123',
-    }));
+    reportData.append('imgfile', blob, 'problem.jpg');
+    reportData.append(
+      'location',
+      JSON.stringify({
+        latitude: '123',
+        longitude: '123',
+      })
+    );
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
     });
+    this.commonService.presentLoading();
     this.reportService.addReport(reportData).subscribe(
       (response) => {
-        console.log(response);
+        this.commonService.presentToaster({
+          message: 'Report added successfully.'
+        });
+        this.commonService.hideLoading();
+        this.navController.navigateRoot('/home');
       },
       (e) => {
         console.log(e);
+        this.commonService.hideLoading();
       }
     );
   }
