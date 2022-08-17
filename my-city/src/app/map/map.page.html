@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title> Change Location </ion-title>
+  </ion-toolbar>
+  <ion-toolbar routerLink="/search-location">
+    <ion-searchbar
+      [value]="latLong?.address"
+      readonly
+      debounce="500"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div id="map"></div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="locate-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ion-footer>
+  <ion-button (click)="confirmLocation()" expand="block"> Set My Location </ion-button>
+</ion-footer>
