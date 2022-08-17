@@ -11,6 +11,8 @@ import { CommonService } from '../services/common.service';
 })
 export class ProfilePage implements OnInit {
   profileForm: FormGroup;
+  Userdata: any;
+  dateOfBirth: any;
 
   constructor(public accountService: AccountService, public formBuilder: FormBuilder, private commonService: CommonService) { }
 
@@ -23,10 +25,14 @@ export class ProfilePage implements OnInit {
     })
 
     this.accountService.getProfile().subscribe((res: any) =>{
-      this.profileForm.controls.name.setValue(res.data.name);
-      this.profileForm.controls.email.setValue(res.data.email);
-      this.profileForm.controls.phone.setValue(res.data.phoneNumber);
-      console.log(res);
+      this.Userdata = res;
+      this.profileForm.patchValue({
+        name: this.Userdata.data.name,
+        email: this.Userdata.data.email,
+        phone: this.Userdata.data.phoneNumber,
+        dob: this.dateOfBirth
+      })
+      console.log(this.Userdata);
     })
   }
 
@@ -35,13 +41,13 @@ export class ProfilePage implements OnInit {
     this.accountService.updateProfile(this.profileForm.value).subscribe((res:any) =>{
       console.log(res);
     })
+    this.accountService.getProfile();
   }
 
 
   change(data){
-   let temp = new Date(data.target.value).toLocaleDateString();
-   console.log(temp);
+   this.dateOfBirth = new Date(data.target.value).toLocaleDateString();
+   console.log(this.dateOfBirth);
   }
-
   
 }

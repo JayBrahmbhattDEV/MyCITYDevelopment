@@ -24,14 +24,26 @@
       <ion-textarea formControlName="email" placeholder="Enter your email"></ion-textarea>
     </ion-item>
 
-    <ion-item class="ion-margin-vertical">
+    <ion-item disabled class="ion-margin-vertical">
       <ion-label position="floating">Phone</ion-label>
       <ion-textarea formControlName="phone" placeholder="Enter your number"></ion-textarea>
     </ion-item>
 
-    <ion-item class="ion-margin-vertical">
-      <ion-label position="floating">Date of birth:</ion-label>&nbsp;
-      <ion-datetime (ionChange)="change($event)" formControlName="dob" presentation="date"></ion-datetime>
+    <ion-item :button="true" id="open-datetime">
+      <ion-label>Birthday</ion-label>
+      <ion-text v-if="formattedDate !== undefined">
+        {{this.dateOfBirth}}
+      </ion-text>
+      <ion-modal class="datetime-modal" trigger="open-datetime">
+      <ng-template>
+        <ion-content>
+          <ion-datetime formControlName="dob" presentation="date" size="cover" (ionChange)="change($event)"
+            #datetimeId show-default-buttons="true" cancel-text="Back"
+            done-text="Done">
+          </ion-datetime>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
     </ion-item>
 
     <ion-item>
