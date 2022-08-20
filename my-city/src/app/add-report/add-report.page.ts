@@ -27,7 +27,7 @@ export class AddReportPage implements OnInit {
     },
     {
       id: 4,
-      text: 'Health hazards',
+      text: 'Vehicle/Parking',
     },
     {
       id: 5,
