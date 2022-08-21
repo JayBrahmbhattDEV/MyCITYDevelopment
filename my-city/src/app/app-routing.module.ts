@@ -44,16 +44,16 @@ const routes: Routes = [
     loadChildren: () => import('./add-report/add-report.module').then( m => m.AddReportPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: 'search-location',
     loadChildren: () => import('./search-location/search-location.module').then( m => m.SearchLocationPageModule)
   },
   {
     path: 'reports',
     loadChildren: () => import('./reports/reports.module').then( m => m.ReportsPageModule)
+  },
+  {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
   }
 
 ];
