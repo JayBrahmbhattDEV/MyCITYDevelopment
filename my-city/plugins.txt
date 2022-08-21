@@ -1,0 +1,2 @@
+21-08-22
+ionic cordova plugin add cordova-plugin-geolocation --save && npm install @awesome-cordova-plugins/geolocation --save

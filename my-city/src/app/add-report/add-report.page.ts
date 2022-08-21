@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect } from '@ionic/angular';
+import { IonSelect, NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
-import { Router } from '@angular/router';
+import { CommonService } from '../services/common.service';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
 
 @Component({
   selector: 'app-add-report',
@@ -138,15 +141,26 @@ export class AddReportPage implements OnInit {
   image =
     'https://i0.wp.com/www.opindia.com/wp-content/uploads/2021/02/Ahmedabad-630x381-1.jpg?fit=630%2C381&ssl=1';
   reportForm: FormGroup;
+  latLon = {
+    latitude: '',
+    longitude: '',
+  };
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
     private reportService: ReportsService,
-    private router: Router
+    private navController: NavController,
+    private commonService: CommonService,
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder
   ) {}
 
   ngOnInit() {
     this.initReportForm();
+  }
+
+  ionViewDidEnter() {
+    this.getCurrentLocation();
   }
 
   getSubCategory($event) {
@@ -169,11 +183,10 @@ export class AddReportPage implements OnInit {
 
   initReportForm() {
     this.reportForm = this.formBuilder.group({
-      address: ' Zydus Hospital , Thaltej , Ahemdabad - 360059',
+      address: '',
       description: '',
       category: '',
       subCategory: '',
-      // location: { latitude: 1111, longitude: 122121 },
     });
   }
 
@@ -214,17 +227,31 @@ export class AddReportPage implements OnInit {
   addReport() {
     const blob = this.convertBase64ToBlob(this.image);
     const reportData = new FormData();
-    reportData.append('imgFile', blob, 'problem.jpg');
-    reportData.append('location',JSON.stringify({
-      latitude: '123',
-      longitude: '123',
-    }));
+    reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
+    reportData.append(
+      'location',
+      JSON.stringify({
+        latitude: this.latLon.latitude,
+        longitude: this.latLon.longitude,
+      })
+    );
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
     });
+    this.commonService.presentLoading();
     this.reportService.addReport(reportData).subscribe(
-      (response) => {
-        console.log(response);
+      (response: any) => {
+        if (response.success) {
+          this.commonService.presentToaster({
+            message: response?.data?.message,
+          });
+          this.navController.back();
+        } else {
+          this.commonService.presentToaster({
+            message: 'Opps something went wrong please try again later.',
+          });
+        }
+        this.commonService.hideLoading();
       },
       (e) => {
         console.log(e);
@@ -232,7 +259,35 @@ export class AddReportPage implements OnInit {
     );
   }
 
-  changeLocation(){
-    this.router.navigateByUrl(`/home`)
+  getCurrentLocation() {
+    this.geolocation
+      .getCurrentPosition()
+      .then((response) => {
+        console.log({ response });
+        this.nativeGeocoder
+          .reverseGeocode(response.coords.latitude, response.coords.longitude, {
+            useLocale: true,
+            maxResults: 1,
+            defaultLocale: 'en_IN',
+          })
+          .then((locations: NativeGeocoderResult[]) => {
+            const nativeGeocoderResult = locations[0];
+            this.reportForm.patchValue({
+              address: `${
+                nativeGeocoderResult.thoroughfare
+                  ? nativeGeocoderResult.thoroughfare + ','
+                  : nativeGeocoderResult.thoroughfare
+              } ${nativeGeocoderResult.subLocality} , ${
+                nativeGeocoderResult.locality
+              } , ${nativeGeocoderResult.postalCode} `,
+            });
+            this.latLon.latitude = nativeGeocoderResult.latitude;
+            this.latLon.longitude = nativeGeocoderResult.longitude;
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      })
+      .catch((e) => console.log(e));
   }
 }

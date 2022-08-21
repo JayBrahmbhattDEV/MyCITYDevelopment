@@ -58,9 +58,9 @@
       </ion-item>
       <ion-item class="ion-margin-vertical">
         <ion-icon slot="start" name="location"></ion-icon>
-        <ion-text> Zydus Hospital , Thaltej , Ahemdabad - 360059 </ion-text>
+        <ion-text> {{ reportForm.value.address }} </ion-text>
       </ion-item>
-      <ion-button (click)="changeLocation()" class="ion-margin-horizontal" expand="block">
+      <ion-button routerLink="/search-location" class="ion-margin-horizontal" expand="block">
         <ion-text>Change Location</ion-text>
       </ion-button>
       <ion-button type="submit" class="ion-margin-horizontal" expand="block">
