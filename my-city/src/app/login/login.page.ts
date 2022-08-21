@@ -52,11 +52,6 @@ export class LoginPage implements OnInit {
             const { token, user } = response.data;
             this.storageService.setData(STORAGE_KEYS.USER,user);
             this.storageService.setData(STORAGE_KEYS.TOKEN,token);
-            // localStorage.setItem("name", response.data.user.name);
-            // localStorage.setItem("email", response.data.user.email);
-            // localStorage.setItem("dob", response.data.user.dob);
-            // localStorage.setItem("phone", response.data.user.phoneNumber);
-            // localStorage.setItem("token", response.data.token);
             this.accountService.userDetails = user;
             this.accountService.token = token;
             this.navController.navigateRoot(`/dashboard`);
