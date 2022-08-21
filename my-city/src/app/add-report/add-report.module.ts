@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { AddReportPageRoutingModule } from './add-report-routing.module';
 
 import { AddReportPage } from './add-report.page';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 
 @NgModule({
   imports: [
@@ -15,8 +15,9 @@ import { AddReportPage } from './add-report.page';
     FormsModule,
     IonicModule,
     AddReportPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [AddReportPage]
+  declarations: [AddReportPage],
+  providers: [Geolocation, NativeGeocoder],
 })
 export class AddReportPageModule {}
