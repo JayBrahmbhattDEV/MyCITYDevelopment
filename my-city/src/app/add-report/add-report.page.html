@@ -58,7 +58,7 @@
       </ion-item>
       <ion-item class="ion-margin-vertical">
         <ion-icon slot="start" name="location"></ion-icon>
-        <ion-text> {{ this.addressVal }} </ion-text>
+        <ion-text> {{ this.addressVal || reportForm.value.address }} </ion-text>
       </ion-item>
       <ion-button routerLink="/search-location" class="ion-margin-horizontal" expand="block">
         <ion-text>Change Location</ion-text>

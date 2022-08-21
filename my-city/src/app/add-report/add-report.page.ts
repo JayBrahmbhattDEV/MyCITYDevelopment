@@ -168,7 +168,6 @@ export class AddReportPage implements OnInit {
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = {...params.keys, ...params};
       this.addressVal = this.paramsObject.params.address;
-      console.log(this.addressVal);
     })
   }
 
@@ -244,6 +243,7 @@ export class AddReportPage implements OnInit {
         longitude: this.latLon.longitude,
       })
     );
+    this.reportForm.value.category = this.categories.find(category => category.id == this.reportForm.value.category).text;
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
     });
@@ -272,7 +272,6 @@ export class AddReportPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((response) => {
-        console.log({ response });
         this.nativeGeocoder
           .reverseGeocode(response.coords.latitude, response.coords.longitude, {
             useLocale: true,
