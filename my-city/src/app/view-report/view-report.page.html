@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>View Report</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img class="add-report-image" [src]="report.imgUrl"></ion-img>
+  <ion-list>
+    <ion-item class="ion-margin-vertical">
+      <ion-label>Category</ion-label>
+      <ion-text>{{ report.category }}</ion-text>
+    </ion-item>
+    <ion-item class="ion-margin-vertical">
+      <ion-label>Sub Category</ion-label>
+      <ion-text>{{ report.subCategory }}</ion-text>
+    </ion-item>
+    <ion-item class="ion-margin-vertical">
+      <ion-text disabled class="ion-text-wrap"
+        >{{ report.description }}</ion-text
+      >
+    </ion-item>
+    <ion-item class="ion-margin-vertical">
+      <ion-icon slot="start" name="location"></ion-icon>
+      <ion-text class="ion-text-wrap"> {{ report.address }} </ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>
