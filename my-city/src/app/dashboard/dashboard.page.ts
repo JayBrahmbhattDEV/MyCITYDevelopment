@@ -22,19 +22,10 @@ export class DashboardPage implements OnInit {
     this.storage.create();
   }
 
-  async addReport() {
-    try {
-      const token = await this.storage.get(STORAGE_KEYS.TOKEN);
-      console.log({ token });
-      if (token) {
-        this.accountService.token = token;
-        const user = await this.storage.get(STORAGE_KEYS.USER);
-        this.accountService.userDetails = user;
-        this.navController.navigateForward('/add-report');
-      } else {
-        this.navController.navigateRoot('/login');
-      }
-    } catch (error) {
+ addReport() {
+    if (this.accountService.token) {
+      this.navController.navigateForward('/add-report');
+    } else {
       this.navController.navigateRoot('/login');
     }
   }
