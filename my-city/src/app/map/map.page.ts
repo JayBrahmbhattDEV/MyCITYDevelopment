@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Icon, Map, Marker, TileLayer } from 'leaflet';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +14,8 @@ export class MapPage implements OnInit {
   latLong = [23.030357, 72.517845];
   constructor(
     private activatedRoute: ActivatedRoute,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {}
@@ -58,6 +60,8 @@ export class MapPage implements OnInit {
 
         console.log(this.latLong);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => 
+      this.commonService.presentToaster({message:"Something went wrong!"})
+      );
   }
 }

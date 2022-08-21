@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
         },
         (e) => {
           this.commonService.hideLoading();
-          console.log(e);
+          this.commonService.presentToaster({message:e.error.message, color:'danger'});
         }
       );
     }

@@ -248,7 +248,7 @@ export class AddReportPage implements OnInit {
           this.navController.back();
         } else {
           this.commonService.presentToaster({
-            message: 'Opps something went wrong please try again later.',
+            message: 'Oops something went wrong please try again later.',
           });
         }
         this.commonService.hideLoading();

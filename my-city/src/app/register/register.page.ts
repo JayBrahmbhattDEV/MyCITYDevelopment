@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit {
               message: response.data.message,
             });
             this.commonService.hideLoading();
-            this.router.navigateByUrl(`/login`);
+            this.navController.navigateForward(`/login`);
           } else {
             this.commonService.presentToaster({
               message: response.data.message,
@@ -78,6 +78,6 @@ export class RegisterPage implements OnInit {
   }
 
   alreadyReg() {
-    this.router.navigateByUrl(`/login`);
+    this.navController.navigateRoot(`/login`);
   }
 }

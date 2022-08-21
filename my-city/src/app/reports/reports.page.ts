@@ -35,6 +35,7 @@ export class ReportsPage implements OnInit {
         this.commonService.hideLoading();
       },
       (e) => {
+        this.commonService.presentToaster({message:"Something went wrong!", color:'danger'})
         this.commonService.hideLoading();
       }
     );
