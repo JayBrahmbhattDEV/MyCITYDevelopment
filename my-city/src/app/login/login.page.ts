@@ -5,6 +5,8 @@ import { MenuController, NavController } from '@ionic/angular';
 import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
+import { StorageService } from '../services/storage.service';
+import { STORAGE_KEYS } from '../utils/constants';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginPage implements OnInit {
     public storage: Storage,
     public navController: NavController,
     private accountService: AccountService,
-    public commonService: CommonService
+    public commonService: CommonService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
@@ -43,13 +46,16 @@ export class LoginPage implements OnInit {
           this.commonService.hideLoading();
           if (response.success) {
             const { token, user } = response.data;
-            localStorage.setItem("name", response.data.user.name);
-            localStorage.setItem("email", response.data.user.email);
-            localStorage.setItem("dob", response.data.user.dob);
-            localStorage.setItem("phone", response.data.user.phoneNumber);
-            localStorage.setItem("token", response.data.token);
+            this.storageService.setData(STORAGE_KEYS.USER,user);
+            this.storageService.setData(STORAGE_KEYS.TOKEN,token);
+            // localStorage.setItem("name", response.data.user.name);
+            // localStorage.setItem("email", response.data.user.email);
+            // localStorage.setItem("dob", response.data.user.dob);
+            // localStorage.setItem("phone", response.data.user.phoneNumber);
+            // localStorage.setItem("token", response.data.token);
             this.accountService.userDetails = user;
-            this.router.navigateByUrl(`/dashboard`);
+            this.accountService.token = token;
+            this.navController.navigateRoot(`/dashboard`);
           }
         },
         (e) => {
