@@ -7,6 +7,7 @@ import { CommonService } from '../services/common.service';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-report',
@@ -14,6 +15,8 @@ import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
   styleUrls: ['./add-report.page.scss'],
 })
 export class AddReportPage implements OnInit {
+  paramsObject: any;
+  addressVal: any;
   @ViewChild('subCategory') ddSubCategory: IonSelect;
   categories = [
     {
@@ -152,7 +155,8 @@ export class AddReportPage implements OnInit {
     private navController: NavController,
     private commonService: CommonService,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -161,6 +165,11 @@ export class AddReportPage implements OnInit {
 
   ionViewDidEnter() {
     this.getCurrentLocation();
+    this.activatedRoute.queryParamMap.subscribe((params) => {
+      this.paramsObject = {...params.keys, ...params};
+      this.addressVal = this.paramsObject.params.address;
+      console.log(this.addressVal);
+    })
   }
 
   getSubCategory($event) {

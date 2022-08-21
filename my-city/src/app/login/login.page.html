@@ -6,15 +6,28 @@
 </ion-card-title>
 <form [formGroup]="LoginForm" (ngSubmit)="submitForm()" novalidate>
   <ion-item class="contactno" lines="full">
-    <ion-label position="floating">Phone</ion-label>
+    <ion-label position="floating">Phone/Contact</ion-label>
     <ion-input formControlName="loginVal" placeholder="Contact or email.." type="text" required></ion-input>
   </ion-item>
   <span class="ion-padding" *ngIf="submitted && errorCtr.loginVal.errors?.required">
     Please enter something...
   </span>
-  <ion-row>
+  <ion-row class="subBtn">
     <ion-col>
       <ion-button type="submit" shape="round" color="success" expand="block">Submit</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <h6>Don't have an account? Register Here!</h6>
+      <ion-button
+          class="regBtn"
+          shape="round"
+          color="success"
+          size="default"
+          (click)="accCreated()"
+          >Register
+          </ion-button>
     </ion-col>
   </ion-row>
 </form>

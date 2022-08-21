@@ -37,6 +37,10 @@ export class LoginPage implements OnInit {
     return this.LoginForm.controls;
   }
 
+  accCreated(){
+    this.navController.navigateRoot(`/register`)
+  }
+
   submitForm() {
     if (this.LoginForm.valid) {
       this.submitted = true;

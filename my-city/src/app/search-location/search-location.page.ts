@@ -29,7 +29,7 @@ export class SearchLocationPage implements OnInit {
   }
 
   chooseLocation(location) {
-    this.navController.navigateBack('/home',{
+    this.navController.navigateBack('/add-report',{
       queryParams: {
         lat: location.x,
         lon: location.y,
