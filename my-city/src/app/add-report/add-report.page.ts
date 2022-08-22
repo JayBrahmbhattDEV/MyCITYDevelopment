@@ -168,6 +168,7 @@ export class AddReportPage implements OnInit {
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = {...params.keys, ...params};
       this.addressVal = this.paramsObject.params.address;
+      console.log(this.paramsObject);
     })
   }
 
