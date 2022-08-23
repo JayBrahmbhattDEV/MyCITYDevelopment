@@ -1,2 +1,5 @@
+08-22-22
+ionic cordova plugin add cordova-plugin-request-location-accuracy --save &&  npm install @ionic-native/location-accuracy --save
+ionic cordova plugin add cordova-plugin-android-permissions --save &&  npm install @awesome-cordova-plugins/android-permissions --save
 21-08-22
 ionic cordova plugin add cordova-plugin-geolocation --save && npm install @awesome-cordova-plugins/geolocation --save

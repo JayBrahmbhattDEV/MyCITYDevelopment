@@ -8,6 +8,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
 import { ActivatedRoute } from '@angular/router';
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 
 @Component({
   selector: 'app-add-report',
@@ -156,7 +157,8 @@ export class AddReportPage implements OnInit {
     private commonService: CommonService,
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private androidPermissions: AndroidPermissions
   ) {}
 
   ngOnInit() {
@@ -166,9 +168,22 @@ export class AddReportPage implements OnInit {
   ionViewDidEnter() {
     this.getCurrentLocation();
     this.activatedRoute.queryParamMap.subscribe((params) => {
-      this.paramsObject = {...params.keys, ...params};
+      this.paramsObject = { ...params.keys, ...params };
       this.addressVal = this.paramsObject.params.address;
-    })
+    });
+    this.checkPermission();
+  }
+
+  checkPermission() {
+    this.androidPermissions
+      .checkPermission(this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION)
+      .then(
+        (result) => console.log('Has permission?', result.hasPermission),
+        (err) =>
+          this.androidPermissions.requestPermission(
+            this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+          )
+      );
   }
 
   getSubCategory($event) {
@@ -243,7 +258,9 @@ export class AddReportPage implements OnInit {
         longitude: this.latLon.longitude,
       })
     );
-    this.reportForm.value.category = this.categories.find(category => category.id == this.reportForm.value.category).text;
+    this.reportForm.value.category = this.categories.find(
+      (category) => category.id == this.reportForm.value.category
+    ).text;
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
     });
