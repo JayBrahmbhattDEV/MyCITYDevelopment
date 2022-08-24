@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { th } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +21,9 @@ export class ReportsService {
 
   addReport(report: any) {
     return this.http.post(`${this.api}/record/uploadRecord`, report);
+  }
+
+  getUserReport(){
+    return this.http.get(`${this.api}/record/user`);
   }
 }

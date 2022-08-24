@@ -148,6 +148,7 @@ export class AddReportPage implements OnInit {
     latitude: '',
     longitude: '',
   };
+  area: any;
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
@@ -292,6 +293,7 @@ export class AddReportPage implements OnInit {
             });
             this.latLon.latitude = nativeGeocoderResult.latitude;
             this.latLon.longitude = nativeGeocoderResult.longitude;
+            this.area = nativeGeocoderResult.locality;
           })
           .catch((e) => {
             console.log(e);

@@ -14,6 +14,7 @@ export class ProfilePage implements OnInit {
   Userdata: any;
   dateOfBirth: any;
   maxDate: any;
+  userDob: any;
 
   constructor(public accountService: AccountService, public formBuilder: FormBuilder, private commonService: CommonService) { }
 
@@ -27,13 +28,13 @@ export class ProfilePage implements OnInit {
 
     this.accountService.getProfile().subscribe((res: any) =>{
       this.Userdata = res;
+      this.userDob = this.Userdata.data.dob
       this.profileForm.patchValue({
         name: this.Userdata.data.name,
         email: this.Userdata.data.email,
         phone: this.Userdata.data.phoneNumber,
-        dob: this.dateOfBirth
+        dob: this.Userdata.data.dob
       })
-      console.log(this.Userdata);
     })
     this.futureDisabled();
   }

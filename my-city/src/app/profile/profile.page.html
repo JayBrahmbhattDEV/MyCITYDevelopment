@@ -31,8 +31,8 @@
 
     <ion-item :button="true" id="open-datetime">
       <ion-label>Birthday</ion-label>
-      <ion-text v-if="formattedDate !== undefined">
-        {{this.dateOfBirth}}
+      <ion-text>
+        {{this.userDob}}
       </ion-text>
       <ion-modal class="datetime-modal" trigger="open-datetime">
       <ng-template>

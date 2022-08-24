@@ -34,10 +34,6 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'newreport',
-    loadChildren: () => import('./newreport/newreport.module').then( m => m.NewreportPageModule)
-  },
-  {
     path: 'createreport',
     loadChildren: () => import('./createreport/createreport.module').then( m => m.CreatereportPageModule)
   },
@@ -60,7 +56,12 @@ const routes: Routes = [
   {
     path: 'view-report',
     loadChildren: () => import('./view-report/view-report.module').then( m => m.ViewReportPageModule)
+  },
+  {
+    path: 'recent-reports',
+    loadChildren: () => import('./recent-reports/recent-reports.module').then( m => m.RecentReportsPageModule)
   }
+
 ];
 @NgModule({
   imports: [
