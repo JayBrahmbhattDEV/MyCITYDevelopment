@@ -31,13 +31,13 @@
 
     <ion-item :button="true" id="open-datetime">
       <ion-label>Birthday</ion-label>
-      <ion-text v-if="formattedDate !== undefined">
-        {{this.dateOfBirth}}
+      <ion-text>
+        {{this.userDob}}
       </ion-text>
       <ion-modal class="datetime-modal" trigger="open-datetime">
       <ng-template>
         <ion-content>
-          <ion-datetime formControlName="dob" presentation="date" size="cover" (ionChange)="change($event)"
+          <ion-datetime max="2022-08-21" formControlName="dob" presentation="date" size="cover" (ionChange)="change($event)"
             #datetimeId show-default-buttons="true" cancel-text="Back"
             done-text="Done">
           </ion-datetime>
@@ -46,12 +46,10 @@
     </ion-modal>
     </ion-item>
 
-    <ion-item>
-      <ion-button (click)="save()" class="saveClass">
+      <ion-button (click)="save()" class="ion-margin-horizontal" expand="block">
         Save &nbsp;
         <ion-icon name="save"></ion-icon>
       </ion-button>
-    </ion-item>
   </form>
 
 

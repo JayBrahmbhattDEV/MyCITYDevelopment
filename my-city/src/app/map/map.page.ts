@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Icon, Map, Marker, TileLayer } from 'leaflet';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { CommonService } from '../services/common.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-map',
@@ -11,11 +12,14 @@ import { CommonService } from '../services/common.service';
 })
 export class MapPage implements OnInit {
   map: Map;
+  latVal: any;
+  longVal: any;
   latLong = [23.030357, 72.517845];
   constructor(
     private activatedRoute: ActivatedRoute,
     private geolocation: Geolocation,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private navController: NavController
   ) {}
 
   ngOnInit(): void {}
@@ -37,6 +41,8 @@ export class MapPage implements OnInit {
     }).addTo(this.map);
 
     marker.addEventListener('dragend', (e) => {
+      this.latVal = marker.getLatLng().lat;
+      this.longVal = marker.getLatLng().lng;
       console.log(marker.getLatLng().lat);
       console.log(marker.getLatLng().lng);
     });
@@ -57,11 +63,19 @@ export class MapPage implements OnInit {
           [response.coords.latitude, response.coords.longitude],
           13
         );
-
         console.log(this.latLong);
       })
       .catch((e) => 
       this.commonService.presentToaster({message:"Something went wrong!"})
       );
+  }
+
+  chooseLocation() {
+    this.navController.navigateBack('/add-report',{
+      queryParams: {
+        lat: this.latVal,
+        lon: this.longVal
+      },
+    });
   }
 }

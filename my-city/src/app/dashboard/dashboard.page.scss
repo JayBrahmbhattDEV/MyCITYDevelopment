@@ -6,6 +6,26 @@
     right: 50%;    
 }
 
+.addReport{
+    font-size: medium;
+    position: fixed;
+    right: 53%; 
+}
+
+.recentReport{
+    position: fixed;
+    right: 25%;
+}
+
+.myReports{
+    position: fixed;
+    right: 53%;
+}
+
+.govAlerts{
+    position: fixed;
+    right: 22%;
+}
 
 ion-content{
     --background: url('../../assets/buildings.png') no-repeat bottom fixed;

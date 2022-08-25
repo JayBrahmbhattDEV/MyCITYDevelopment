@@ -5,17 +5,17 @@ import { ReportsService } from '../services/reports.service';
 import { MESSAGES } from '../utils/constants';
 
 @Component({
-  selector: 'app-reports',
-  templateUrl: './reports.page.html',
-  styleUrls: ['./reports.page.scss'],
+  selector: 'app-recent-reports',
+  templateUrl: './recent-reports.page.html',
+  styleUrls: ['./recent-reports.page.scss'],
 })
-export class ReportsPage implements OnInit {
+export class RecentReportsPage implements OnInit {
   reports = [];
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
     private navController: NavController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getReports();
@@ -23,7 +23,7 @@ export class ReportsPage implements OnInit {
 
   getReports() {
     this.commonService.presentLoading(MESSAGES.FETHCHING_REPORTS);
-    this.reportService.getUserReport().subscribe(
+    this.reportService.getReports().subscribe(
       (response: any) => {
         if (response.success) {
           this.reports = response.data;
@@ -46,4 +46,5 @@ export class ReportsPage implements OnInit {
       state: report,
     });
   }
+
 }
