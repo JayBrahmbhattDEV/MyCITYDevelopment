@@ -19,6 +19,9 @@ import { PermissionService } from '../enable-permission/permission.service';
 export class AddReportPage implements OnInit {
   paramsObject: any;
   addressVal: any;
+  longitudeVal: any;
+  latitudeVal: any;
+  combVal: any;
   @ViewChild('subCategory') ddSubCategory: IonSelect;
   categories = [
     {
@@ -173,6 +176,8 @@ export class AddReportPage implements OnInit {
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = { ...params.keys, ...params };
       this.addressVal = this.paramsObject.params.address;
+      this.longitudeVal = this.paramsObject.params.lat;
+      this.latitudeVal = this.paramsObject.params.lon;
     });
   }
 
