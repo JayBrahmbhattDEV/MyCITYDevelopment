@@ -8,7 +8,7 @@ import { AddReportPageRoutingModule } from './add-report-routing.module';
 import { AddReportPage } from './add-report.page';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
-
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +18,6 @@ import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
     ReactiveFormsModule,
   ],
   declarations: [AddReportPage],
-  providers: [Geolocation, NativeGeocoder],
+  providers: [Geolocation, NativeGeocoder,AndroidPermissions],
 })
 export class AddReportPageModule {}

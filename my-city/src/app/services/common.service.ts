@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  AlertController,
   LoadingController,
   LoadingOptions,
   ToastController,
@@ -14,21 +15,24 @@ export class CommonService {
   private toaster: HTMLIonToastElement;
   constructor(
     private loadingController: LoadingController,
-    private toasterContrller: ToastController
+    private toasterContrller: ToastController,
+    private alertController: AlertController
   ) {}
 
   async presentLoading(message = 'Please wait') {
     if (!this.loading) {
       this.loading = await this.loadingController.create({
-        message: 'Please wait',
+        message,
       });
       this.loading.present();
     }
   }
 
   hideLoading() {
-    this.loading.dismiss();
-    this.loading = undefined;
+    if (this.loading) {
+      this.loading.dismiss();
+      this.loading = undefined;
+    }
   }
 
   async presentToaster(toastOptions: ToastOptions) {
@@ -45,5 +49,14 @@ export class CommonService {
   hideToaster() {
     this.toaster.dismiss();
     this.toaster = undefined;
+  }
+
+  async presentAlert(message: string, header = 'Information') {
+    const alert = await this.alertController.create({
+      message,
+      header,
+    });
+
+    alert.present();
   }
 }

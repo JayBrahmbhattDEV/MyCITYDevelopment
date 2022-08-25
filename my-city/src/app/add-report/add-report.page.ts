@@ -8,6 +8,8 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
 import { ActivatedRoute } from '@angular/router';
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
+import { PermissionService } from '../enable-permission/permission.service';
 
 @Component({
   selector: 'app-add-report',
@@ -157,7 +159,9 @@ export class AddReportPage implements OnInit {
     private commonService: CommonService,
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private androidPermissions: AndroidPermissions,
+    private permissionService: PermissionService
   ) {}
 
   ngOnInit() {
@@ -165,12 +169,53 @@ export class AddReportPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.getCurrentLocation();
+    this.checkPermission();
     this.activatedRoute.queryParamMap.subscribe((params) => {
-      this.paramsObject = {...params.keys, ...params};
+      this.paramsObject = { ...params.keys, ...params };
       this.addressVal = this.paramsObject.params.address;
-      console.log(this.paramsObject);
-    })
+    });
+  }
+
+  async checkPermission() {
+    try {
+      const permission = await this.permissionService.checkGPSPermission();
+      if (!permission.hasPermission) {
+        this.navController.navigateRoot('/enable-permission');
+      }
+      const enablePermission =
+        await this.permissionService.reqestGPSPermission();
+      if (!enablePermission.hasPermission) {
+        this.navController.navigateRoot('/enable-permission');
+      } else {
+        this.getCurrentLocation();
+      }
+      const isEnabled = await this.permissionService.enableGPS();
+      console.log({ isEnabled });
+      if (isEnabled?.code === 4) {
+        this.navController.navigateRoot('/enable-permission');
+      } else if (isEnabled?.code === 0) {
+        setTimeout(() => {
+          this.getCurrentLocation();
+        }, 100);
+      }
+    } catch (error) {
+      if (error?.code === 4) {
+        this.navController.navigateRoot('/enable-permission');
+      }
+    }
+  }
+
+  reqestGPSPermission() {
+    this.androidPermissions
+      .requestPermission(
+        this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+      )
+      .then((response) => {
+        console.log({ response });
+      })
+      .catch((e) => {
+        console.log({ e });
+      });
   }
 
   getSubCategory($event) {
@@ -245,7 +290,9 @@ export class AddReportPage implements OnInit {
         longitude: this.latLon.longitude,
       })
     );
-    this.reportForm.value.category = this.categories.find(category => category.id == this.reportForm.value.category).text;
+    this.reportForm.value.category = this.categories.find(
+      (category) => category.id == this.reportForm.value.category
+    ).text;
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
     });
@@ -274,6 +321,7 @@ export class AddReportPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((response) => {
+        console.log({ response });
         this.nativeGeocoder
           .reverseGeocode(response.coords.latitude, response.coords.longitude, {
             useLocale: true,
@@ -299,6 +347,10 @@ export class AddReportPage implements OnInit {
             console.log(e);
           });
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        if (e?.code  === 1) {
+          this.navController.navigateRoot('/enable-permission');
+        }
+      });
   }
 }
