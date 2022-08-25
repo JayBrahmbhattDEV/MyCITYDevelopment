@@ -60,7 +60,11 @@ const routes: Routes = [
   {
     path: 'view-report',
     loadChildren: () => import('./view-report/view-report.module').then( m => m.ViewReportPageModule)
+  },  {
+    path: 'enable-permission',
+    loadChildren: () => import('./enable-permission/enable-permission.module').then( m => m.EnablePermissionPageModule)
   }
+
 ];
 @NgModule({
   imports: [

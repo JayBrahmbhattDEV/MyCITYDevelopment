@@ -23,6 +23,7 @@
     "@awesome-cordova-plugins/camera": "^5.44.0",
     "@awesome-cordova-plugins/core": "^5.44.0",
     "@awesome-cordova-plugins/geolocation": "^5.44.0",
+    "@awesome-cordova-plugins/location-accuracy": "^5.44.0",
     "@awesome-cordova-plugins/native-geocoder": "^5.44.0",
     "@awesome-cordova-plugins/native-storage": "^5.44.0",
     "@ionic-native/location-accuracy": "^5.36.0",
@@ -49,7 +50,7 @@
     "@angular/compiler": "^14.0.0",
     "@angular/compiler-cli": "^14.0.0",
     "@angular/language-service": "^14.0.0",
-    "@ionic/angular-toolkit": "^6.0.0",
+    "@ionic/angular-toolkit": "^6.1.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
@@ -98,9 +99,7 @@
         "GPS_REQUIRED": "true"
       },
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-request-location-accuracy": {
-        "PLAY_SERVICES_LOCATION_VERSION": "16.+"
-      }
+      "cordova-plugin-request-location-accuracy": {}
     },
     "platforms": [
       "android"

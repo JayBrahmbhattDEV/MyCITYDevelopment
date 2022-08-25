@@ -14,7 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { TokenInterceptor } from './services/auth-interceptor';
-
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
+import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule, IonicStorageModule.forRoot({
@@ -27,8 +28,11 @@ import { TokenInterceptor } from './services/auth-interceptor';
       multi: true,
     },
     NativeGeocoder,
-    Camera
+    Camera,
+    AndroidPermissions,
+    LocationAccuracy
   ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule { }
