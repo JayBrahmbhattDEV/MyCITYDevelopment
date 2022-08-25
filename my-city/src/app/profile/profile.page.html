@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate>
+  <form [formGroup]="profileForm" novalidate>
     <div class="profile">
       <ion-icon name="person-circle-outline"></ion-icon>
     </div>
@@ -19,7 +19,7 @@
       <ion-textarea formControlName="name" placeholder="Enter your name"></ion-textarea>
     </ion-item>
 
-    <ion-item class="ion-margin-vertical">
+    <ion-item disabled class="ion-margin-vertical">
       <ion-label position="floating">Email</ion-label>
       <ion-textarea formControlName="email" placeholder="Enter your email"></ion-textarea>
     </ion-item>
