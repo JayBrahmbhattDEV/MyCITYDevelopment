@@ -147,7 +147,7 @@ export class AddReportPage implements OnInit {
   };
 
   image =
-    'https://i0.wp.com/www.opindia.com/wp-content/uploads/2021/02/Ahmedabad-630x381-1.jpg?fit=630%2C381&ssl=1';
+    './assets/images/photo.png';
   reportForm: FormGroup;
   latLon = {
     latitude: '',
@@ -180,6 +180,7 @@ export class AddReportPage implements OnInit {
       this.latitudeVal = this.paramsObject.params.lon;
     });
   }
+
 
   async checkPermission() {
     try {
