@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountService } from './services/account.service';
-
+import { NavController, Platform } from '@ionic/angular';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -40,7 +41,12 @@ export class AppComponent {
     },
   ];
 
-  constructor(public readonly accountService: AccountService) {
+  constructor(
+    public readonly accountService: AccountService,
+    private readonly platform: Platform,
+    private readonly location: Location,
+    private readonly navController: NavController,
+  ) {
     this.accountService.userDetails.subscribe((user: any) => {
       if (!user) {
         return;
@@ -49,6 +55,20 @@ export class AppComponent {
       this.Pages.filter((x) => x.isAuthRequired).map((x) => {
         x.show = user;
       });
+    });
+
+    this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
+      const url = this.location.path();
+      if (url === '/enable-permission') {
+        this.navController.navigateRoot('/dashboard');
+      }
+      if (url === '/login' || url === '/dashboard') {
+        navigator['app'].exitApp();
+      }
+      if (url === '/privacy' || url === '/about') {
+        this.navController.back();
+      }
+      processNextHandler();
     });
   }
 }
