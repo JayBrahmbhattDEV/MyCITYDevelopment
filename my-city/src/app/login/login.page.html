@@ -1,35 +1,44 @@
-
 <ion-content>
-<ion-card>
-<ion-card-title>
-  <h4>Log-In</h4>
-</ion-card-title>
-<form [formGroup]="LoginForm" (ngSubmit)="submitForm()" novalidate>
-  <ion-item class="contactno" lines="full">
-    <ion-label position="floating">Phone/Contact</ion-label>
-    <ion-input formControlName="loginVal" placeholder="Contact or email.." type="text" required></ion-input>
-  </ion-item>
-  <span class="ion-padding" *ngIf="submitted && errorCtr.loginVal.errors?.required">
-    Please enter something...
-  </span>
-  <ion-row class="subBtn">
-    <ion-col>
-      <ion-button type="submit" shape="round" color="success" expand="block">Submit</ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <h6>Don't have an account? Register Here!</h6>
-      <ion-button
-          class="regBtn"
-          shape="round"
-          color="success"
-          size="default"
-          (click)="accCreated()"
-          >Register
+  <ion-card>
+    <ion-card-title>
+      <h4>Log In</h4>
+    </ion-card-title>
+    <form [formGroup]="LoginForm" (ngSubmit)="submitForm()" novalidate>
+      <ion-item class="contactno" lines="full">
+        <ion-input
+          formControlName="loginVal"
+          placeholder="Enter Mobile number or email address"
+          type="text"
+          required
+        ></ion-input>
+      </ion-item>
+      <span
+        class="ion-padding"
+        *ngIf="submitted && errorCtr.loginVal.errors?.required"
+      >
+        Please enter something...
+      </span>
+      <ion-row class="subBtn">
+        <ion-col>
+          <ion-button type="submit" shape="round" color="success" expand="block"
+            >Submit</ion-button
+          >
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h6>Don't have an account? Register Here!</h6>
+          <ion-button
+            class="regBtn"
+            shape="round"
+            color="success"
+            size="default"
+            routerLink="/register"
+            routerDirection="forward"
+            >Register
           </ion-button>
-    </ion-col>
-  </ion-row>
-</form>
-</ion-card>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-card>
 </ion-content>
