@@ -19,6 +19,9 @@ import { PermissionService } from '../enable-permission/permission.service';
 export class AddReportPage implements OnInit {
   paramsObject: any;
   addressVal: any;
+  longitudeVal: any;
+  latitudeVal: any;
+  combVal: any;
   @ViewChild('subCategory') ddSubCategory: IonSelect;
   categories = [
     {
@@ -144,7 +147,7 @@ export class AddReportPage implements OnInit {
   };
 
   image =
-    'https://i0.wp.com/www.opindia.com/wp-content/uploads/2021/02/Ahmedabad-630x381-1.jpg?fit=630%2C381&ssl=1';
+    './assets/images/photo.png';
   reportForm: FormGroup;
   latLon = {
     latitude: '',
@@ -173,8 +176,11 @@ export class AddReportPage implements OnInit {
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = { ...params.keys, ...params };
       this.addressVal = this.paramsObject.params.address;
+      this.longitudeVal = this.paramsObject.params.lat;
+      this.latitudeVal = this.paramsObject.params.lon;
     });
   }
+
 
   async checkPermission() {
     try {
@@ -303,7 +309,7 @@ export class AddReportPage implements OnInit {
           this.commonService.presentToaster({
             message: response?.data?.message,
           });
-          this.navController.back();
+          this.navController.navigateRoot('/dashboard');
         } else {
           this.commonService.presentToaster({
             message: 'Oops something went wrong please try again later.',

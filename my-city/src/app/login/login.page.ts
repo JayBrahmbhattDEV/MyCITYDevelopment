@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
   }
 
   accCreated(){
-    this.navController.navigateRoot(`/register`)
+    this.navController.navigateForward(`/register`)
   }
 
   submitForm() {

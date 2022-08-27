@@ -1,42 +1,42 @@
 <ion-content class="jay">
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button autoHide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>My City</ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button autoHide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>My City</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-fab class="newrep">
-  <ion-fab-button color="dark">
-    <ion-icon (click)="addReport()" name="add"></ion-icon>
-  </ion-fab-button>
-  <hr>
-  <ion-label class="addReport">Add report</ion-label>
-</ion-fab>
+  <ion-fab (click)="addReport()" class="newrep">
+    <ion-fab-button color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <hr />
+    <ion-label class="addReport">Add report</ion-label>
+  </ion-fab>
 
-<ion-fab class="recent">
-  <ion-fab-button color="dark" routerLink="/recent-reports">
-    <ion-icon name="time"></ion-icon>
-  </ion-fab-button>
-  <hr>
-  <ion-label class="recentReport">Recents</ion-label>
-</ion-fab>
+  <ion-fab class="recent">
+    <ion-fab-button color="dark" routerLink="/recent-reports">
+      <ion-icon name="time"></ion-icon>
+    </ion-fab-button>
+    <hr />
+    <ion-label class="recentReport">Recents</ion-label>
+  </ion-fab>
 
-<ion-fab class="myrep">
-  <ion-fab-button color="dark" routerLink="/reports">
-    <ion-icon name="document"></ion-icon>
-  </ion-fab-button>
-  <hr>
-  <ion-label class="myReports">My reports</ion-label>
-</ion-fab>
+  <ion-fab class="myrep">
+    <ion-fab-button color="dark" routerLink="/reports">
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+    <hr />
+    <ion-label class="myReports">My reports</ion-label>
+  </ion-fab>
 
-<ion-fab class="favs">
-  <ion-fab-button color="dark">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-  </ion-fab-button>
-  <hr>
-  <ion-label class="govAlerts">Govt. alerts</ion-label>
-</ion-fab>
+  <ion-fab class="favs">
+    <ion-fab-button color="dark">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <hr />
+    <ion-label class="govAlerts">Govt. alerts</ion-label>
+  </ion-fab>
 </ion-content>

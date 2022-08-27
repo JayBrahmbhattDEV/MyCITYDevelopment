@@ -27,12 +27,6 @@
       </ion-item>
       <span
         class="ion-padding"
-        *ngIf="submitted && controls.email.errors?.required"
-      >
-        Email is required.
-      </span>
-      <span
-        class="ion-padding"
         *ngIf="submitted && controls.email.errors?.pattern"
       >
         Enter valid email.

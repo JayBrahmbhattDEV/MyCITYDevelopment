@@ -3,7 +3,9 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Hello! {{ userName || 'guest' | titlecase }}</ion-list-header>
+          <ion-list-header
+            >Hello! {{ userName || "guest" | titlecase }}</ion-list-header
+          >
           <ion-menu-toggle
             auto-hide="false"
             *ngFor="let pages of Pages; let i = index"
@@ -25,6 +27,17 @@
                 <ion-label>{{ pages.title }}</ion-label>
               </ion-item>
             </ng-container>
+          </ion-menu-toggle>
+          <ion-menu-toggle *ngIf="!accountService.token" auto-hide="false">
+            <ion-item
+              routerDirection="root"
+              [routerLink]="['/login']"
+              lines="none"
+              detail="false"
+            >
+              <ion-icon slot="start" name="log-in-outline"></ion-icon>
+              <ion-label>Login</ion-label>
+            </ion-item>
           </ion-menu-toggle>
         </ion-list>
       </ion-content>
