@@ -8,22 +8,27 @@
 
 .addReport{
     font-size: medium;
-    position: fixed;
-    right: 53%; 
+    display: flex;
+    position: absolute;
+    top: 38%;
+    right: 53%;
 }
 
 .recentReport{
     position: fixed;
+    top: 38%;
     right: 25%;
 }
 
 .myReports{
     position: fixed;
+    top: 58%;
     right: 53%;
 }
 
 .govAlerts{
     position: fixed;
+    top: 58%;
     right: 22%;
 }
 
@@ -54,3 +59,27 @@ ion-content{
     top: 50%;
     left: 60%;  
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    /* Ipad styles */
+    .addReport{
+        top: 37%;
+        right: 62%;
+    }
+
+    .recentReport{
+        position: fixed;
+        top: 37%;
+        right: 33%;
+    }
+
+    .govAlerts{
+        top: 57%;
+        right: 31%;
+    }
+
+    .myReports{
+        top: 57%;
+        right: 62%;
+    }
+   }
