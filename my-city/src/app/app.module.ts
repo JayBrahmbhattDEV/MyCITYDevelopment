@@ -3,10 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@awesome-cordova-plugins/native-geocoder/ngx';
-import { Camera } from '@awesome-cordova-plugins/camera/ngx'
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { Camera } from '@awesome-cordova-plugins/camera/ngx';
 import { FormsModule } from '@angular/forms';
-
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -18,10 +17,19 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule, IonicStorageModule.forRoot({
-    name: "mycity"
-  }), HttpClientModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    IonicStorageModule.forRoot({
+      name: 'mycity',
+    }),
+    HttpClientModule,
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -30,9 +38,8 @@ import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx
     NativeGeocoder,
     Camera,
     AndroidPermissions,
-    LocationAccuracy
+    LocationAccuracy,
   ],
   bootstrap: [AppComponent],
-  
 })
-export class AppModule { }
+export class AppModule {}

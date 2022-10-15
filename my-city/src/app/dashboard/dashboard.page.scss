@@ -1,56 +1,23 @@
-.newrep{
-    width: 20%;
-    height: 10%;
+ion-toolbar,
+ion-header {
+  --background: var(--ion-color-primary);
+}
+
+ion-content {
+  position: relative;
+  background-color: var(----ion-color-light-shade);
+  --background: var(--ion-color-light);
+  .container {
     position: absolute;
-    top: 30%;
-    right: 50%;    
+    background-color: var(--ion-color-primary);
+    height: 50vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50%/0 0 50px 50px;
+  }
 }
 
-.addReport{
-    font-size: medium;
-    position: fixed;
-    right: 53%; 
-}
-
-.recentReport{
-    position: fixed;
-    right: 25%;
-}
-
-.myReports{
-    position: fixed;
-    right: 53%;
-}
-
-.govAlerts{
-    position: fixed;
-    right: 22%;
-}
-
-ion-content{
-    --background: url('../../assets/buildings.png') no-repeat bottom fixed;
-}
-
-.recent{
-    width: 20%;
-    height: 10%;
-    position: absolute;
-    top: 30%;
-    left: 60%;   
-}
-
-.myrep{
-    width: 20%;
-    height: 10%;
-    position: absolute;
-    top: 50%;
-    right: 50%;    
-}
-
-.favs{
-    width: 20%;
-    height: 10%;
-    position: absolute;
-    top: 50%;
-    left: 60%;  
+.text-white {
+  color: var(--ion-color-light);
 }

@@ -11,6 +11,28 @@ import { STORAGE_KEYS } from '../utils/constants';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  pages = [
+    {
+      text: 'Add Report',
+      image: './assets/icon/add-report.svg',
+    },
+    {
+      text: 'My Reports',
+      image: './assets/icon/my-reports.svg',
+    },
+    {
+      text: 'Recent Reports',
+      image: './assets/icon/recent-reports.svg',
+    },
+    {
+      text: 'Goverment Alerts',
+      image: './assets/icon/goverments-alerts.svg',
+    },
+  ];
+
+  slideOpts = {
+    slidesPerView: 1.5,
+  };
   constructor(
     public router: Router,
     private accountService: AccountService,
@@ -22,7 +44,7 @@ export class DashboardPage implements OnInit {
     this.storage.create();
   }
 
- addReport() {
+  addReport() {
     if (this.accountService.token) {
       this.navController.navigateForward('/add-report');
     } else {
