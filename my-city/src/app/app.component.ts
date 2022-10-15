@@ -45,7 +45,7 @@ export class AppComponent {
     public readonly accountService: AccountService,
     private readonly platform: Platform,
     private readonly location: Location,
-    private readonly navController: NavController,
+    private readonly navController: NavController
   ) {
     this.accountService.userDetails.subscribe((user: any) => {
       if (!user) {
@@ -59,13 +59,13 @@ export class AppComponent {
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       const url = this.location.path();
-      if (url === '/enable-permission') {
+      console.log(url);
+      if (url === '/enable-permission' || url === '/add-report') {
         this.navController.navigateRoot('/dashboard');
-      }
-      if (url === '/login' || url === '/dashboard') {
+        return;
+      } else if (url === '/login' || url === '/dashboard') {
         navigator['app'].exitApp();
-      }
-      if (url === '/privacy' || url === '/about') {
+      } else if (url === '/privacy' || url === '/about') {
         this.navController.back();
       }
       processNextHandler();

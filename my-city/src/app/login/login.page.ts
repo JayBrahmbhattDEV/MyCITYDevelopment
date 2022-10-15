@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
 import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
 import { StorageService } from '../services/storage.service';
 import { STORAGE_KEYS } from '../utils/constants';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { STORAGE_KEYS } from '../utils/constants';
 export class LoginPage implements OnInit {
   LoginForm: FormGroup;
   submitted = false;
-
+  redirectTo: string;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -24,21 +25,27 @@ export class LoginPage implements OnInit {
     public navController: NavController,
     private accountService: AccountService,
     public commonService: CommonService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.LoginForm = this.formBuilder.group({
       loginVal: ['', [Validators.required]],
     });
+    this.activatedRoute.queryParams
+      .pipe(take(1))
+      .subscribe((x: { redirectTo }) => {
+        this.redirectTo = x?.redirectTo;
+      });
   }
 
   get errorCtr() {
     return this.LoginForm.controls;
   }
 
-  accCreated(){
-    this.navController.navigateForward(`/register`)
+  accCreated() {
+    this.navController.navigateForward(`/register`);
   }
 
   submitForm() {
@@ -50,16 +57,19 @@ export class LoginPage implements OnInit {
           this.commonService.hideLoading();
           if (response.success) {
             const { token, user } = response.data;
-            this.storageService.setData(STORAGE_KEYS.USER,user);
-            this.storageService.setData(STORAGE_KEYS.TOKEN,token);
+            this.storageService.setData(STORAGE_KEYS.USER, user);
+            this.storageService.setData(STORAGE_KEYS.TOKEN, token);
             this.accountService.userDetails = user;
             this.accountService.token = token;
-            this.navController.navigateRoot(`/dashboard`);
+            this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
           }
         },
         (e) => {
           this.commonService.hideLoading();
-          this.commonService.presentToaster({message:e.error.message, color:'danger'});
+          this.commonService.presentToaster({
+            message: e.error.message,
+            color: 'danger',
+          });
         }
       );
     }
