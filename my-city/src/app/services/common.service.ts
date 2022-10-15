@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AlertController,
+  AlertOptions,
   LoadingController,
   LoadingOptions,
   ToastController,
@@ -51,10 +52,11 @@ export class CommonService {
     this.toaster = undefined;
   }
 
-  async presentAlert(message: string, header = 'Information') {
+  async presentAlert(message: string, header = 'Information', alertOptions?: AlertOptions) {
     const alert = await this.alertController.create({
       message,
       header,
+      ...alertOptions
     });
 
     alert.present();
