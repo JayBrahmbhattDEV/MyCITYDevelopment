@@ -74,9 +74,13 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-font-bold: 'roboto-regular' !important;
+  --ion-font-bold: 'roboto-medium' !important;
+  --ion-font-bold: 'roboto-bold' !important;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------
