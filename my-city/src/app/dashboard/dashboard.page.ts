@@ -46,7 +46,7 @@ export class DashboardPage implements OnInit {
   }
 
   addReport() {
-    if (false) {
+    if (this.accountService.token) {
       this.navController.navigateForward('/add-report');
     } else {
       this.commonService.presentAlert(
