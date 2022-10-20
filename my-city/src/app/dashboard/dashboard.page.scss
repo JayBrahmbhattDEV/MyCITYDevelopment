@@ -21,3 +21,27 @@ ion-content {
 .text-white {
   color: #ffffff !important;
 }
+
+@media screen and (min-width: 768px) and (max-width: 1024px){
+    /* Ipad styles */
+    .addReport{
+        top: 37%;
+        right: 62%;
+    }
+
+    .recentReport{
+        position: fixed;
+        top: 37%;
+        right: 33%;
+    }
+
+    .govAlerts{
+        top: 57%;
+        right: 31%;
+    }
+
+    .myReports{
+        top: 57%;
+        right: 62%;
+    }
+   }

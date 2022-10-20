@@ -40,13 +40,6 @@ const routes: Routes = [
       import('./profile/profile.module').then((m) => m.ProfilePageModule),
   },
   {
-    path: 'createreport',
-    loadChildren: () =>
-      import('./createreport/createreport.module').then(
-        (m) => m.CreatereportPageModule
-      ),
-  },
-  {
     path: 'add-report',
     loadChildren: () =>
       import('./add-report/add-report.module').then(
@@ -89,7 +82,11 @@ const routes: Routes = [
       import('./enable-permission/enable-permission.module').then(
         (m) => m.EnablePermissionPageModule
       ),
+  },  {
+    path: 'brief-report-view',
+    loadChildren: () => import('./brief-report-view/brief-report-view.module').then( m => m.BriefReportViewPageModule)
   },
+
 ];
 
 @NgModule({

@@ -45,6 +45,10 @@ export class DashboardPage implements OnInit {
     this.storage.create();
   }
 
+  test(){
+    this.router.navigateByUrl('/brief-report-view')
+  }
+
   addReport() {
     if (this.accountService.token) {
       this.navController.navigateForward('/add-report');

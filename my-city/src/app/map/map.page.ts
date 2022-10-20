@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Icon, Map, Marker, TileLayer } from 'leaflet';
+import { Icon, LatLngExpression, Map, Marker, TileLayer } from 'leaflet';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { CommonService } from '../services/common.service';
 import { NavController } from '@ionic/angular';
@@ -12,9 +12,10 @@ import { NavController } from '@ionic/angular';
 })
 export class MapPage implements OnInit {
   map: Map;
+  marker: Marker;
   latVal: any;
   longVal: any;
-  latLong = [23.030357, 72.517845];
+  latLong: LatLngExpression = [23.030357, 72.517845];
   constructor(
     private activatedRoute: ActivatedRoute,
     private geolocation: Geolocation,
@@ -33,18 +34,15 @@ export class MapPage implements OnInit {
       attribution: '© OpenStreetMap',
     }).addTo(this.map);
 
-    const marker = new Marker(this.latLong, {
+    this.marker = new Marker(this.latLong, {
       icon: new Icon({
         iconUrl: './assets/images/marker-icon.png',
       }),
       draggable: true,
     }).addTo(this.map);
-
-    marker.addEventListener('dragend', (e) => {
-      this.latVal = marker.getLatLng().lat;
-      this.longVal = marker.getLatLng().lng;
-      console.log(marker.getLatLng().lat);
-      console.log(marker.getLatLng().lng);
+    this.marker.addEventListener('dragend', (e) => {
+      this.latVal = this.marker.getLatLng().lat;
+      this.longVal = this.marker.getLatLng().lng;
     });
   }
 
@@ -56,25 +54,27 @@ export class MapPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((response) => {
-        this.latLong = [];
-        this.latLong.push(response.coords.latitude);
-        this.latLong.push(response.coords.longitude);
+        this.latLong = [response.coords.latitude, response.coords.longitude];
+        this.marker.setLatLng([
+          response.coords.latitude,
+          response.coords.longitude,
+        ]);
         this.map.flyTo(
           [response.coords.latitude, response.coords.longitude],
           13
         );
-        console.log(this.latLong);
+        this.marker;
       })
-      .catch((e) => 
-      this.commonService.presentToaster({message:"Something went wrong!"})
+      .catch((e) =>
+        this.commonService.presentToaster({ message: 'Something went wrong!' })
       );
   }
 
   chooseLocation() {
-    this.navController.navigateBack('/add-report',{
+    this.navController.navigateBack('/add-report', {
       queryParams: {
         lat: this.latVal,
-        lon: this.longVal
+        lon: this.longVal,
       },
     });
   }
