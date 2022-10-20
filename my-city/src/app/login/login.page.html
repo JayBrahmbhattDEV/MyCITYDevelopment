@@ -1,44 +1,104 @@
-<ion-content>
-  <ion-card>
-    <ion-card-title>
-      <h4>Log In</h4>
-    </ion-card-title>
-    <form [formGroup]="LoginForm" (ngSubmit)="submitForm()" novalidate>
-      <ion-item class="contactno" lines="full">
-        <ion-input
-          formControlName="loginVal"
-          placeholder="Enter Mobile number or email address"
-          type="text"
-          required
-        ></ion-input>
-      </ion-item>
-      <span
-        class="ion-padding"
-        *ngIf="submitted && errorCtr.loginVal.errors?.required"
-      >
-        Please enter something...
-      </span>
-      <ion-row class="subBtn">
-        <ion-col>
-          <ion-button type="submit" shape="round" color="success" expand="block"
-            >Submit</ion-button
-          >
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <h6>Don't have an account? Register Here!</h6>
-          <ion-button
-            class="regBtn"
-            shape="round"
-            color="success"
-            size="default"
-            routerLink="/register"
-            routerDirection="forward"
-            >Register
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </form>
-  </ion-card>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="light" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding">
+  <div class="logo-container">
+    <div class="ion-align-self-center ion-margin-vertical">
+      <div class="flex-center">
+        <ion-img
+          style="height: 150px; width: 150px"
+          [src]="'./assets/icon/my-city.png'"
+        ></ion-img>
+        <ion-label color="light"><h1>My city my reponsibility</h1></ion-label>
+      </div>
+    </div>
+    <div class="content-container">
+      <ion-slides class="swiper-no-swiping" #ionSlids>
+        <ion-slide>
+          <ion-grid>
+            <br />
+            <ion-row>
+              <ion-col class="ion-text-center" size="12">
+                <ion-label color="primary">
+                  <h1>
+                    <strong> Login</strong>
+                  </h1>
+                </ion-label>
+              </ion-col>
+              <br />
+              <ion-col size="12">
+                <br />
+                <ion-item color="light">
+                  <ion-icon slot="start" name="at-circle-outline"></ion-icon>
+                  <ion-input placeholder="Phone number or email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-button expand="block">
+                  <strong> Log In</strong>
+                </ion-button>
+              </ion-col>
+              <ion-col size="12" class="ion-text-center">
+                <ion-label>Don't have an account ?</ion-label>
+              </ion-col>
+              <ion-col size="12">
+                <ion-button (click)="register()" expand="block" fill="outline">
+                  Register Me</ion-button
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+        <ion-slide>
+          <ion-grid>
+            <br />
+            <ion-row>
+              <ion-col size="12">
+                <ion-label color="primary">
+                  <h1>
+                    <strong> Register</strong>
+                  </h1>
+                </ion-label>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item color="light">
+                  <ion-icon slot="start" name="text-outline"></ion-icon>
+                  <ion-input placeholder="Enter your name"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item color="light">
+                  <ion-icon slot="start" name="at-circle-outline"></ion-icon>
+                  <ion-input placeholder="Enter your email"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-item color="light">
+                  <ion-icon slot="start" name="call-outline"></ion-icon>
+                  <ion-input placeholder="Enter your mobile"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12">
+                <ion-button (click)="register()" expand="block">
+                  Register</ion-button
+                >
+              </ion-col>
+              <ion-col size="12">
+                <ion-text>
+                  Alreay have an account ?
+                  <ion-text (click)="login()" color="primary">
+                    Login Now
+                  </ion-text>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
 </ion-content>

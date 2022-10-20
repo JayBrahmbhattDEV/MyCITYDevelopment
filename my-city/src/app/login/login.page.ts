@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuController, NavController } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
@@ -15,9 +15,11 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  LoginForm: FormGroup;
+  @ViewChild('ionSlids') ionSlids: IonSlides;
+  loginForm: FormGroup;
   submitted = false;
   redirectTo: string;
+
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -30,7 +32,7 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.LoginForm = this.formBuilder.group({
+    this.loginForm = this.formBuilder.group({
       loginVal: ['', [Validators.required]],
     });
     this.activatedRoute.queryParams
@@ -40,19 +42,15 @@ export class LoginPage implements OnInit {
       });
   }
 
-  get errorCtr() {
-    return this.LoginForm.controls;
-  }
-
   accCreated() {
     this.navController.navigateForward(`/register`);
   }
 
   submitForm() {
-    if (this.LoginForm.valid) {
+    if (this.loginForm.valid) {
       this.submitted = true;
       this.commonService.presentLoading();
-      this.accountService.login(this.LoginForm.value).subscribe(
+      this.accountService.login(this.loginForm.value).subscribe(
         (response: any) => {
           this.commonService.hideLoading();
           if (response.success) {
@@ -73,5 +71,13 @@ export class LoginPage implements OnInit {
         }
       );
     }
+  }
+
+  register() {
+    this.ionSlids.slideNext();
+  }
+
+  login() {
+    this.ionSlids.slidePrev();
   }
 }
