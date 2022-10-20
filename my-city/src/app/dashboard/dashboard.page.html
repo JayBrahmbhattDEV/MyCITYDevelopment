@@ -13,11 +13,11 @@
   <ion-grid>
     <ion-row>
       <ion-col class="ion-no-padding" *ngFor="let p of pages" size="6">
-        <app-mc-button
+        <app-mc-dashboard-button
           [image]="p.image"
           [text]="p.text"
           (click)="addReport()"
-        ></app-mc-button>
+        ></app-mc-dashboard-button>
       </ion-col>
     </ion-row>
   </ion-grid>
