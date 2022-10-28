@@ -7,6 +7,7 @@ const {
   deleteRecord,
   updateRecord,
   getRecordOnScroll,
+  getRecentRecords
 } = require("../controllers/record");
 const { authenticateToken } = require("../middlewares/recordMiddleware");
 const Multer = require("multer");
@@ -32,5 +33,8 @@ recordRouter.route("/:id").delete(authenticateToken, deleteRecord);
 recordRouter
   .route("/update/:id")
   .patch([authenticateToken, multer.single("imgfile")], updateRecord);
+
+recordRouter.route('/recentRecords/').get(getRecentRecords)
+
 
 module.exports = recordRouter;

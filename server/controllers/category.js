@@ -1,9 +1,6 @@
 const Category = require("../model/categorySchema");
 const categoryRouter = require("../routes/categoryRoute");
 var { ObjectID } = require("mongodb");
-const {
-  AclRoleAccessorMethods,
-} = require("@google-cloud/storage/build/src/acl");
 
 const addCategory = async (req, res) => {
   try {
