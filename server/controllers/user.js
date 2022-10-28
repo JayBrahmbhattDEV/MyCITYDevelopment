@@ -47,8 +47,6 @@ const getProfile = async (req, res) => {
 }
 
 const updateProfile = async (req, res, next) => {
-
-
     const id = req.user._id
     var validEmail = true;
     var validPhoneNumber = true;
@@ -77,9 +75,6 @@ const updateProfile = async (req, res, next) => {
                     res.status(404).json({ success: false, message: "User not found" })
                 }
             }
-
-
-
         }
     } catch (err) {
         res.status(500).json({ success: false, message: err });

@@ -31,7 +31,7 @@ const postRecord = async (req, res) => {
 
 const getAllRecords = async (req, res) => {
   try {
-    const allRecords = await Record.find({});
+    const allRecords = await Record.find({}).sort({ _id: -1 })
     res.status(200).json({ success: true, data: allRecords });
   } catch (err) {
     res.status(500).json({ success: false, err });
@@ -44,7 +44,7 @@ const getRecordOnScroll = async (req, res) => {
   const end = batchSize * Number(pageNumber);
   const start = end - batchSize;
   try {
-    const allRecords = await Record.find({});
+    const allRecords = await Record.find({}).sort({ _id: -1 })
     res.status(200).json({ success: true, data: allRecords.slice(start, end) });
   } catch (err) {
     res.status(500).json({ success: false, err });
@@ -53,7 +53,7 @@ const getRecordOnScroll = async (req, res) => {
 
 const getRecordByUser = async (req, res) => {
   try {
-    const records = await Record.find({ userId: req.user._id });
+    const records = await Record.find({ userId: req.user._id }).sort({ _id: -1 })
     res.status(200).json({ success: true, data: records });
   } catch (err) {
     res.status(500).json({ success: false, err });
@@ -108,6 +108,24 @@ const updateRecord = async (req, res) => {
   }
 };
 
+const getRecentRecords = async (req, res) => {
+
+  const { limit, userId } = req.query;
+  const queryObject = {};
+  const queryLimit = limit || 5;
+
+  if (userId) {
+    queryObject._id = userId;
+  }
+
+  try {
+    const allRecords = await Record.find(queryObject).sort({ _id: -1 }).limit(queryLimit);
+    res.status(200).json({ success: true, nHbits: allRecords.length, data: allRecords });
+  } catch (err) {
+    res.status(500).json({ success: false, err });
+  }
+}
+
 module.exports = {
   postRecord,
   getAllRecords,
@@ -115,4 +133,5 @@ module.exports = {
   getRecordByUser,
   deleteRecord,
   updateRecord,
+  getRecentRecords
 };
