@@ -1,8 +1,4 @@
-<ion-card>
-  <ion-img class="ion-padding" [src]="image"></ion-img>
-  <ion-card-content class="ion-text-center text-dark">
-    <ion-text color="primary">
-      {{ text }}
-    </ion-text>
-  </ion-card-content>
-</ion-card>
+<ion-button (click)="click" [expand]="expand" [disabled]="disabled" [fill]="fill">
+  <span *ngIf="!isLoading">{{ text }}</span>
+  <ion-spinner *ngIf="isLoading" name="bubbles"></ion-spinner>
+</ion-button>

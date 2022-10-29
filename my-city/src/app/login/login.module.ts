@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
 
 import { LoginPage } from './login.page';
+import { SharedModule } from '../shared/modules/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +17,8 @@ import { LoginPage } from './login.page';
     IonicModule,
     LoginPageRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
-  declarations: [LoginPage]
+  declarations: [LoginPage],
 })
 export class LoginPageModule {}

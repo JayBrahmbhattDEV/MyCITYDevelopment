@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      loginVal: ['', [Validators.required]],
+      phoneOrEmail: ['', [Validators.required]],
     });
     this.activatedRoute.queryParams
       .pipe(take(1))
@@ -47,9 +47,8 @@ export class LoginPage implements OnInit {
   }
 
   submitForm() {
+    this.submitted = this.loginForm.valid;
     if (this.loginForm.valid) {
-      this.submitted = true;
-      this.commonService.presentLoading();
       this.accountService.login(this.loginForm.value).subscribe(
         (response: any) => {
           this.commonService.hideLoading();
@@ -59,11 +58,12 @@ export class LoginPage implements OnInit {
             this.storageService.setData(STORAGE_KEYS.TOKEN, token);
             this.accountService.userDetails = user;
             this.accountService.token = token;
+            this.submitted = false;
             this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
           }
         },
         (e) => {
-          this.commonService.hideLoading();
+          this.submitted = false;
           this.commonService.presentToaster({
             message: e.error.message,
             color: 'danger',
