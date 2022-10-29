@@ -16,14 +16,14 @@
         <app-mc-dashboard-button
           [image]="p.image"
           [text]="p.text"
-          (click)="addReport()"
+          (click)="addReport(p.text)"
         ></app-mc-dashboard-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-list-header class="ion-no-margin" mode="ios">
     <ion-label class="ion-no-margin">Recent reports</ion-label>
-    <ion-button color="dark" (click)="test()" class="ion-no-margin">View all</ion-button>
+    <ion-button color="dark" class="ion-no-margin">View all</ion-button>
   </ion-list-header>
   <ion-slides [options]="slideOpts">
     <ion-slide *ngFor="let item of [1,2,3]" class="ion-padding">

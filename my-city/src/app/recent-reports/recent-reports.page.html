@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<!-- <ion-content>
   <ion-list>
     <ion-item
       (click)="viewReport(report)"
@@ -24,4 +24,15 @@
       </ion-label>
     </ion-item>
   </ion-list>
+</ion-content> -->
+
+<ion-content>
+  <ion-list>
+    <ion-card class="ion-no-margin">
+      <ion-item *ngFor="let report of reports">
+        <app-mc-report-card></app-mc-report-card>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 </ion-content>
+

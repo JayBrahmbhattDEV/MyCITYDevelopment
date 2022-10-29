@@ -10,6 +10,8 @@ import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
 import { ActivatedRoute } from '@angular/router';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { PermissionService } from '../enable-permission/permission.service';
+import { IonModal } from '@ionic/angular';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
 
 @Component({
   selector: 'app-add-report',
@@ -17,12 +19,15 @@ import { PermissionService } from '../enable-permission/permission.service';
   styleUrls: ['./add-report.page.scss'],
 })
 export class AddReportPage implements OnInit {
+  provider = new OpenStreetMapProvider();
+  locations = [];
   paramsObject: any;
   addressVal: any;
   longitudeVal: any;
   latitudeVal: any;
   combVal: any;
   @ViewChild('subCategory') ddSubCategory: IonSelect;
+  @ViewChild(IonModal) modal: IonModal;
   categories = [
     {
       id: 1,
@@ -231,6 +236,35 @@ export class AddReportPage implements OnInit {
     );
   }
 
+  searchLocation($event: any) {
+    const searchTerm = $event.detail.value;
+
+    this.provider
+      .search({
+        query: searchTerm,
+      })
+      .then((response) => {
+        this.locations = response;
+      });
+  }
+
+
+  chooseLocation(location) {
+    this.navController.navigateBack('/add-report',{
+      queryParams: {
+        lat: location.x,
+        lon: location.y,
+        address: location.label
+      },
+    });
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  openMap(){
+    this.modal.dismiss(null, 'cancel');
+    this.navController.navigateForward(`/map`);
+  }
+
   openCamera() {
     this.camera
       .getPicture(this.options)
@@ -358,5 +392,9 @@ export class AddReportPage implements OnInit {
           this.navController.navigateRoot('/enable-permission');
         }
       });
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
   }
 }

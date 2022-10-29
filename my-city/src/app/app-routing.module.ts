@@ -82,9 +82,6 @@ const routes: Routes = [
       import('./enable-permission/enable-permission.module').then(
         (m) => m.EnablePermissionPageModule
       ),
-  },  {
-    path: 'brief-report-view',
-    loadChildren: () => import('./brief-report-view/brief-report-view.module').then( m => m.BriefReportViewPageModule)
   },
 
 ];
