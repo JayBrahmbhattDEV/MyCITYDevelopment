@@ -17,7 +17,7 @@
     ></ion-img>
     <ion-list>
       <ion-item class="ion-margin-vertical">
-        <ion-label>Category</ion-label>
+        <ion-label position="floating">Category</ion-label>
         <ion-select
           formControlName="category"
           (ionChange)="getSubCategory($event)"
@@ -34,7 +34,7 @@
         </ion-select>
       </ion-item>
       <ion-item class="ion-margin-vertical">
-        <ion-label>Sub Category</ion-label>
+        <ion-label position="floating">Sub Category</ion-label>
         <ion-select
           #subCategory
           formControlName="subCategory"
@@ -51,19 +51,19 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item class="ion-margin-vertical">
-        <ion-label position="floating">Description</ion-label>
+      <ion-item lines="none" class="ion-margin-vertical">
+        <ion-label position="stacked">Description</ion-label>
         <ion-textarea formControlName="description" placeholder="Please describe your problem">
         </ion-textarea>
       </ion-item>
       <ion-item class="ion-margin-vertical">
         <ion-icon slot="start" name="location"></ion-icon>
-        <ion-textarea> {{ this.addressVal || reportForm.value.address || this.longitudeVal}} </ion-textarea>
+        <ion-label> {{ this.addressVal || reportForm.value.address || this.longitudeVal}} </ion-label>
       </ion-item>
-      <ion-button id="open-modal" class="ion-margin-horizontal" expand="block">
+      <ion-button id="open-modal" class="ion-margin-horizontal" shape="round" expand="block">
         <ion-text>Change Location</ion-text>
       </ion-button>
-      <ion-button type="submit" class="ion-margin-horizontal" expand="block">
+      <ion-button type="submit" class="ion-margin-horizontal" shape="round" expand="block">
         <ion-text>Add Report</ion-text>
       </ion-button>
     </ion-list>
@@ -73,7 +73,7 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
+            <ion-icon (click)="cancel()" [style.color]="'#25b791'" name="chevron-back-outline"></ion-icon>
           </ion-buttons>
           <ion-title>Search for your location</ion-title>
         </ion-toolbar>
