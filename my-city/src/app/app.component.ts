@@ -9,8 +9,8 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
   activePageTitle = 'Dashboard';
-  userName;
-  Pages = [
+  userName: any;
+  pages = [
     {
       title: 'Dashboard',
       url: '/dashboard',
@@ -52,9 +52,11 @@ export class AppComponent {
         return;
       }
       this.userName = user.name;
-      this.Pages.filter((x) => x.isAuthRequired).map((x) => {
-        x.show = user;
-      });
+      this.pages
+        .filter((x) => x.isAuthRequired)
+        .map((x) => {
+          x.show = user;
+        });
     });
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
@@ -64,7 +66,7 @@ export class AppComponent {
         this.navController.navigateRoot('/dashboard');
         return;
       } else if (url === '/login' || url === '/dashboard') {
-        navigator['app'].exitApp();
+        (navigator as any).app.exitApp();
       } else if (url === '/privacy' || url === '/about') {
         this.navController.back();
       }

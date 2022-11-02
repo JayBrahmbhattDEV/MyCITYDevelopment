@@ -1,0 +1,14 @@
+.side-menu-list {
+  height: 100%;
+  .fs-100 {
+    font-size: 100px;
+  }
+  .selected {
+    color: var(--ion-color-primary);
+  }
+  ion-item,
+  ion-icon {
+    --background: transparent;
+    color: var(--ion-color-primary);
+  }
+}
