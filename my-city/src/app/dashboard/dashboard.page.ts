@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
+import { MESSAGES } from '../utils/constants';
+import { ReportsService } from '../services/reports.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,43 +16,45 @@ export class DashboardPage implements OnInit {
   pages = [
     {
       text: 'Add Report',
-      image: './assets/icon/add-report.svg'
+      image: './assets/icon/add-report.svg',
     },
     {
       text: 'My Reports',
-      image: './assets/icon/my-reports.svg'
+      image: './assets/icon/my-reports.svg',
     },
     {
       text: 'Recent Reports',
-      image: './assets/icon/recent-reports.svg'
+      image: './assets/icon/recent-reports.svg',
     },
     {
       text: 'Goverment Alerts',
-      image: './assets/icon/goverments-alerts.svg'
+      image: './assets/icon/goverments-alerts.svg',
     },
   ];
 
   slideOpts = {
     slidesPerView: 1.5,
   };
+
+  allReports: Array<any> = [];
   constructor(
     public router: Router,
     private accountService: AccountService,
     private storage: Storage,
     private navController: NavController,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private readonly reports: ReportsService
   ) {}
 
   ngOnInit() {
     this.storage.create();
+    this.getReports();
   }
 
-
   addReport(pageType: any) {
-    if(pageType == "Recent Reports"){
+    if (pageType === 'Recent Reports') {
       this.router.navigateByUrl('/recent-reports');
-    }
-    else{
+    } else {
       if (this.accountService.token) {
         this.navController.navigateForward('/add-report');
       } else {
@@ -79,5 +83,23 @@ export class DashboardPage implements OnInit {
         );
       }
     }
+  }
+
+  getReports() {
+    this.reports.getReports().subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.allReports = response.data;
+        } else {
+          this.commonService.presentToaster({
+            message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
+          });
+        }
+        this.commonService.hideLoading();
+      },
+      (e) => {
+        this.commonService.hideLoading();
+      }
+    );
   }
 }

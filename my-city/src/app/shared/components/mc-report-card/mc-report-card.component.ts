@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { CommonService } from 'src/app/services/common.service';
-import { ReportsService } from 'src/app/services/reports.service';
-import { MESSAGES } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-mc-report-card',
@@ -10,44 +7,29 @@ import { MESSAGES } from 'src/app/utils/constants';
   styleUrls: ['./mc-report-card.component.scss'],
 })
 export class McReportCardComponent implements OnInit {
-  reports = [];
-  address:any;
-  constructor(private reportService: ReportsService,
-    private commonService: CommonService,
-    private navController: NavController) { }
+  @Input() report: Report;
+  constructor(private navController: NavController) {}
 
-  ngOnInit() {
-    this.getReports();
-  }
+  ngOnInit() {}
 
-  getReports() {
-    this.commonService.presentLoading(MESSAGES.FETHCHING_REPORTS);
-    this.reportService.getReports().subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.reports = response.data;
-          for(let i = 0; i < this.reports.length; i++){
-            this.address = response.data[i].address;
-            console.log(this.address);
-          }
-        } else {
-          this.commonService.presentToaster({
-            message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
-          });
-        }
-        this.commonService.hideLoading();
-      },
-      (e) => {
-        this.commonService.presentToaster({message:"Something went wrong!", color:'danger'})
-        this.commonService.hideLoading();
-      }
-    );
-  }
-
-  viewReport(report: any) {
+  viewReport() {
     this.navController.navigateForward('/view-report', {
-      state: report,
+      state: this.report,
     });
   }
+}
 
+export interface Report {
+  _id: string;
+  address: string;
+  location: string;
+  date: string;
+  time: string;
+  isOpen: boolean;
+  description: string;
+  userId: string;
+  category: string;
+  subCategory: string;
+  imgUrl: string;
+  __v: any;
 }

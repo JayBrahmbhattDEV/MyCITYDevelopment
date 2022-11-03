@@ -26,8 +26,8 @@
     <ion-button color="dark" class="ion-no-margin">View all</ion-button>
   </ion-list-header>
   <ion-slides [options]="slideOpts">
-    <ion-slide *ngFor="let item of [1,2,3]" class="ion-padding">
-      <app-mc-report-card></app-mc-report-card>
+    <ion-slide *ngFor="let report of allReports" class="ion-padding">
+      <app-mc-report-card [report]="report"></app-mc-report-card>
     </ion-slide>
   </ion-slides>
 </ion-content>

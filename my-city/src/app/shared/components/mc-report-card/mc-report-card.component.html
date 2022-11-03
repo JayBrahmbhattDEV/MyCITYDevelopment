@@ -1,16 +1,12 @@
-<ion-card class="ion-no-margin">
-  <ion-img
-    [src]="
-      'https://th.bing.com/th/id/R.ada8d0359f1c3318594427764a847226?rik=wa2exT3JuwbbBQ&riu=http%3a%2f%2fstatic.dnaindia.com%2fsites%2fdefault%2ffiles%2fstyles%2ffull%2fpublic%2f2018%2f02%2f26%2f655370-ahmedabad-022618-02.jpg&ehk=0Rtul28HUL1OWQYSOMqgg0k2rUmWQie1lDdaLrvskOc%3d&risl=&pid=ImgRaw&r=0'
-    "
-  ></ion-img>
+<ion-card (click)="viewReport()" class="ion-no-margin">
+  <ion-img [src]="report.imgUrl"></ion-img>
   <ion-card-content>
     <div class="ion-text-left">
       <ion-label>
         <b>
-          <ion-icon slot="start" name="location"></ion-icon>{{address}}
+          <ion-icon slot="start" name="location"></ion-icon>{{ report.address }}
         </b>
-        <p>Very loud noises nead hospital.</p>
+        <p>{{ report.description || "Description not available" }}</p>
       </ion-label>
     </div>
   </ion-card-content>
