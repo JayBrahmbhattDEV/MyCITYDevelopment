@@ -11,10 +11,12 @@ import { MESSAGES } from '../utils/constants';
 })
 export class RecentReportsPage implements OnInit {
   reports = [];
+  allReports: Array<any> = [];
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
-    private navController: NavController
+    private navController: NavController,
+    private readonly Reports: ReportsService
   ) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class RecentReportsPage implements OnInit {
     this.reportService.getReports().subscribe(
       (response: any) => {
         if (response.success) {
-          this.reports = response.data;
+          this.allReports = response.data;
         } else {
           this.commonService.presentToaster({
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
