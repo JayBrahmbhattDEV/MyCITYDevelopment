@@ -19,6 +19,8 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
   styleUrls: ['./add-report.page.scss'],
 })
 export class AddReportPage implements OnInit {
+  @ViewChild('subCategory') ddSubCategory: IonSelect;
+  @ViewChild(IonModal) modal: IonModal;
   provider = new OpenStreetMapProvider();
   locations = [];
   paramsObject: any;
@@ -26,8 +28,6 @@ export class AddReportPage implements OnInit {
   longitudeVal: any;
   latitudeVal: any;
   combVal: any;
-  @ViewChild('subCategory') ddSubCategory: IonSelect;
-  @ViewChild(IonModal) modal: IonModal;
   categories = [
     {
       id: 1,
@@ -151,8 +151,7 @@ export class AddReportPage implements OnInit {
     mediaType: this.camera.MediaType.PICTURE,
   };
 
-  image =
-    './assets/images/add.png';
+  image = './assets/images/add.png';
   reportForm: FormGroup;
   latLon = {
     latitude: '',
@@ -186,7 +185,6 @@ export class AddReportPage implements OnInit {
     });
   }
 
-
   async checkPermission() {
     try {
       const permission = await this.permissionService.checkGPSPermission();
@@ -201,7 +199,6 @@ export class AddReportPage implements OnInit {
         this.getCurrentLocation();
       }
       const isEnabled = await this.permissionService.enableGPS();
-      console.log({ isEnabled });
       if (isEnabled?.code === 4) {
         this.navController.navigateRoot('/enable-permission');
       } else if (isEnabled?.code === 0) {
@@ -248,21 +245,24 @@ export class AddReportPage implements OnInit {
       });
   }
 
-
   chooseLocation(location) {
-    this.navController.navigateBack('/add-report',{
+    this.navController.navigateBack('/add-report', {
       queryParams: {
         lat: location.x,
         lon: location.y,
-        address: location.label
+        address: location.label,
       },
     });
     this.modal.dismiss(null, 'cancel');
   }
 
-  openMap(){
+  openMap() {
     this.modal.dismiss(null, 'cancel');
-    this.navController.navigateForward(`/map`);
+    this.navController.navigateForward(`/map`, {
+      queryParams: {
+        ...this.latLon,
+      },
+    });
   }
 
   openCamera() {
@@ -285,7 +285,7 @@ export class AddReportPage implements OnInit {
     });
   }
 
-  private convertBase64ToBlob(base64: string) {
+  convertBase64ToBlob(base64: string) {
     const info = this.getInfoFromBase64(base64);
     const sliceSize = 512;
     const byteCharacters = window.atob(info.rawBase64);
@@ -305,7 +305,7 @@ export class AddReportPage implements OnInit {
     return new Blob(byteArrays, { type: info.mime });
   }
 
-  private getInfoFromBase64(base64: string) {
+  getInfoFromBase64(base64: string) {
     const meta = base64.split(',')[0];
     const rawBase64 = base64.split(',')[1].replace(/\s/g, '');
     const mime = /:([^;]+);/.exec(meta)[1];
@@ -331,7 +331,7 @@ export class AddReportPage implements OnInit {
       })
     );
     this.reportForm.value.category = this.categories.find(
-      (category) => category.id == this.reportForm.value.category
+      (category) => category.id === this.reportForm.value.category
     ).text;
     Object.keys(this.reportForm.value).forEach((key) => {
       reportData.append(key, this.reportForm.value[key]);
@@ -361,7 +361,6 @@ export class AddReportPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((response) => {
-        console.log({ response });
         this.nativeGeocoder
           .reverseGeocode(response.coords.latitude, response.coords.longitude, {
             useLocale: true,
@@ -388,7 +387,7 @@ export class AddReportPage implements OnInit {
           });
       })
       .catch((e) => {
-        if (e?.code  === 1) {
+        if (e?.code === 1) {
           this.navController.navigateRoot('/enable-permission');
         }
       });

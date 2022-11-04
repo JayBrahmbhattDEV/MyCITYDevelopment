@@ -4,18 +4,19 @@ import { Icon, LatLngExpression, Map, Marker, TileLayer } from 'leaflet';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { CommonService } from '../services/common.service';
 import { NavController } from '@ionic/angular';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.page.html',
   styleUrls: ['./map.page.scss'],
 })
-export class MapPage implements OnInit {
+export class MapPage {
   map: Map;
   marker: Marker;
   latVal: any;
   longVal: any;
-  latLong: LatLngExpression = [23.030357, 72.517845];
+  latLong: LatLngExpression;
   constructor(
     private activatedRoute: ActivatedRoute,
     private geolocation: Geolocation,
@@ -23,26 +24,28 @@ export class MapPage implements OnInit {
     private navController: NavController
   ) {}
 
-  ngOnInit(): void {}
-
   ionViewDidEnter() {
-    this.getCurrentLocation();
-    this.map = new Map('map').setView([0, 0], 15);
-    this.map.removeControl(this.map.zoomControl);
-    new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap',
-    }).addTo(this.map);
-
-    this.marker = new Marker(this.latLong, {
-      icon: new Icon({
-        iconUrl: './assets/images/marker-icon.png',
-      }),
-      draggable: true,
-    }).addTo(this.map);
-    this.marker.addEventListener('dragend', (e) => {
-      this.latVal = this.marker.getLatLng().lat;
-      this.longVal = this.marker.getLatLng().lng;
+    this.activatedRoute.queryParams.pipe(take(1)).subscribe((latLong) => {
+      this.latLong = [
+        +latLong.latitude,
+        +latLong.longitude,
+      ] as LatLngExpression;
+      this.map = new Map('map').setView(this.latLong as LatLngExpression, 15);
+      this.map.removeControl(this.map.zoomControl);
+      new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap',
+      }).addTo(this.map);
+      this.marker = new Marker(this.latLong, {
+        icon: new Icon({
+          iconUrl: './assets/images/marker-icon.png',
+        }),
+        draggable: true,
+      }).addTo(this.map);
+      this.marker.addEventListener('dragend', (_: any) => {
+        this.latVal = this.marker.getLatLng().lat;
+        this.longVal = this.marker.getLatLng().lng;
+      });
     });
   }
 
@@ -61,9 +64,8 @@ export class MapPage implements OnInit {
         ]);
         this.map.flyTo(
           [response.coords.latitude, response.coords.longitude],
-          13
+          15
         );
-        this.marker;
       })
       .catch((e) =>
         this.commonService.presentToaster({ message: 'Something went wrong!' })
