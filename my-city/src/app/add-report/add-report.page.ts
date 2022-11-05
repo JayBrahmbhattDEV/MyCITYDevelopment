@@ -150,6 +150,7 @@ export class AddReportPage implements OnInit {
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
+    cameraDirection: 1,
   };
 
   image = './assets/images/add.png';
