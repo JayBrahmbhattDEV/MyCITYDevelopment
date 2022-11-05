@@ -8,16 +8,17 @@ import { MapPageRoutingModule } from './map-routing.module';
 
 import { MapPage } from './map.page';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
-
+import { SharedModule } from '../shared/modules/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapPageRoutingModule
+    MapPageRoutingModule,
+    SharedModule,
   ],
   declarations: [MapPage],
-  providers: [Geolocation]
+  providers: [Geolocation],
 })
 export class MapPageModule {}

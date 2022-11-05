@@ -28,6 +28,7 @@ export class AddReportPage implements OnInit {
   longitudeVal: any;
   latitudeVal: any;
   combVal: any;
+  latLong = [23.049736, 72.511726];
   categories = [
     {
       id: 1,
@@ -158,6 +159,7 @@ export class AddReportPage implements OnInit {
     longitude: '',
   };
   area: any;
+  isMapLoading = true;
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
@@ -381,6 +383,8 @@ export class AddReportPage implements OnInit {
             this.latLon.latitude = nativeGeocoderResult.latitude;
             this.latLon.longitude = nativeGeocoderResult.longitude;
             this.area = nativeGeocoderResult.locality;
+            this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
+            this.isMapLoading = false;
           })
           .catch((e) => {
             console.log(e);

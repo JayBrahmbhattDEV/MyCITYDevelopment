@@ -3,11 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title> Choose Location </ion-title>
+    <ion-title> Choose Location</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div id="map"></div>
+  <!-- <div id="map"></div> -->
+  <div id="map">
+    <app-mc-map [latLong]="latLong" (mapChange)="handleMapChange($event)"></app-mc-map>
+  </div>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="getCurrentLocation()">
       <ion-icon name="locate-outline"></ion-icon>
@@ -17,6 +20,8 @@
 
 <ion-footer>
   <ion-toolbar class="ion-text-center">
-    <ion-title (click)="chooseLocation()" routerLink="/add-report" color="primary"> Confirm location </ion-title>
+    <ion-title (click)="chooseLocation()" color="primary">
+      Confirm location
+    </ion-title>
   </ion-toolbar>
 </ion-footer>
