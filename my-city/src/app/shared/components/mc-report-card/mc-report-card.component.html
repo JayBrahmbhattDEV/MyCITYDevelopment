@@ -9,5 +9,9 @@
         <p>{{ report.description || "Description not available" }}</p>
       </ion-label>
     </div>
+    <ion-item lines="none" class="ion-float-right">
+      <ion-badge  color="danger">Pending</ion-badge>
+      <ion-badge *ngIf="isClosed" color="danger">Closed</ion-badge>
+    </ion-item>
   </ion-card-content>
 </ion-card>
