@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      phoneOrEmail: ['', [Validators.required]],
+      loginVal: ['', [Validators.required]],
     });
     this.activatedRoute.queryParams
       .pipe(take(1))
