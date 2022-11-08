@@ -65,6 +65,7 @@
           </form>
         </ion-slide>
         <ion-slide>
+          <form [formGroup]="registerForm">
           <ion-grid>
             <br />
             <ion-row>
@@ -78,25 +79,28 @@
               <ion-col size="12">
                 <ion-item color="light">
                   <ion-icon slot="start" name="text-outline"></ion-icon>
-                  <ion-input placeholder="Enter your name"></ion-input>
+                  <ion-input formControlName="name" placeholder="Enter your name"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12">
                 <ion-item color="light">
                   <ion-icon slot="start" name="at-circle-outline"></ion-icon>
-                  <ion-input placeholder="Enter your email"></ion-input>
+                  <ion-input formControlName="email" placeholder="Enter your email"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12">
                 <ion-item color="light">
                   <ion-icon slot="start" name="call-outline"></ion-icon>
-                  <ion-input placeholder="Enter your mobile"></ion-input>
+                  <ion-input formControlName="number" placeholder="Enter your mobile"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col size="12">
-                <ion-button (click)="register()" expand="block">
-                  Register</ion-button
+                <app-mc-button
+                  [text]="'Register'"
+                  fill="outline"
+                  (click)="submitRegisterForm()"
                 >
+                </app-mc-button>
               </ion-col>
               <ion-col size="12">
                 <ion-text>
@@ -108,6 +112,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+         </form>
         </ion-slide>
       </ion-slides>
     </div>

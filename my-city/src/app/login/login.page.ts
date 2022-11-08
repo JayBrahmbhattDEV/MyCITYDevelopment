@@ -17,6 +17,7 @@ import { take } from 'rxjs/operators';
 export class LoginPage implements OnInit {
   @ViewChild('ionSlids') ionSlids: IonSlides;
   loginForm: FormGroup;
+  registerForm: FormGroup;
   submitted = false;
   redirectTo: string;
 
@@ -40,6 +41,12 @@ export class LoginPage implements OnInit {
       .subscribe((x: { redirectTo }) => {
         this.redirectTo = x?.redirectTo;
       });
+
+     this.registerForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      number: ['', [Validators.required]],
+      email: ['', [Validators.required]]
+     })
   }
 
   accCreated() {
@@ -70,6 +77,14 @@ export class LoginPage implements OnInit {
           });
         }
       );
+    }
+  }
+
+  submitRegisterForm(){
+    if(this.registerForm.valid){
+      this.accountService.register(this.registerForm.value).subscribe((res:any) => {
+        console.log(res);
+      });
     }
   }
 

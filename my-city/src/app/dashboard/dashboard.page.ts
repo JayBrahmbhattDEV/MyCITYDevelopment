@@ -54,7 +54,11 @@ export class DashboardPage implements OnInit {
   addReport(pageType: any) {
     if (pageType === 'Recent Reports') {
       this.router.navigateByUrl('/recent-reports');
-    } else {
+    } 
+    else if(pageType === 'My Reports'){
+      this.router.navigateByUrl('/reports');
+    }
+    else {
       if (this.accountService.token) {
         this.navController.navigateForward('/add-report');
       } else {
