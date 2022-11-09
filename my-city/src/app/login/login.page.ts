@@ -83,7 +83,10 @@ export class LoginPage implements OnInit {
   submitRegisterForm(){
     if(this.registerForm.valid){
       this.accountService.register(this.registerForm.value).subscribe((res:any) => {
-        console.log(res);
+        if(res.success){
+          this.commonService.presentToaster({message: "You have been registered successfully!", color: 'success'})
+          this.ionSlids.slidePrev();
+        }
       });
     }
   }

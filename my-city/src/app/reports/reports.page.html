@@ -9,19 +9,10 @@
 
 <ion-content>
   <ion-list>
-    <ion-item
-      (click)="viewReport(report)"
-      detail
-      *ngFor="let report of reports"
-    >
-      <ion-thumbnail slot="start">
-        <img [src]="report.imgUrl" />
-      </ion-thumbnail>
-      <ion-label>
-        <h3>{{ report.category }} - {{ report.subCategory }}</h3>
-        <p>{{ report.address }}</p>
-        <p>{{ report.description }}</p>
-      </ion-label>
-    </ion-item>
+    <ion-card class="ion-no-margin">
+      <ion-item *ngFor="let report of allUserReports" class="ion-padding-vertical">
+        <app-mc-report-card [report]="report"></app-mc-report-card>
+      </ion-item>
+    </ion-card>
   </ion-list>
 </ion-content>

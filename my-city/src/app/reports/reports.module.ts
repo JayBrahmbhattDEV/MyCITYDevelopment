@@ -8,6 +8,7 @@ import { ReportsPageRoutingModule } from './reports-routing.module';
 
 import { ReportsPage } from './reports.page';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/modules/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     IonicModule,
     ReportsPageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   declarations: [ReportsPage]
 })

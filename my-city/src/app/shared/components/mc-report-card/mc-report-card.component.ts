@@ -8,6 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class McReportCardComponent implements OnInit {
   @Input() report: Report;
+  @Input() userReport: userReport;
   constructor(private navController: NavController) {}
 
   ngOnInit() {}
@@ -20,6 +21,21 @@ export class McReportCardComponent implements OnInit {
 }
 
 export interface Report {
+  _id: string;
+  address: string;
+  location: string;
+  date: string;
+  time: string;
+  isOpen: boolean;
+  description: string;
+  userId: string;
+  category: string;
+  subCategory: string;
+  imgUrl: string;
+  __v: any;
+}
+
+export interface userReport {
   _id: string;
   address: string;
   location: string;

@@ -11,6 +11,7 @@ import { MESSAGES } from '../utils/constants';
 })
 export class ReportsPage implements OnInit {
   reports = [];
+  allUserReports: Array<any> = [];
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
@@ -26,7 +27,7 @@ export class ReportsPage implements OnInit {
     this.reportService.getUserReport().subscribe(
       (response: any) => {
         if (response.success) {
-          this.reports = response.data;
+          this.allUserReports = response.data;
         } else {
           this.commonService.presentToaster({
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
