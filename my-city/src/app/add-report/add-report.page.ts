@@ -179,12 +179,17 @@ export class AddReportPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.checkPermission();
+    if (!this.paramsObject) {
+      this.checkPermission();
+    }
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = { ...params.keys, ...params };
-      this.addressVal = this.paramsObject.params.address;
       this.longitudeVal = this.paramsObject.params.lat;
       this.latitudeVal = this.paramsObject.params.lon;
+      this.getAddress(
+        +this.paramsObject.params.lat,
+        +this.paramsObject.params.lon
+      );
     });
   }
 
@@ -364,32 +369,7 @@ export class AddReportPage implements OnInit {
     this.geolocation
       .getCurrentPosition()
       .then((response) => {
-        this.nativeGeocoder
-          .reverseGeocode(response.coords.latitude, response.coords.longitude, {
-            useLocale: true,
-            maxResults: 1,
-            defaultLocale: 'en_IN',
-          })
-          .then((locations: NativeGeocoderResult[]) => {
-            const nativeGeocoderResult = locations[0];
-            this.reportForm.patchValue({
-              address: `${
-                nativeGeocoderResult.thoroughfare
-                  ? nativeGeocoderResult.thoroughfare + ','
-                  : nativeGeocoderResult.thoroughfare
-              } ${nativeGeocoderResult.subLocality} , ${
-                nativeGeocoderResult.locality
-              } , ${nativeGeocoderResult.postalCode} `,
-            });
-            this.latLon.latitude = nativeGeocoderResult.latitude;
-            this.latLon.longitude = nativeGeocoderResult.longitude;
-            this.area = nativeGeocoderResult.locality;
-            this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
-            this.isMapLoading = false;
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        this.getAddress(response.coords.latitude, response.coords.longitude);
       })
       .catch((e) => {
         if (e?.code === 1) {
@@ -400,5 +380,33 @@ export class AddReportPage implements OnInit {
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
+  }
+
+  getAddress(latitude: number, longitude: number) {
+    this.nativeGeocoder
+      .reverseGeocode(latitude, longitude, {
+        useLocale: true,
+        maxResults: 1,
+        defaultLocale: 'en_IN',
+      })
+      .then((locations: NativeGeocoderResult[]) => {
+        const nativeGeocoderResult = locations[0];
+        this.reportForm.patchValue({
+          address: `${
+            nativeGeocoderResult.thoroughfare
+              ? nativeGeocoderResult.thoroughfare + ','
+              : nativeGeocoderResult.thoroughfare
+          } ${nativeGeocoderResult.subLocality} , ${
+            nativeGeocoderResult.locality
+          } , ${nativeGeocoderResult.postalCode} `,
+        });
+        this.latLon.latitude = nativeGeocoderResult.latitude;
+        this.latLon.longitude = nativeGeocoderResult.longitude;
+        this.area = nativeGeocoderResult.locality;
+        this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
+        this.isMapLoading = false;
+      })
+      .catch((e) => {
+      });
   }
 }
