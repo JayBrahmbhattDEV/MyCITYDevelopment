@@ -55,3 +55,10 @@ button.alert-button.alert-button-confirm {
   background-color: var(--ion-color-primary);
   color: var(--ion-color-success-contrast);
 }
+
+ion-toolbar,
+ion-header {
+  --background: var(--ion-color-primary);
+  color: white;
+}
+

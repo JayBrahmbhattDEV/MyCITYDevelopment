@@ -92,19 +92,15 @@
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-icon
-              (click)="cancel()"
-              [style.color]="'#25b791'"
-              name="chevron-back-outline"
-            ></ion-icon>
+            <ion-icon (click)="cancel()" name="close-outline"></ion-icon>
           </ion-buttons>
           <ion-title>Search for your location</ion-title>
         </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
         <ion-toolbar>
           <ion-searchbar (ionChange)="searchLocation($event)"></ion-searchbar>
         </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
         <ion-list>
           <ion-item
             (click)="chooseLocation(location)"
@@ -121,9 +117,7 @@
       <ion-footer>
         <ion-toolbar>
           <ion-title class="ion-text-center">
-            <ion-text (click)="openMap()" color="primary">
-              Choose location on map
-            </ion-text>
+            <ion-text (click)="openMap()"> Choose location on map </ion-text>
           </ion-title>
         </ion-toolbar>
       </ion-footer>
