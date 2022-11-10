@@ -47,7 +47,7 @@
 
       <ion-item button="true" id="open-datetime">
         <ion-label>Birthday</ion-label>
-        <ion-text> {{this.userDob}} </ion-text>
+        <ion-text> {{this.userDob | date:'MMMM d, y'}} </ion-text>
         <ion-modal class="datetime-modal" trigger="open-datetime">
           <ng-template>
             <ion-content>

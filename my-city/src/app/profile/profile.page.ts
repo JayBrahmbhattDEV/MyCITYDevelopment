@@ -75,7 +75,9 @@ export class ProfilePage implements OnInit {
     this.accountService
       .updateProfile(this.profileForm.value)
       .subscribe((res: any) => {
-        console.log(res);
+        if(res.success){
+          this.commonService.presentToaster({message: res.message + `😄`, color:'success'})
+        }
       });
     this.accountService.getProfile();
   }
