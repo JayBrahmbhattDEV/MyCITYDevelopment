@@ -15,48 +15,56 @@ const addCategory = async (req, res) => {
 };
 
 const addNewCategory = async (req, res) => {
-  try {
-    const category = await Category.create(req.body);
-    res.status(201).json({
-      success: true,
-      data: { message: "New Category added successfully", id: category._id },
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, err });
+  if (req.isAdmin) {
+    try {
+      const category = await Category.create(req.body);
+      res.status(201).json({
+        success: true,
+        data: { message: "New Category added successfully", id: category._id },
+      });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
+    }
+  } else {
+    res.status(401).json({ success: false, message: "Authorized person is not admin" })
   }
 };
 
 const addSubCategory = async (req, res) => {
-  const categoryID = req.params.id;
-  const isCategoryExist = await Category.findById({ _id: categoryID });
-  if (!isCategoryExist) {
-    return res.status(404).json({
-      success: false,
-      message: `No category exist with this id ${categoryID}`,
-    });
-  }
-  const category = await Category.findByIdAndUpdate(
-    { _id: categoryID },
-    {
-      $push: {
-        subCategories: {
-          id: new ObjectID(),
-          name: req.body.subCategory,
+  if (req.isAdmin) {
+    const categoryID = req.params.id;
+    const isCategoryExist = await Category.findById({ _id: categoryID });
+    if (!isCategoryExist) {
+      return res.status(404).json({
+        success: false,
+        message: `No category exist with this id ${categoryID}`,
+      });
+    }
+    const category = await Category.findByIdAndUpdate(
+      { _id: categoryID },
+      {
+        $push: {
+          subCategories: {
+            id: new ObjectID(),
+            name: req.body.subCategory,
+          },
         },
       },
-    },
-    {
-      new: true,
-      runValidators: true,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.status(201).json({
+      success: true,
+      data: { message: "Subcategory added successfully" },
+    });
+    try {
+    } catch (err) {
+      res.status(500).json({ success: false, err });
     }
-  );
-  res.status(201).json({
-    success: true,
-    data: { message: "Subcategory added successfully" },
-  });
-  try {
-  } catch (err) {
-    res.status(500).json({ success: false, err });
+  } else {
+    res.status(401).json({ success: false, message: "Authorized person is not admin" })
   }
 };
 

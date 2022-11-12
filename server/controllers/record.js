@@ -80,31 +80,20 @@ const deleteRecord = async (req, res) => {
 
 const updateRecord = async (req, res) => {
   const { id } = req.params;
+  if (req.isAdmin) {
+    try {
+      const record = await Record.findByIdAndUpdate({ _id: id }, req.body, {
+        new: true,
+        runValidators: true,
+      });
 
-  let imgUrl;
-
-  if (req.file) {
-    imgUrl = await uploadImage(req.file);
-    req.body.imgUrl = imgUrl;
-  }
-
-  try {
-    const record = await Record.findByIdAndUpdate({ _id: id }, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (record) {
-      res
-        .status(201)
-        .json({ success: true, message: "Record updated successfully" });
-    } else {
-      res
-        .status(404)
-        .json({ success: false, message: "No record found with this id" });
+      record ? res.status(201).json({ success: true, message: "Record updated successfully" }) :
+        res.status(404).json({ success: false, message: "No record found with this id" });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
     }
-  } catch (err) {
-    res.status(500).json({ success: false, err });
+  } else {
+    res.status(401).json({ success: false, message: "Authorized person is not admin" })
   }
 };
 
