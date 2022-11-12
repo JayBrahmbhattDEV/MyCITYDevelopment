@@ -33,6 +33,10 @@ const recordSchema = mongoose.Schema({
   imgUrl: {
     type: String,
   },
+  isPending: {
+    type: Boolean,
+    default: true
+  }
 });
 
 module.exports = mongoose.model("Record", recordSchema);
