@@ -10,7 +10,7 @@
 <ion-content>
   <ion-list>
     <ion-card class="ion-no-margin">
-      <ion-item *ngFor="let report of allUserReports" class="ion-padding-vertical">
+      <ion-item *ngFor="let report of allUserReports" class="card-child">
         <app-mc-report-card [report]="report"></app-mc-report-card>
       </ion-item>
     </ion-card>
