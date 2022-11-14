@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   redirectTo: string;
-
+  isLoading = false;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -42,11 +42,11 @@ export class LoginPage implements OnInit {
         this.redirectTo = x?.redirectTo;
       });
 
-     this.registerForm = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       number: ['', [Validators.required]],
-      email: ['', [Validators.required]]
-     })
+      email: ['', [Validators.required]],
+    });
   }
 
   accCreated() {
@@ -80,14 +80,37 @@ export class LoginPage implements OnInit {
     }
   }
 
-  submitRegisterForm(){
-    if(this.registerForm.valid){
-      this.accountService.register(this.registerForm.value).subscribe((res:any) => {
-        if(res.success){
-          this.commonService.presentToaster({message: "You have been registered successfully!", color: 'success'})
-          this.ionSlids.slidePrev();
+  submitRegisterForm() {
+    if (this.registerForm.valid) {
+      this.isLoading = true;
+      this.accountService.register(this.registerForm.value).subscribe(
+        (res: any) => {
+          console.log({ res });
+          if (res.success) {
+            this.commonService.presentToaster({
+              message: 'You have been registered successfully!',
+              color: 'success',
+            });
+            this.isLoading = false;
+            this.ionSlids.slidePrev();
+          } else {
+            this.commonService
+              .presentToaster({
+                message: res.message,
+                color: 'danger',
+              })
+              .then();
+          }
+        },
+        (e) => {
+          console.log(e);
+          this.isLoading = false;
+          this.commonService.presentToaster({
+            message: e.error.message,
+            color: 'danger',
+          });
         }
-      });
+      );
     }
   }
 
