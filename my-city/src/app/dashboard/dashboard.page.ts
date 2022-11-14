@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
 import { MESSAGES } from '../utils/constants';
 import { ReportsService } from '../services/reports.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -54,11 +55,9 @@ export class DashboardPage implements OnInit {
   addReport(pageType: any) {
     if (pageType === 'Recent Reports') {
       this.router.navigateByUrl('/recent-reports');
-    } 
-    else if(pageType === 'My Reports'){
+    } else if (pageType === 'My Reports') {
       this.router.navigateByUrl('/reports');
-    }
-    else {
+    } else {
       if (this.accountService.token) {
         this.navController.navigateForward('/add-report');
       } else {
@@ -90,20 +89,8 @@ export class DashboardPage implements OnInit {
   }
 
   getReports() {
-    this.reports.getReports().subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.allReports = response.data;
-        } else {
-          this.commonService.presentToaster({
-            message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
-          });
-        }
-        this.commonService.hideLoading();
-      },
-      (e) => {
-        this.commonService.hideLoading();
-      }
-    );
+    this.reports.geRecentReports().subscribe((response: any) => {
+      this.allReports = response.data;
+    });
   }
 }
