@@ -16,5 +16,10 @@
       </ion-item>
     </ion-card>
   </ion-list>
+  <div *ngIf="loadData == true">
+    <ion-infinite-scroll threshold="20%" (ionInfinite)="loadmore($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>
 

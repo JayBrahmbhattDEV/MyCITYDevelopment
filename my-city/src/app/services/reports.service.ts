@@ -29,4 +29,8 @@ export class ReportsService {
   geRecentReports(){
     return this.http.get(`${this.api}/record/recentRecords`);
   }
+
+  getReportsWithPagination(pageNo){
+    return this.http.get(`${this.api}/record/page/` + pageNo);
+  }
 }

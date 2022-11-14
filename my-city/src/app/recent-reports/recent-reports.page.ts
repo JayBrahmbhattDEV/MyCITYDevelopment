@@ -12,6 +12,8 @@ import { MESSAGES } from '../utils/constants';
 export class RecentReportsPage implements OnInit {
   reports = [];
   allReports: Array<any> = [];
+  pageNumber: any;
+  loadData:any = true;
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
@@ -24,11 +26,13 @@ export class RecentReportsPage implements OnInit {
   }
 
   getReports() {
+    this.pageNumber = 1;
     this.commonService.presentLoading(MESSAGES.FETHCHING_REPORTS);
-    this.reportService.getReports().subscribe(
+    this.reportService.getReportsWithPagination(this.pageNumber).subscribe(
       (response: any) => {
         if (response.success) {
           this.allReports = response.data;
+          console.log(this.allReports.length);
         } else {
           this.commonService.presentToaster({
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
@@ -47,6 +51,21 @@ export class RecentReportsPage implements OnInit {
     this.navController.navigateForward('/view-report', {
       state: report,
     });
+  }
+
+  loadmore(ev){
+    this.pageNumber += 1;
+    this.reportService.getReportsWithPagination(this.pageNumber).subscribe((res:any) => {
+      if(res.data.length > 0){
+        let moreData = res.data;
+        this.allReports.push(...moreData);
+        console.log(this.allReports.length);
+        ev.target.complete();
+      }
+      else{
+        this.loadData = false;
+      } 
+    })
   }
 
 }
