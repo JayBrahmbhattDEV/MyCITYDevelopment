@@ -12,6 +12,8 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { PermissionService } from '../enable-permission/permission.service';
 import { IonModal } from '@ionic/angular';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { File } from '@ionic-native/file/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
 
 @Component({
   selector: 'app-add-report',
@@ -146,8 +148,8 @@ export class AddReportPage implements OnInit {
   subCategoriesTemp = [];
 
   options: CameraOptions = {
-    quality: 30,
-    destinationType: this.camera.DestinationType.DATA_URL,
+    quality: 100,
+    destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     cameraDirection: 1,
@@ -171,7 +173,9 @@ export class AddReportPage implements OnInit {
     private nativeGeocoder: NativeGeocoder,
     private activatedRoute: ActivatedRoute,
     private androidPermissions: AndroidPermissions,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
+    private file: File,
+    private crop: Crop
   ) {}
 
   ngOnInit() {
@@ -277,7 +281,7 @@ export class AddReportPage implements OnInit {
     this.camera
       .getPicture(this.options)
       .then((imageData) => {
-        this.image = 'data:image/jpeg;base64,' + imageData;
+        this.cropImage(imageData);
       })
       .catch((e) => {
         console.log(e);
@@ -406,7 +410,25 @@ export class AddReportPage implements OnInit {
         this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
         this.isMapLoading = false;
       })
-      .catch((e) => {
+      .catch((e) => {});
+  }
+
+  cropImage(fileUrl) {
+    this.crop
+      .crop(fileUrl, { quality: 50, targetHeight: 100 })
+      .then((newPath) => {
+        this.showCroppedImage(newPath.split('?')[0]);
       });
+  }
+
+  showCroppedImage(imagePath: string) {
+    const copyPath = imagePath;
+    const splitPath = copyPath.split('/');
+    const imageName = splitPath[splitPath.length - 1];
+    const filePath = imagePath.split(imageName)[0];
+
+    this.file.readAsDataURL(filePath, imageName).then((base64) => {
+      this.image = base64;
+    });
   }
 }

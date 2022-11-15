@@ -10,6 +10,8 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { SharedModule } from '../shared/modules/shared/shared.module';
+import { Crop } from '@ionic-native/crop/ngx';
+import { File } from '@ionic-native/file/ngx';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +22,6 @@ import { SharedModule } from '../shared/modules/shared/shared.module';
     SharedModule,
   ],
   declarations: [AddReportPage],
-  providers: [Geolocation, NativeGeocoder, AndroidPermissions],
+  providers: [Geolocation, NativeGeocoder, AndroidPermissions, Crop, File],
 })
 export class AddReportPageModule {}
