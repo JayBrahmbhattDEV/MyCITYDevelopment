@@ -82,7 +82,11 @@ const routes: Routes = [
       import('./enable-permission/enable-permission.module').then(
         (m) => m.EnablePermissionPageModule
       ),
+  },  {
+    path: 'add-report-sucess',
+    loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then( m => m.AddReportSucessPageModule)
   },
+
 
 ];
 

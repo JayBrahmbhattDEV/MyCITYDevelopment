@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Success</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="container">
+    <ion-img [src]="'./assets/icon/add-success-report.svg'"></ion-img>
+    <ion-item lines="none">
+      <ion-label> Your report has been added successfully. </ion-label>
+    </ion-item>
+    <ion-button routerLink="/add-report" routerDirection="root" expand="block">
+      Add New Report
+    </ion-button>
+    <ion-button
+      routerLink="/reports"
+      routerDirection="root"
+      color="secondary"
+      expand="block"
+    >
+      View Reports
+    </ion-button>
+  </div>
+</ion-content>

@@ -355,7 +355,7 @@ export class AddReportPage implements OnInit {
           this.commonService.presentToaster({
             message: response?.data?.message,
           });
-          this.navController.navigateRoot('/dashboard');
+          this.navController.navigateRoot('/add-report-sucess');
         } else {
           this.commonService.presentToaster({
             message: 'Oops something went wrong please try again later.',
