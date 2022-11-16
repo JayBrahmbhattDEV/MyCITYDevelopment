@@ -32,7 +32,6 @@ export class RecentReportsPage implements OnInit {
       (response: any) => {
         if (response.success) {
           this.allReports = response.data;
-          console.log(this.allReports.length);
         } else {
           this.commonService.presentToaster({
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
@@ -59,7 +58,6 @@ export class RecentReportsPage implements OnInit {
       if(res.data.length > 0){
         let moreData = res.data;
         this.allReports.push(...moreData);
-        console.log(this.allReports.length);
         ev.target.complete();
       }
       else{
