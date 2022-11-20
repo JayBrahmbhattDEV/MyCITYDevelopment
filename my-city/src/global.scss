@@ -44,7 +44,7 @@
 }
 
 * {
-  font-family: 'roboto-regular';
+  font-family: "roboto-regular";
 }
 
 ion-button {
@@ -62,7 +62,16 @@ ion-header {
   color: white;
 }
 
-ion-menu-button, ion-back-button{
+ion-menu-button,
+ion-back-button {
   color: white;
 }
 
+.h-100 {
+  height: 100%;
+}
+
+.v-center {
+  display: flex;
+  align-items: center;
+}

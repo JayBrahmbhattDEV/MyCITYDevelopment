@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class McReportCardComponent implements OnInit {
   @Input() report: Report;
-  @Input() userReport: userReport;
+  @Input() userReport: UserReport;
   constructor(private navController: NavController) {}
 
   ngOnInit() {}
@@ -17,6 +17,10 @@ export class McReportCardComponent implements OnInit {
     this.navController.navigateForward('/view-report', {
       state: this.report,
     });
+  }
+
+  onLoaded() {
+    this.report.imageLoaded = true;
   }
 }
 
@@ -32,10 +36,11 @@ export interface Report {
   category: string;
   subCategory: string;
   imgUrl: string;
-  __v: any;
+  imageLoaded: boolean;
+  isClosed: boolean;
 }
 
-export interface userReport {
+export interface UserReport {
   _id: string;
   address: string;
   location: string;
@@ -47,5 +52,4 @@ export interface userReport {
   category: string;
   subCategory: string;
   imgUrl: string;
-  __v: any;
 }

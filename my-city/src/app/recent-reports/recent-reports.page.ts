@@ -13,13 +13,13 @@ export class RecentReportsPage implements OnInit {
   reports = [];
   allReports: Array<any> = [];
   pageNumber: any;
-  loadData:any = true;
+  loadData: any = true;
+  isReportLoaded = false;
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
-    private navController: NavController,
-    private readonly Reports: ReportsService
-  ) { }
+    private navController: NavController
+  ) {}
 
   ngOnInit() {
     this.getReports();
@@ -27,7 +27,6 @@ export class RecentReportsPage implements OnInit {
 
   getReports() {
     this.pageNumber = 1;
-    this.commonService.presentLoading(MESSAGES.FETHCHING_REPORTS);
     this.reportService.getReportsWithPagination(this.pageNumber).subscribe(
       (response: any) => {
         if (response.success) {
@@ -37,11 +36,14 @@ export class RecentReportsPage implements OnInit {
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
           });
         }
-        this.commonService.hideLoading();
+        this.isReportLoaded = true;
       },
       (e) => {
-        this.commonService.presentToaster({message:"Something went wrong!", color:'danger'})
-        this.commonService.hideLoading();
+        this.commonService.presentToaster({
+          message: 'Something went wrong!',
+          color: 'danger',
+        });
+        this.isReportLoaded = true;
       }
     );
   }
@@ -52,18 +54,17 @@ export class RecentReportsPage implements OnInit {
     });
   }
 
-  loadmore(ev){
+  loadmore(ev) {
     this.pageNumber += 1;
-    this.reportService.getReportsWithPagination(this.pageNumber).subscribe((res:any) => {
-      if(res.data.length > 0){
-        let moreData = res.data;
-        this.allReports.push(...moreData);
-        ev.target.complete();
-      }
-      else{
-        this.loadData = false;
-      } 
-    })
+    this.reportService
+      .getReportsWithPagination(this.pageNumber)
+      .subscribe((res: any) => {
+        if (res.data.length > 0) {
+          this.allReports.push(...res.data);
+          ev.target.complete();
+        } else {
+          this.loadData = false;
+        }
+      });
   }
-
 }

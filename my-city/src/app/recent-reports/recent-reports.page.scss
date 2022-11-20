@@ -1,4 +1,10 @@
+.ion-padding-vertical {
+  padding: 2px 0;
+}
 
-.ion-padding-vertical{
-    padding: 2px 0;
+.empty-state {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
