@@ -56,7 +56,34 @@ export class DashboardPage implements OnInit {
     if (pageType === 'Recent Reports') {
       this.router.navigateByUrl('/recent-reports');
     } else if (pageType === 'My Reports') {
-      this.router.navigateByUrl('/reports');
+      if(this.accountService.token){
+        this.router.navigateByUrl('/reports');
+      }
+      else {
+        this.commonService.presentAlert(
+          `Oops, it's look like you are not logged in yet do you want to login?`,
+          'Information',
+          {
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {},
+              },
+              {
+                text: 'Login Now',
+                cssClass: 'alert-button-confirm',
+                handler: () =>
+                  this.navController.navigateRoot('/login', {
+                    queryParams: {
+                      redirectTo: '/add-report',
+                    },
+                  }),
+              },
+            ],
+          }
+        );
+      }
     } else {
       if (this.accountService.token) {
         this.navController.navigateForward('/add-report');
