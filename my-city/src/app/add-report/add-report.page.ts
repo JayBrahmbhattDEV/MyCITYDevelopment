@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect, NavController } from '@ionic/angular';
+import { IonSelect, ModalController, NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
@@ -14,6 +14,7 @@ import { IonModal } from '@ionic/angular';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { File } from '@ionic-native/file/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
+import { EnablePermissionPage } from '../enable-permission/enable-permission.page';
 
 @Component({
   selector: 'app-add-report',
@@ -175,7 +176,8 @@ export class AddReportPage implements OnInit {
     private androidPermissions: AndroidPermissions,
     private permissionService: PermissionService,
     private file: File,
-    private crop: Crop
+    private crop: Crop,
+    public modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -201,18 +203,21 @@ export class AddReportPage implements OnInit {
     try {
       const permission = await this.permissionService.checkGPSPermission();
       if (!permission.hasPermission) {
-        this.navController.navigateRoot('/enable-permission');
+        // this.navController.navigateRoot('/enable-permission');
+        this.presentModal();
       }
       const enablePermission =
         await this.permissionService.reqestGPSPermission();
       if (!enablePermission.hasPermission) {
-        this.navController.navigateRoot('/enable-permission');
+        // this.navController.navigateRoot('/enable-permission');
+        this.presentModal();
       } else {
         this.getCurrentLocation();
       }
       const isEnabled = await this.permissionService.enableGPS();
       if (isEnabled?.code === 4) {
-        this.navController.navigateRoot('/enable-permission');
+        // this.navController.navigateRoot('/enable-permission');
+        this.presentModal();
       } else if (isEnabled?.code === 0) {
         setTimeout(() => {
           this.getCurrentLocation();
@@ -220,7 +225,8 @@ export class AddReportPage implements OnInit {
       }
     } catch (error) {
       if (error?.code === 4) {
-        this.navController.navigateRoot('/enable-permission');
+        // this.navController.navigateRoot('/enable-permission');
+        this.presentModal();
       }
     }
   }
@@ -295,6 +301,13 @@ export class AddReportPage implements OnInit {
       category: '',
       subCategory: '',
     });
+  }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: EnablePermissionPage
+    });
+    return await modal.present();
   }
 
   convertBase64ToBlob(base64: string) {

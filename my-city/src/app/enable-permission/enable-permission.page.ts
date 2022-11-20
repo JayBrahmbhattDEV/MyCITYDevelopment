@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { CommonService } from '../services/common.service';
 import { PermissionService } from './permission.service';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-enable-permission',
@@ -9,6 +10,7 @@ import { PermissionService } from './permission.service';
   styleUrls: ['./enable-permission.page.scss'],
 })
 export class EnablePermissionPage {
+  @ViewChild(IonModal) modal: IonModal;
   constructor(
     private permissionService: PermissionService,
     private commonService: CommonService,
@@ -24,5 +26,10 @@ export class EnablePermissionPage {
     } catch (error) {
       console.log({ error });
     }
+  }
+
+  
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
   }
 }
