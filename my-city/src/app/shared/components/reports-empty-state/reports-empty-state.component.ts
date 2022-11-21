@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ReportsEmptyStateComponent implements OnInit {
   @Input()
-  message = `It's look like you dont have added any reports yet your report just one
-  tap away`;
+  message = `It looks like you haven't created any reports yet. Creating a report is just one
+  tap away!`;
 
   @Input() url = `/add-report`;
 

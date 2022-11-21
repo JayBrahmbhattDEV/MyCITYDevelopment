@@ -12,6 +12,7 @@ import { MESSAGES } from '../utils/constants';
 export class ReportsPage implements OnInit {
   reports = [];
   allUserReports: Array<any> = [];
+  isReportLoaded = false;
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
@@ -33,6 +34,7 @@ export class ReportsPage implements OnInit {
             message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
           });
         }
+        this.isReportLoaded = true;
         this.commonService.hideLoading();
       },
       (e) => {

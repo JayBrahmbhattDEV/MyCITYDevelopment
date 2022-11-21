@@ -15,6 +15,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { File } from '@ionic-native/file/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { EnablePermissionPage } from '../enable-permission/enable-permission.page';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-add-report',
@@ -170,6 +171,7 @@ export class AddReportPage implements OnInit {
     private reportService: ReportsService,
     private navController: NavController,
     private commonService: CommonService,
+    private accountService: AccountService,
     private geolocation: Geolocation,
     private nativeGeocoder: NativeGeocoder,
     private activatedRoute: ActivatedRoute,
@@ -178,7 +180,7 @@ export class AddReportPage implements OnInit {
     private file: File,
     private crop: Crop,
     public modalController: ModalController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.initReportForm();
@@ -345,41 +347,68 @@ export class AddReportPage implements OnInit {
   }
 
   addReport() {
-    const blob = this.convertBase64ToBlob(this.image);
-    const reportData = new FormData();
-    reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
-    reportData.append(
-      'location',
-      JSON.stringify({
-        latitude: this.latLon.latitude,
-        longitude: this.latLon.longitude,
-      })
-    );
-    this.reportForm.value.category = this.categories.find(
-      (category) => category.id === this.reportForm.value.category
-    ).text;
-    Object.keys(this.reportForm.value).forEach((key) => {
-      reportData.append(key, this.reportForm.value[key]);
-    });
-    this.commonService.presentLoading();
-    this.reportService.addReport(reportData).subscribe(
-      (response: any) => {
-        if (response.success) {
-          this.commonService.presentToaster({
-            message: response?.data?.message,
-          });
-          this.navController.navigateRoot('/add-report-sucess');
-        } else {
-          this.commonService.presentToaster({
-            message: 'Something went wrong! Please try again later.',
-          });
+    if (!this.accountService.token) {
+      this.commonService.presentAlert(
+        `Oops, it looks like you aren't logged in yet, do you want to login?`,
+        'Information',
+        {
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel',
+              handler: () => { },
+            },
+            {
+              text: 'Login Now',
+              cssClass: 'alert-button-confirm',
+              handler: () =>
+                this.navController.navigateRoot('/login', {
+                  queryParams: {
+                    redirectTo: '/add-report',
+                  },
+                }),
+            },
+          ],
         }
-        this.commonService.hideLoading();
-      },
-      (e) => {
-        console.log(e);
-      }
-    );
+      );
+    }
+    else {
+      const blob = this.convertBase64ToBlob(this.image);
+      const reportData = new FormData();
+      reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
+      reportData.append(
+        'location',
+        JSON.stringify({
+          latitude: this.latLon.latitude,
+          longitude: this.latLon.longitude,
+        })
+      );
+      this.reportForm.value.category = this.categories.find(
+        (category) => category.id === this.reportForm.value.category
+      ).text;
+      Object.keys(this.reportForm.value).forEach((key) => {
+        reportData.append(key, this.reportForm.value[key]);
+      });
+      this.commonService.presentLoading();
+      this.reportService.addReport(reportData).subscribe(
+        (response: any) => {
+          if (response.success) {
+            this.commonService.presentToaster({
+              message: response?.data?.message,
+            });
+            this.navController.navigateRoot('/add-report-sucess');
+          } else {
+            this.commonService.presentToaster({
+              message: 'Something went wrong! Please try again later.',
+            });
+          }
+          this.commonService.hideLoading();
+        },
+        (e) => {
+          console.log(e);
+        }
+      );
+    }
   }
 
   getCurrentLocation() {
@@ -409,13 +438,11 @@ export class AddReportPage implements OnInit {
       .then((locations: NativeGeocoderResult[]) => {
         const nativeGeocoderResult = locations[0];
         this.reportForm.patchValue({
-          address: `${
-            nativeGeocoderResult.thoroughfare
+          address: `${nativeGeocoderResult.thoroughfare
               ? nativeGeocoderResult.thoroughfare + ','
               : nativeGeocoderResult.thoroughfare
-          } ${nativeGeocoderResult.subLocality} , ${
-            nativeGeocoderResult.locality
-          } , ${nativeGeocoderResult.postalCode} `,
+            } ${nativeGeocoderResult.subLocality} , ${nativeGeocoderResult.locality
+            } , ${nativeGeocoderResult.postalCode} `,
         });
         this.latLon.latitude = nativeGeocoderResult.latitude;
         this.latLon.longitude = nativeGeocoderResult.longitude;
@@ -423,7 +450,7 @@ export class AddReportPage implements OnInit {
         this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
         this.isMapLoading = false;
       })
-      .catch((e) => {});
+      .catch((e) => { });
   }
 
   cropImage(fileUrl) {
