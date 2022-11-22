@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  isReportLoaded = false;
   pages = [
     {
       text: 'Add Report',
@@ -94,6 +95,7 @@ export class DashboardPage implements OnInit {
   getReports() {
     this.reports.geRecentReports().subscribe((response: any) => {
       this.allReports = response.data;
+      this.isReportLoaded = true;
     });
   }
 }
