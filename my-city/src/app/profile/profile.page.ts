@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CommonService } from '../services/common.service';
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,9 @@ export class ProfilePage implements OnInit {
     public accountService: AccountService,
     public formBuilder: FormBuilder,
     private commonService: CommonService,
-    private platform: Platform
+    private storageService: StorageService,
+    private navController: NavController,
+    private platform: Platform,
   ) {
     // this.platform.keyboardDidShow.subscribe((ev) => {
     //   console.log({ ev });
@@ -55,6 +58,31 @@ export class ProfilePage implements OnInit {
       });
     });
     this.futureDisabled();
+  }
+
+  logOut(){
+    this.commonService.presentAlert(
+      `Are you sure you want to log-out?`,
+      'Alert',
+      {
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {},
+          },
+          {
+            text: 'Log-Out',
+            cssClass: 'log-out-confirmed',
+            handler: () => {
+              this.navController.navigateRoot('/login');
+              this.storageService.clearData();
+              this.commonService.presentToaster({color:'danger', message: "You have been logged-out!"})
+            }
+          },
+        ],
+      }
+    );
   }
 
   futureDisabled() {
