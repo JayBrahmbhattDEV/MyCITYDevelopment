@@ -24,19 +24,7 @@ export class ProfilePage implements OnInit {
     private storageService: StorageService,
     private navController: NavController,
     private platform: Platform,
-  ) {
-    // this.platform.keyboardDidShow.subscribe((ev) => {
-    //   console.log({ ev });
-    //   const containerElement = document.getElementsByClassName('container');
-    //   (containerElement[0] as any).style.height = '45vh';
-    //   // Do something with the keyboard height such as translating an input above the keyboard.
-    // });
-    // this.platform.keyboardDidHide.subscribe(() => {
-    //   // Move input back to original location
-    //   const containerElement = document.getElementsByClassName('container');
-    //   (containerElement[0] as any).style.height = '30vh';
-    // });
-  }
+  ) {}
 
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -72,12 +60,12 @@ export class ProfilePage implements OnInit {
             handler: () => {},
           },
           {
-            text: 'Log-Out',
+            text: 'Log Out',
             cssClass: 'log-out-confirmed',
             handler: () => {
               this.navController.navigateRoot('/login');
               this.storageService.clearData();
-              this.commonService.presentToaster({color:'danger', message: "You have been logged-out!"})
+              this.accountService.userDetails = null;
             }
           },
         ],
