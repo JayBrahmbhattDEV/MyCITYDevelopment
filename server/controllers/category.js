@@ -15,7 +15,7 @@ const addCategory = async (req, res) => {
 };
 
 const addNewCategory = async (req, res) => {
-  if (req.isAdmin) {
+  if (req.user.isAdmin) {
     try {
       const category = await Category.create(req.body);
       res.status(201).json({
@@ -31,7 +31,7 @@ const addNewCategory = async (req, res) => {
 };
 
 const addSubCategory = async (req, res) => {
-  if (req.isAdmin) {
+  if (req.user.isAdmin) {
     const categoryID = req.params.id;
     const isCategoryExist = await Category.findById({ _id: categoryID });
     if (!isCategoryExist) {

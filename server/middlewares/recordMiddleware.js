@@ -7,12 +7,6 @@ const authenticateToken = (req, res, next) => {
 
     if (token === null) return res.sendStatus(401);
 
-    if (req?.body?.role === "admin") {
-        req.isAdmin = true
-    } else {
-        req.isAdmin = false
-    }
-
     jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
         if (err)
             return res
