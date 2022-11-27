@@ -30,12 +30,23 @@ const postRecord = async (req, res) => {
 };
 
 const getAllRecords = async (req, res) => {
-  try {
-    const allRecords = await Record.find({}).sort({ _id: -1 })
-    res.status(200).json({ success: true, data: allRecords });
-  } catch (err) {
-    res.status(500).json({ success: false, err });
+
+  if (req.user.isAdmin) {
+    try {
+      const allRecords = await Record.find({ isPending: true }).sort({ _id: -1 })
+      res.status(200).json({ success: true, data: allRecords });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
+    }
+  } else {
+    try {
+      const allRecords = await Record.find({}).sort({ _id: -1 })
+      res.status(200).json({ success: true, data: allRecords });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
+    }
   }
+
 };
 
 const getRecordOnScroll = async (req, res) => {
@@ -43,11 +54,24 @@ const getRecordOnScroll = async (req, res) => {
   const batchSize = 25;
   const end = batchSize * Number(pageNumber);
   const start = end - batchSize;
-  try {
-    const allRecords = await Record.find({}).sort({ _id: -1 })
-    res.status(200).json({ success: true, data: allRecords.slice(start, end) });
-  } catch (err) {
-    res.status(500).json({ success: false, err });
+
+  if (req.user.isAdmin) {
+
+    try {
+      const allRecords = await Record.find({ isPending: true }).sort({ _id: -1 })
+      res.status(200).json({ success: true, data: allRecords.slice(start, end) });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
+    }
+  } else {
+
+
+    try {
+      const allRecords = await Record.find({}).sort({ _id: -1 })
+      res.status(200).json({ success: true, data: allRecords.slice(start, end) });
+    } catch (err) {
+      res.status(500).json({ success: false, err });
+    }
   }
 };
 
@@ -80,7 +104,7 @@ const deleteRecord = async (req, res) => {
 
 const updateRecord = async (req, res) => {
   const { id } = req.params;
-  if (req.isAdmin) {
+  if (req.user.isAdmin) {
     try {
       const record = await Record.findByIdAndUpdate({ _id: id }, req.body, {
         new: true,

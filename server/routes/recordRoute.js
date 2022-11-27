@@ -23,8 +23,8 @@ recordRouter
   .route("/uploadRecord")
   .post([authenticateToken, multer.single("imgfile")], postRecord);
 
-recordRouter.route("/").get(getAllRecords);
-recordRouter.route("/page/:pageNumber").get(getRecordOnScroll);
+recordRouter.route("/").get(authenticateToken, getAllRecords);
+recordRouter.route("/page/:pageNumber").get(authenticateToken, getRecordOnScroll);
 
 recordRouter.route("/user").get(authenticateToken, getRecordByUser);
 
