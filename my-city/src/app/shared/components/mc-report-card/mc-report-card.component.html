@@ -19,8 +19,8 @@
       </ion-label>
     </div>
     <ion-item lines="none" class="ion-float-right">
-      <ion-badge color="danger">Pending</ion-badge>
-      <ion-badge *ngIf="report.isClosed" color="danger">Closed</ion-badge>
+      <ion-badge *ngIf="report.isPending" color="danger">Pending</ion-badge>
+      <ion-badge *ngIf="!report.isPending" color="success">Closed</ion-badge>
     </ion-item>
   </ion-card-content>
 </ion-card>

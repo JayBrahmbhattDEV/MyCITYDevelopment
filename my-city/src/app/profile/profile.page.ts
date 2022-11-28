@@ -65,7 +65,9 @@ export class ProfilePage implements OnInit {
             handler: () => {
               this.navController.navigateRoot('/login');
               this.storageService.clearData();
+              localStorage.clear();
               this.accountService.userDetails = null;
+              this.accountService.token = null;
             }
           },
         ],

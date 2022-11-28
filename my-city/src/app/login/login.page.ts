@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   redirectTo: string;
+  isAdmin: boolean;
   isLoading = false;
   constructor(
     public formBuilder: FormBuilder,
@@ -66,6 +67,9 @@ export class LoginPage implements OnInit {
             this.accountService.userDetails = user;
             this.accountService.token = token;
             this.submitted = false;
+            if(response.data.user.isAdmin){
+              localStorage.setItem("isAdmin", response.data.user.isAdmin);
+            }
             this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
           }
         },

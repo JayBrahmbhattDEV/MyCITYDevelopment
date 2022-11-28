@@ -157,7 +157,7 @@ export class AddReportPage implements OnInit {
     cameraDirection: 1,
   };
 
-  image = './assets/images/add.png';
+  image = './assets/images/add-photo.png';
   reportForm: FormGroup;
   latLon = {
     latitude: '',
