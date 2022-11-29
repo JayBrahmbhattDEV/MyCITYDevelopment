@@ -6,6 +6,7 @@
     <ion-title>
       <strong class="text-white">Dashboard</strong>
     </ion-title>
+    <ion-icon *ngIf="isAdmin" (click)="adminPanel()" slot="end" class="admin-panel" name="clipboard-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>

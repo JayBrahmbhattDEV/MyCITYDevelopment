@@ -33,4 +33,8 @@ export class ReportsService {
   getReportsWithPagination(pageNo){
     return this.http.get(`${this.api}/record/page/` + pageNo);
   }
+
+  approveReport(recordId, isPending){
+    return this.http.patch(`${this.api}/record/update/${recordId}`, isPending);
+  }
 }

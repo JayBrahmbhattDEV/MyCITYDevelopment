@@ -8,7 +8,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class AccountService {
   api = environment.api
-  token = localStorage.getItem("token")
+  token = localStorage.getItem("token");
   private user$ = new Subject();
   constructor(private http: HttpClient) { }
 

@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardPage implements OnInit {
   isReportLoaded = false;
+  isAdmin: any;
   pages = [
     {
       text: 'Add Report',
@@ -51,6 +52,10 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.storage.create();
     this.getReports();
+  }
+
+  ionViewWillEnter(){
+    this.isAdmin = localStorage.getItem("isAdmin");  
   }
 
   addReport(pageType: any) {
@@ -90,6 +95,10 @@ export class DashboardPage implements OnInit {
         );
       }
     }
+  }
+
+  adminPanel(){
+    this.router.navigateByUrl('/reports');
   }
 
   getReports() {

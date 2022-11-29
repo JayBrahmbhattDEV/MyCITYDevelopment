@@ -11,6 +11,7 @@ import { MESSAGES } from '../utils/constants';
 })
 export class ReportsPage implements OnInit {
   reports = [];
+  isAdmin: any;
   allUserReports: Array<any> = [];
   isReportLoaded = false;
   constructor(
@@ -21,6 +22,10 @@ export class ReportsPage implements OnInit {
 
   ngOnInit() {
     this.getReports();
+  }
+
+  ionViewWillEnter(){
+    this.isAdmin = localStorage.getItem("isAdmin");  
   }
 
   getReports() {
