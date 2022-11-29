@@ -61,7 +61,7 @@
       <ion-item class="ion-margin-vertical">
         <ion-icon slot="start" name="location"></ion-icon>
         <ion-label>
-          {{ this.addressVal || reportForm.value.address || this.longitudeVal}}
+          {{ this.addressVal || reportForm?.value?.address || this.longitudeVal}}
         </ion-label>
       </ion-item>
       <ion-card *ngIf="!isMapLoading">

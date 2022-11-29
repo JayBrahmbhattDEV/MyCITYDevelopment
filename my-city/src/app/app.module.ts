@@ -15,6 +15,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { TokenInterceptor } from './services/auth-interceptor';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx';
+import { Network } from '@ionic-native/network/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -39,6 +40,7 @@ import { LocationAccuracy } from '@awesome-cordova-plugins/location-accuracy/ngx
     Camera,
     AndroidPermissions,
     LocationAccuracy,
+    Network,
   ],
   bootstrap: [AppComponent],
 })

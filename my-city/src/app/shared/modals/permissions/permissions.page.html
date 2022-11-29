@@ -1,0 +1,11 @@
+<ion-content class="ion-padding">
+  <div class="h-100 v-center">
+    <ion-img [src]="imageType"></ion-img>
+    <br />
+    <div>{{ message }}</div>
+    <br />
+    <ion-button *ngIf="buttonText" (click)="handleClickEvnet()" expand="block">
+      {{buttonText}}
+    </ion-button>
+  </div>
+</ion-content>

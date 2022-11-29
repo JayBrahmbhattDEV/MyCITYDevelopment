@@ -86,6 +86,10 @@ const routes: Routes = [
     path: 'add-report-sucess',
     loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then( m => m.AddReportSucessPageModule)
   },
+  {
+    path: 'permissions',
+    loadChildren: () => import('./shared/modals/permissions/permissions.module').then( m => m.PermissionsPageModule)
+  },
 
 
 ];

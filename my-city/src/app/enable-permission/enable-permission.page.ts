@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { CommonService } from '../services/common.service';
 import { PermissionService } from './permission.service';
-import { IonModal } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-enable-permission',
@@ -10,11 +10,10 @@ import { IonModal } from '@ionic/angular';
   styleUrls: ['./enable-permission.page.scss'],
 })
 export class EnablePermissionPage {
-  @ViewChild(IonModal) modal: IonModal;
   constructor(
     private permissionService: PermissionService,
-    private commonService: CommonService,
-    private navContoller: NavController
+    private navContoller: NavController,
+    private menuController: ModalController
   ) {}
   async enableLocation() {
     try {
@@ -28,8 +27,7 @@ export class EnablePermissionPage {
     }
   }
 
-  
   cancel() {
-    this.modal.dismiss(null, 'cancel');
+    this.menuController.dismiss();
   }
 }

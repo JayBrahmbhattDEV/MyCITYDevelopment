@@ -29,6 +29,7 @@
     "@ionic-native/crop": "^5.36.0",
     "@ionic-native/file": "^5.36.0",
     "@ionic-native/location-accuracy": "^5.36.0",
+    "@ionic-native/network": "^5.36.0",
     "@ionic/angular": "^6.1.9",
     "@ionic/cordova-builders": "^7.0.0",
     "@ionic/storage-angular": "^3.0.6",
@@ -68,6 +69,7 @@
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-nativegeocoder": "^3.4.1",
     "cordova-plugin-nativestorage": "^2.3.2",
+    "cordova-plugin-network-information": "^3.0.0",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
@@ -107,7 +109,8 @@
       "cordova-plugin-crop": {},
       "cordova-plugin-file": {
         "ANDROIDX_WEBKIT_VERSION": "1.4.0"
-      }
+      },
+      "cordova-plugin-network-information": {}
     },
     "platforms": [
       "android"

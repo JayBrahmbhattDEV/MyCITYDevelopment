@@ -74,4 +74,6 @@ ion-back-button {
 .v-center {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }

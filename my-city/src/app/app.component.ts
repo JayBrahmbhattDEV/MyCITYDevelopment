@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AccountService } from './services/account.service';
-import { NavController, Platform } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Network } from '@ionic-native/network/ngx';
+import { PermissionsPage } from './shared/modals/permissions/permissions.page';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -40,12 +42,15 @@ export class AppComponent {
       show: true,
     },
   ];
-
+  modal: HTMLIonModalElement;
+  backButtonPriority = 10;
   constructor(
     public readonly accountService: AccountService,
     private readonly platform: Platform,
     private readonly location: Location,
-    private readonly navController: NavController
+    private readonly navController: NavController,
+    private readonly network: Network,
+    private readonly modalController: ModalController
   ) {
     this.accountService.userDetails.subscribe((user: any) => {
       if (!user) {
@@ -58,10 +63,8 @@ export class AppComponent {
           x.show = user;
         });
     });
-
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       const url = this.location.path();
-      console.log(url);
       if (url === '/enable-permission' || url === '/add-report') {
         this.navController.navigateRoot('/dashboard');
         return;
@@ -72,5 +75,34 @@ export class AppComponent {
       }
       processNextHandler();
     });
+
+    this.network.onChange().subscribe((connection: string) => {
+      if (connection === 'connected') {
+        if (this.modal) {
+          this.modal.canDismiss = true;
+          this.modal?.dismiss();
+          this.backButtonPriority = 10;
+        }
+      }
+      if (connection === 'disconnected') {
+        this.backButtonPriority = 0;
+        this.openModal();
+      }
+    });
+  }
+
+  async openModal() {
+    this.modal = await this.modalController.create({
+      component: PermissionsPage,
+      backdropDismiss: false,
+      canDismiss: false,
+      componentProps: {
+        message: 'please turn on mobile data or connect to wifi',
+        type: 'internet',
+        redirectTo: '',
+      },
+    });
+
+    this.modal.present();
   }
 }

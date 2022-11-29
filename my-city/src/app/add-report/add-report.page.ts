@@ -10,12 +10,13 @@ import { NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder';
 import { ActivatedRoute } from '@angular/router';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { PermissionService } from '../enable-permission/permission.service';
-import { IonModal } from '@ionic/angular';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { File } from '@ionic-native/file/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { EnablePermissionPage } from '../enable-permission/enable-permission.page';
 import { AccountService } from '../services/account.service';
+import { PermissionsPage } from '../shared/modals/permissions/permissions.page';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-add-report',
@@ -24,7 +25,6 @@ import { AccountService } from '../services/account.service';
 })
 export class AddReportPage implements OnInit {
   @ViewChild('subCategory') ddSubCategory: IonSelect;
-  @ViewChild(IonModal) modal: IonModal;
   provider = new OpenStreetMapProvider();
   locations = [];
   paramsObject: any;
@@ -180,15 +180,16 @@ export class AddReportPage implements OnInit {
     private file: File,
     private crop: Crop,
     public modalController: ModalController
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.initReportForm();
   }
 
   ionViewDidEnter() {
+    this.checkCameraPermission();
     if (!this.paramsObject) {
-      this.checkPermission();
+      this.checkLocationPermission();
     }
     this.activatedRoute.queryParamMap.subscribe((params) => {
       this.paramsObject = { ...params.keys, ...params };
@@ -201,49 +202,50 @@ export class AddReportPage implements OnInit {
     });
   }
 
-  async checkPermission() {
+  checkCameraPermission() {
+    this.androidPermissions
+      .checkPermission(this.androidPermissions.PERMISSION.CAMERA)
+      .then(
+        (result) => this.androidPermissions.requestPermission(
+          this.androidPermissions.PERMISSION.CAMERA
+        ),
+        (err) =>
+          this.androidPermissions.requestPermission(
+            this.androidPermissions.PERMISSION.CAMERA
+          )
+      );
+  }
+
+  async checkLocationPermission() {
     try {
       const permission = await this.permissionService.checkGPSPermission();
       if (!permission.hasPermission) {
-        // this.navController.navigateRoot('/enable-permission');
         this.presentModal();
       }
       const enablePermission =
         await this.permissionService.reqestGPSPermission();
       if (!enablePermission.hasPermission) {
-        // this.navController.navigateRoot('/enable-permission');
         this.presentModal();
-      } else {
-        this.getCurrentLocation();
       }
       const isEnabled = await this.permissionService.enableGPS();
       if (isEnabled?.code === 4) {
-        // this.navController.navigateRoot('/enable-permission');
         this.presentModal();
       } else if (isEnabled?.code === 0) {
         setTimeout(() => {
-          this.getCurrentLocation();
+          this.getCurrentLocation(true);
         }, 100);
       }
     } catch (error) {
       if (error?.code === 4) {
-        // this.navController.navigateRoot('/enable-permission');
         this.presentModal();
       }
     }
   }
 
   reqestGPSPermission() {
-    this.androidPermissions
-      .requestPermission(
-        this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
-      )
-      .then((response) => {
-        console.log({ response });
-      })
-      .catch((e) => {
-        console.log({ e });
-      });
+    return this.androidPermissions.requestPermission(
+      this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+    );
   }
 
   getSubCategory($event) {
@@ -273,11 +275,11 @@ export class AddReportPage implements OnInit {
         address: location.label,
       },
     });
-    this.modal.dismiss(null, 'cancel');
+    this.modalController.dismiss(null, 'cancel');
   }
 
   openMap() {
-    this.modal.dismiss(null, 'cancel');
+    this.modalController.dismiss(null, 'cancel');
     this.navController.navigateForward(`/map`, {
       queryParams: {
         ...this.latLon,
@@ -307,7 +309,15 @@ export class AddReportPage implements OnInit {
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: EnablePermissionPage
+      component: PermissionsPage,
+      componentProps: {
+        message:
+          'Oops! In order to add a report, We need to know your location!',
+        type: 'gps',
+        redirectTo: '',
+        handleClick: () => this.enableLocation(),
+        buttonText: `Enable Location`,
+      },
     });
     return await modal.present();
   }
@@ -356,7 +366,7 @@ export class AddReportPage implements OnInit {
             {
               text: 'Cancel',
               role: 'cancel',
-              handler: () => { },
+              handler: () => {},
             },
             {
               text: 'Login Now',
@@ -371,8 +381,7 @@ export class AddReportPage implements OnInit {
           ],
         }
       );
-    }
-    else {
+    } else {
       const blob = this.convertBase64ToBlob(this.image);
       const reportData = new FormData();
       reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
@@ -411,21 +420,32 @@ export class AddReportPage implements OnInit {
     }
   }
 
-  getCurrentLocation() {
+  getCurrentLocation(showLoader = false) {
+    if (showLoader) {
+      this.commonService.presentLoading();
+    }
     this.geolocation
-      .getCurrentPosition()
+      .getCurrentPosition({
+        timeout: 1000,
+      })
       .then((response) => {
+        setTimeout(() => {
+          this.commonService.hideLoading();
+        }, 1000);
         this.getAddress(response.coords.latitude, response.coords.longitude);
       })
       .catch((e) => {
         if (e?.code === 1) {
           this.navController.navigateRoot('/enable-permission');
         }
+        setTimeout(() => {
+          this.commonService.hideLoading();
+        }, 1000);
       });
   }
 
   cancel() {
-    this.modal.dismiss(null, 'cancel');
+    this.modalController.dismiss(null, 'cancel');
   }
 
   getAddress(latitude: number, longitude: number) {
@@ -438,11 +458,13 @@ export class AddReportPage implements OnInit {
       .then((locations: NativeGeocoderResult[]) => {
         const nativeGeocoderResult = locations[0];
         this.reportForm.patchValue({
-          address: `${nativeGeocoderResult.thoroughfare
+          address: `${
+            nativeGeocoderResult.thoroughfare
               ? nativeGeocoderResult.thoroughfare + ','
               : nativeGeocoderResult.thoroughfare
-            } ${nativeGeocoderResult.subLocality} , ${nativeGeocoderResult.locality
-            } , ${nativeGeocoderResult.postalCode} `,
+          } ${nativeGeocoderResult.subLocality} , ${
+            nativeGeocoderResult.locality
+          } , ${nativeGeocoderResult.postalCode} `,
         });
         this.latLon.latitude = nativeGeocoderResult.latitude;
         this.latLon.longitude = nativeGeocoderResult.longitude;
@@ -450,7 +472,7 @@ export class AddReportPage implements OnInit {
         this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
         this.isMapLoading = false;
       })
-      .catch((e) => { });
+      .catch((e) => {});
   }
 
   cropImage(fileUrl) {
@@ -470,5 +492,19 @@ export class AddReportPage implements OnInit {
     this.file.readAsDataURL(filePath, imageName).then((base64) => {
       this.image = base64;
     });
+  }
+
+  async enableLocation() {
+    try {
+      const response = await this.permissionService.enableGPS();
+      if (response?.code === 1 || response?.code === 0) {
+        this.cancel();
+        setTimeout(() => {
+          this.getCurrentLocation(true);
+        }, 1000);
+      }
+    } catch (error) {
+      console.log({ error });
+    }
   }
 }
