@@ -21,11 +21,11 @@ export class ReportsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getReports();
   }
 
   ionViewWillEnter(){
     this.isAdmin = localStorage.getItem("isAdmin");  
+    this.getReports();
   }
 
   getReports() {

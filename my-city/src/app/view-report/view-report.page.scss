@@ -1,3 +1,12 @@
 .approve-btn{
     margin-left: 60%;
 }
+
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+{
+    .approve-btn{
+        margin-left: 80%;
+    }
+}
