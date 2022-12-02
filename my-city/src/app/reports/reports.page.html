@@ -3,13 +3,13 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="!isAdmin">My Reports</ion-title>
-    <ion-title *ngIf="isAdmin">Pending Reports</ion-title>
+    <ion-title *ngIf="!adminPanel">My Reports</ion-title>
+    <ion-title *ngIf="adminPanel">Pending Reports</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ng-container *ngIf="allUserReports.length">
+  <ng-container *ngIf="allUserReports.length && !adminPanel">
     <app-mc-report-card
       *ngFor="let report of allUserReports"
       [report]="report"
@@ -19,6 +19,12 @@
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </div>
+  </ng-container>
+  <ng-container *ngIf="allPendingReports.length && adminPanel">
+    <app-mc-report-card
+      *ngFor="let report of allPendingReports"
+      [report]="report"
+    ></app-mc-report-card>
   </ng-container>
   <ng-container *ngIf="!isReportLoaded">
     <app-report-card-skeleton

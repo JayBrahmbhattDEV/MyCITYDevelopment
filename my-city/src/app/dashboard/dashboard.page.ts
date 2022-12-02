@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 export class DashboardPage implements OnInit {
   isReportLoaded = false;
   isAdmin: any;
+  totalReports: any;
   pages = [
     {
       text: 'Add Report',
@@ -47,29 +48,30 @@ export class DashboardPage implements OnInit {
     private navController: NavController,
     private commonService: CommonService,
     private readonly reports: ReportsService
-  ) {}
+  ) {
+    this.isAdmin = localStorage.getItem('isAdmin');
+  }
 
   ngOnInit() {
     this.storage.create();
     this.getReports();
   }
 
-  ionViewWillEnter(){
-    this.isAdmin = localStorage.getItem("isAdmin");  
+  ionViewWillEnter() {
+    this.reports.getReports().subscribe((res: any) => {
+      this.totalReports = res.data.length;
+    });
   }
 
   addReport(pageType: any) {
     if (pageType === 'Recent Reports') {
       this.router.navigateByUrl('/recent-reports');
-    }
-    else if(pageType === 'Add Report'){
+    } else if (pageType === 'Add Report') {
       this.router.navigateByUrl('/add-report');
-    }
-    else if (pageType === 'My Reports') {
-      if(this.accountService.token){
+    } else if (pageType === 'My Reports') {
+      if (this.accountService.token) {
         this.router.navigateByUrl('/reports');
-      }
-      else {
+      } else {
         this.commonService.presentAlert(
           `Oops, it looks like you aren't logged in yet, do you want to login?`,
           'Information',
@@ -97,8 +99,8 @@ export class DashboardPage implements OnInit {
     }
   }
 
-  adminPanel(){
-    this.router.navigateByUrl('/reports');
+  adminPanel(isAdmin) {
+    this.router.navigateByUrl('/reports', { state: isAdmin });
   }
 
   getReports() {
