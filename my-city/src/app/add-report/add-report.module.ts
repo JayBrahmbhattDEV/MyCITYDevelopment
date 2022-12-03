@@ -22,6 +22,12 @@ import { File } from '@ionic-native/file/ngx';
     SharedModule,
   ],
   declarations: [AddReportPage],
-  providers: [Geolocation, NativeGeocoder, AndroidPermissions, Crop, File],
+  providers: [
+    Geolocation,
+    NativeGeocoder,
+    AndroidPermissions,
+    Crop,
+    File,
+  ],
 })
 export class AddReportPageModule {}

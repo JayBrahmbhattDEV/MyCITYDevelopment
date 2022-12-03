@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect, ModalController, NavController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  IonSelect,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
@@ -13,11 +18,9 @@ import { PermissionService } from '../enable-permission/permission.service';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { File } from '@ionic-native/file/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
-import { EnablePermissionPage } from '../enable-permission/enable-permission.page';
 import { AccountService } from '../services/account.service';
 import { PermissionsPage } from '../shared/modals/permissions/permissions.page';
 import { forkJoin } from 'rxjs';
-
 @Component({
   selector: 'app-add-report',
   templateUrl: './add-report.page.html',
@@ -149,7 +152,7 @@ export class AddReportPage implements OnInit {
 
   subCategoriesTemp = [];
 
-  options: CameraOptions = {
+  cameraOptions: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.FILE_URI,
     encodingType: this.camera.EncodingType.JPEG,
@@ -165,6 +168,7 @@ export class AddReportPage implements OnInit {
   };
   area: any;
   isMapLoading = true;
+  enablePermissionModal: HTMLIonModalElement;
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
@@ -179,7 +183,8 @@ export class AddReportPage implements OnInit {
     private permissionService: PermissionService,
     private file: File,
     private crop: Crop,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private actionSheetController: ActionSheetController,
   ) {}
 
   ngOnInit() {
@@ -197,7 +202,7 @@ export class AddReportPage implements OnInit {
       this.latitudeVal = this.paramsObject.params.lon;
       this.getAddress(
         +this.paramsObject.params.lat,
-        +this.paramsObject.params.lon
+        +this.paramsObject.params.lon,
       );
     });
   }
@@ -206,27 +211,27 @@ export class AddReportPage implements OnInit {
     this.androidPermissions
       .checkPermission(this.androidPermissions.PERMISSION.CAMERA)
       .then(
-        (result) => this.androidPermissions.requestPermission(
-          this.androidPermissions.PERMISSION.CAMERA
-        ),
+        (result) =>
+          this.androidPermissions.requestPermission(
+            this.androidPermissions.PERMISSION.CAMERA,
+          ),
         (err) =>
           this.androidPermissions.requestPermission(
-            this.androidPermissions.PERMISSION.CAMERA
-          )
+            this.androidPermissions.PERMISSION.CAMERA,
+          ),
       );
   }
 
   async checkLocationPermission() {
     try {
+      console.log('check permission');
       const permission = await this.permissionService.checkGPSPermission();
-      if (!permission.hasPermission) {
+      const enablePermission = await this.permissionService.reqestGPSPermission();
+      if (!permission.hasPermission || !enablePermission.hasPermission) {
         this.presentModal();
+        return;
       }
-      const enablePermission =
-        await this.permissionService.reqestGPSPermission();
-      if (!enablePermission.hasPermission) {
-        this.presentModal();
-      }
+
       const isEnabled = await this.permissionService.enableGPS();
       if (isEnabled?.code === 4) {
         this.presentModal();
@@ -244,14 +249,14 @@ export class AddReportPage implements OnInit {
 
   reqestGPSPermission() {
     return this.androidPermissions.requestPermission(
-      this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION
+      this.androidPermissions.PERMISSION.ACCESS_FINE_LOCATION,
     );
   }
 
   getSubCategory($event) {
     this.ddSubCategory.value = null;
     this.subCategoriesTemp = this.subCategories.filter(
-      (x) => x.parent === $event.detail.value
+      (x) => x.parent === $event.detail.value,
     );
   }
 
@@ -289,8 +294,9 @@ export class AddReportPage implements OnInit {
 
   openCamera() {
     this.camera
-      .getPicture(this.options)
+      .getPicture(this.cameraOptions)
       .then((imageData) => {
+        console.log({ imageData });
         this.cropImage(imageData);
       })
       .catch((e) => {
@@ -308,7 +314,10 @@ export class AddReportPage implements OnInit {
   }
 
   async presentModal() {
-    const modal = await this.modalController.create({
+    if (this.enablePermissionModal) {
+      return;
+    }
+    this.enablePermissionModal = await this.modalController.create({
       component: PermissionsPage,
       componentProps: {
         message:
@@ -319,7 +328,7 @@ export class AddReportPage implements OnInit {
         buttonText: `Enable Location`,
       },
     });
-    return await modal.present();
+    return await this.enablePermissionModal.present();
   }
 
   convertBase64ToBlob(base64: string) {
@@ -379,7 +388,7 @@ export class AddReportPage implements OnInit {
                 }),
             },
           ],
-        }
+        },
       );
     } else {
       const blob = this.convertBase64ToBlob(this.image);
@@ -390,10 +399,10 @@ export class AddReportPage implements OnInit {
         JSON.stringify({
           latitude: this.latLon.latitude,
           longitude: this.latLon.longitude,
-        })
+        }),
       );
       this.reportForm.value.category = this.categories.find(
-        (category) => category.id === this.reportForm.value.category
+        (category) => category.id === this.reportForm.value.category,
       ).text;
       Object.keys(this.reportForm.value).forEach((key) => {
         reportData.append(key, this.reportForm.value[key]);
@@ -415,7 +424,7 @@ export class AddReportPage implements OnInit {
         },
         (e) => {
           console.log(e);
-        }
+        },
       );
     }
   }
@@ -426,7 +435,7 @@ export class AddReportPage implements OnInit {
     }
     this.geolocation
       .getCurrentPosition({
-        timeout: 1000,
+        timeout: 20000,
       })
       .then((response) => {
         setTimeout(() => {
@@ -435,6 +444,7 @@ export class AddReportPage implements OnInit {
         this.getAddress(response.coords.latitude, response.coords.longitude);
       })
       .catch((e) => {
+        console.log({ e });
         if (e?.code === 1) {
           this.navController.navigateRoot('/enable-permission');
         }
@@ -476,11 +486,12 @@ export class AddReportPage implements OnInit {
   }
 
   cropImage(fileUrl) {
-    this.crop
-      .crop(fileUrl, { quality: 50, targetHeight: 100 })
-      .then((newPath) => {
+    this.crop.crop(fileUrl, { quality: 50, targetHeight: 100 }).then(
+      (newPath) => {
         this.showCroppedImage(newPath.split('?')[0]);
-      });
+      },
+      (e) => console.log(e),
+    );
   }
 
   showCroppedImage(imagePath: string) {
@@ -506,5 +517,34 @@ export class AddReportPage implements OnInit {
     } catch (error) {
       console.log({ error });
     }
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: 'Take photo',
+          role: 'button',
+          handler: () => {
+            this.cameraOptions.sourceType = 1;
+            this.openCamera();
+          },
+        },
+        {
+          text: 'Add photo',
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
   }
 }

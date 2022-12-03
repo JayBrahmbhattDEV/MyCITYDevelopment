@@ -38,6 +38,7 @@ export interface Report {
   imgUrl: string;
   imageLoaded: boolean;
   isClosed: boolean;
+  isPending: boolean;
 }
 
 export interface UserReport {

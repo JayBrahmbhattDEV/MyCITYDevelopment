@@ -8,6 +8,7 @@ import { McMapComponent } from '../../components/mc-map/mc-map.component';
 import { ReportsEmptyStateComponent } from '../../components/reports-empty-state/reports-empty-state.component';
 import { RouterModule } from '@angular/router';
 import { ReportCardSkeletonComponent } from '../../components/report-card-skeleton/report-card-skeleton.component';
+import { NgxTranslateModule } from '../translate/translate.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ReportCardSkeletonComponent } from '../../components/report-card-skelet
     ReportsEmptyStateComponent,
     ReportCardSkeletonComponent,
   ],
-  imports: [CommonModule, IonicModule, RouterModule],
+  imports: [CommonModule, IonicModule, RouterModule, NgxTranslateModule],
   exports: [
     McDashboardButtonComponent,
     McReportCardComponent,
@@ -28,4 +29,4 @@ import { ReportCardSkeletonComponent } from '../../components/report-card-skelet
     ReportCardSkeletonComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
