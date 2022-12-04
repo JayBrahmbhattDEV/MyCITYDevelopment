@@ -20,18 +20,22 @@ export class DashboardPage implements OnInit {
   pages = [
     {
       text: 'DASHBOARD_PAGE.Add Report',
+      url: '/add-report',
       image: './assets/icon/add-report.svg',
     },
     {
       text: 'DASHBOARD_PAGE.My Reports',
+      url: '/recent-reports',
       image: './assets/icon/my-reports.svg',
     },
     {
       text: 'DASHBOARD_PAGE.Recent Reports',
+      url: '/reports',
       image: './assets/icon/recent-reports.svg',
     },
     {
-      text: 'DASHBOARD_PAGE.Goverment Alerts',
+      text: 'DASHBOARD_PAGE.Government suggestions',
+      url: '/recent-reports',
       image: './assets/icon/goverments-alerts.svg',
     },
   ];
@@ -63,12 +67,8 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  addReport(pageType: any) {
-    if (pageType === 'Recent Reports') {
-      this.router.navigateByUrl('/recent-reports');
-    } else if (pageType === 'Add Report') {
-      this.router.navigateByUrl('/add-report');
-    } else if (pageType === 'My Reports') {
+  addReport(url: string) {
+    if (url === 'My Reports') {
       if (this.accountService.token) {
         this.router.navigateByUrl('/reports');
       } else {
@@ -80,7 +80,7 @@ export class DashboardPage implements OnInit {
               {
                 text: 'Cancel',
                 role: 'cancel',
-                handler: () => {},
+                handler: () => { },
               },
               {
                 text: 'Login Now',
@@ -96,7 +96,9 @@ export class DashboardPage implements OnInit {
           }
         );
       }
+      return;
     }
+    this.router.navigateByUrl(url);
   }
 
   adminPanel(isAdmin) {

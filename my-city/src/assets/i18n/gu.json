@@ -15,8 +15,19 @@
     "DASHBOARD": "ડેશબોર્ડ",
     "Add Report": "રિપોર્ટ ઉમેરો",
     "My Reports": "મારા અહેવાલો",
-    "Recent Reports": "તાજેતરના અહેવાલો" ,
+    "Recent Reports": "તાજેતરના અહેવાલો",
     "Government suggestions": "સરકારી સૂચનો",
     "View All": "બધુજ જુઓ"
+  },
+  "ADD_REPORT_PAGE": {
+    "ADD_REPORT": "અહેવાલ ઉમેરો",
+    "Category": "શ્રેણી",
+    "Sub Category": "ઉપ શ્રેણી",
+    "Description": "વર્ણન",
+    "Change Location": "સ્થાન બદલો",
+    "Add Report": "અહેવાલ ઉમેરો",
+    "Please describe your problem": "કૃપા કરીને તમારી સમસ્યાનું વર્ણન કરો",
+    "Select Sub category": "સબ કેટેગરી પસંદ કરો",
+    "Select Category": "શ્રેણી પસંદ કરો"
   }
 }

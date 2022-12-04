@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Add Report</ion-title>
+    <ion-title>{{ 'ADD_REPORT_PAGE.ADD_REPORT' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,11 +16,13 @@
     ></ion-img>
     <ion-list>
       <ion-item class="ion-margin-vertical">
-        <ion-label position="floating">Category</ion-label>
+        <ion-label position="floating"
+          >{{'ADD_REPORT_PAGE.Category' | translate}}</ion-label
+        >
         <ion-select
           formControlName="category"
           (ionChange)="getSubCategory($event)"
-          placeholder="Select Category"
+          [placeholder]="'ADD_REPORT_PAGE.Select Category' | translate"
           okText="Okay"
           cancelText="Cancel"
         >
@@ -33,12 +35,14 @@
         </ion-select>
       </ion-item>
       <ion-item class="ion-margin-vertical">
-        <ion-label position="floating">Sub Category</ion-label>
+        <ion-label position="floating"
+          >{{'ADD_REPORT_PAGE.Sub Category' | translate}}</ion-label
+        >
         <ion-select
           #subCategory
           formControlName="subCategory"
           [disabled]="!subCategoriesTemp.length"
-          placeholder="Select Sub Category"
+          [placeholder]="'ADD_REPORT_PAGE.Select Sub category' | translate"
           okText="Okay"
           cancelText="Cancel"
         >
@@ -51,10 +55,12 @@
         </ion-select>
       </ion-item>
       <ion-item lines="none" class="ion-margin-vertical">
-        <ion-label position="stacked">Description</ion-label>
+        <ion-label position="stacked"
+          >{{'ADD_REPORT_PAGE.Description' | translate}}</ion-label
+        >
         <ion-textarea
           formControlName="description"
-          placeholder="Please describe your problem"
+          [placeholder]="'ADD_REPORT_PAGE.Please describe your problem' | translate"
         >
         </ion-textarea>
       </ion-item>
@@ -76,7 +82,7 @@
         shape="round"
         expand="block"
       >
-        <ion-text>Change Location</ion-text>
+        <ion-text>{{'ADD_REPORT_PAGE.Change Location' | translate}}</ion-text>
       </ion-button>
       <ion-button
         type="submit"
@@ -85,7 +91,7 @@
         expand="block"
         [disabled]="reportForm.invalid"
       >
-        <ion-text>Add Report</ion-text>
+        <ion-text> {{ 'ADD_REPORT_PAGE.ADD_REPORT' | translate }} </ion-text>
       </ion-button>
     </ion-list>
   </form>

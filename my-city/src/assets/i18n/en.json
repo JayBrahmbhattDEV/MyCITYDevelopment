@@ -18,5 +18,16 @@
     "Recent Reports": "Recent Reports" ,
     "Government suggestions": "Government suggestions",
     "View All": "View All"
+  },
+  "ADD_REPORT_PAGE": {
+    "ADD_REPORT": "Add Report",
+    "Category": "Category",
+    "Sub Category": "Sub Category",
+    "Description": "Description",
+    "Change Location": "Change Location",
+    "Add Report": "Add Report",
+    "Please describe your problem": "Please describe you problem",
+    "Select Sub category": "Select Sub category",
+    "Select Category": "Select Category"
   }
 }

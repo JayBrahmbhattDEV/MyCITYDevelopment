@@ -12,6 +12,7 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { SharedModule } from '../shared/modules/shared/shared.module';
 import { Crop } from '@ionic-native/crop/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +21,7 @@ import { File } from '@ionic-native/file/ngx';
     AddReportPageRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    TranslateModule
   ],
   declarations: [AddReportPage],
   providers: [
