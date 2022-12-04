@@ -14,8 +14,8 @@ import { RecentReportsPage } from './recent-reports.page';
     FormsModule,
     IonicModule,
     RecentReportsPageRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   declarations: [RecentReportsPage]
 })
-export class RecentReportsPageModule {}
+export class RecentReportsPageModule { }

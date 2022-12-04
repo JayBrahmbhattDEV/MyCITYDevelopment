@@ -15,28 +15,28 @@ export class AppComponent {
   userName: any;
   pages = [
     {
-      title: 'Dashboard',
+      title: 'SIDE_MENU.Dashboard',
       url: '/dashboard',
       icon: 'albums',
       isAuthRequired: true,
       show: false,
     },
     {
-      title: 'Profile',
+      title: 'SIDE_MENU.Profile',
       url: '/profile',
       icon: 'person',
       isAuthRequired: true,
       show: false,
     },
     {
-      title: 'About Us',
+      title: 'SIDE_MENU.About Us',
       url: '/about',
       icon: 'information',
       isAuthRequired: false,
       show: true,
     },
     {
-      title: 'Privacy Policy',
+      title: 'SIDE_MENU.Privacy Policy',
       url: '/privacy',
       icon: 'document-lock',
       isAuthRequired: false,

@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { AboutPageRoutingModule } from './about-routing.module';
 
 import { AboutPage } from './about.page';
+import { SharedModule } from '../shared/modules/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AboutPageRoutingModule
+    AboutPageRoutingModule,
+    SharedModule
   ],
   declarations: [AboutPage]
 })
-export class AboutPageModule {}
+export class AboutPageModule { }

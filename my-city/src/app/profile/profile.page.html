@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Your profile</ion-title>
+    <ion-title>{{'PROFILE_PAGE.Your Profile' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,39 +14,39 @@
     </div>
     <ion-list>
       <ion-item class="ion-margin-vertical">
-        <ion-label position="floating">Name</ion-label>
+        <ion-label position="floating"
+          >{{'PROFILE_PAGE.Name' | translate}}</ion-label
+        >
         <ion-textarea
           formControlName="name"
-          placeholder="Enter your name"
+          [placeholder]="'LOGIN_PAGE.Enter your name' | translate"
         ></ion-textarea>
       </ion-item>
 
       <ion-item disabled class="ion-margin-vertical">
-        <ion-label position="floating">Email</ion-label>
-        <ion-textarea
-          formControlName="email"
-          placeholder="Enter your email"
-        ></ion-textarea>
+        <ion-label position="floating"
+          >{{'PROFILE_PAGE.Name' | translate}}</ion-label
+        >
+        <ion-textarea formControlName="email"></ion-textarea>
       </ion-item>
 
       <ion-item disabled class="ion-margin-vertical">
-        <ion-label position="floating">Phone</ion-label>
-        <ion-textarea
-          formControlName="phone"
-          placeholder="Enter your number"
-        ></ion-textarea>
+        <ion-label position="floating"
+          >{{'PROFILE_PAGE.Phone' | translate}}</ion-label
+        >
+        <ion-textarea formControlName="phone"></ion-textarea>
       </ion-item>
 
       <ion-item class="ion-margin-vertical">
-        <ion-label position="stacked">Address</ion-label>
+        <ion-label position="stacked">{{'PROFILE_PAGE.Address' | translate}}</ion-label>
         <ion-textarea
           formControlName="address"
-          placeholder="Enter your address"
+          [placeholder]="'PROFILE_PAGE.Enter Your Address' | translate"
         ></ion-textarea>
       </ion-item>
 
       <ion-item button="true" id="open-datetime">
-        <ion-label>Birthday</ion-label>
+        <ion-label>{{'PROFILE_PAGE.Birthday' | translate}}</ion-label>
         <ion-text> {{this.userDob | date:'MMMM d, y'}} </ion-text>
         <ion-modal class="datetime-modal" trigger="open-datetime">
           <ng-template>
@@ -74,15 +74,16 @@
         shape="round"
         expand="block"
       >
-        Update profile
+        {{'PROFILE_PAGE.Update Profile' | translate}}
       </ion-button>
       <ion-button
         (click)="logOut()"
         class="ion-margin"
         shape="round"
         expand="block"
-        color="danger">
-        Log-Out
+        color="danger"
+      >
+        {{'PROFILE_PAGE.Logout' | translate}}
       </ion-button>
     </ion-list>
   </form>

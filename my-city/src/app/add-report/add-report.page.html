@@ -102,10 +102,16 @@
           <ion-buttons slot="start">
             <ion-icon (click)="cancel()" name="close-outline"></ion-icon>
           </ion-buttons>
-          <ion-title>Search for your location</ion-title>
+          <ion-title>
+            {{ 'SEARCH_FOR_YOUR_LOCATION.Search for your location' | translate
+            }}
+          </ion-title>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar (ionChange)="searchLocation($event)"></ion-searchbar>
+          <ion-searchbar
+            [placeholder]="'SEARCH_FOR_YOUR_LOCATION.Search' | translate"
+            (ionChange)="searchLocation($event)"
+          ></ion-searchbar>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
@@ -125,7 +131,9 @@
       <ion-footer>
         <ion-toolbar>
           <ion-title class="ion-text-center">
-            <ion-text (click)="openMap()"> Choose location on map </ion-text>
+            <ion-text (click)="openMap()">
+              {{'SEARCH_FOR_YOUR_LOCATION.Choose location on map' | translate}}
+            </ion-text>
           </ion-title>
         </ion-toolbar>
       </ion-footer>

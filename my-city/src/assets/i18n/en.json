@@ -15,7 +15,7 @@
     "DASHBOARD": "Dashboard",
     "Add Report": "Add Report",
     "My Reports": "My Reports",
-    "Recent Reports": "Recent Reports" ,
+    "Recent Reports": "Recent Reports",
     "Government suggestions": "Government suggestions",
     "View All": "View All"
   },
@@ -29,5 +29,42 @@
     "Please describe your problem": "Please describe you problem",
     "Select Sub category": "Select Sub category",
     "Select Category": "Select Category"
+  },
+  "SEARCH_FOR_YOUR_LOCATION": {
+    "Search for your location": "Search for your location",
+    "Choose location on map": "choose location on map",
+    "Search": "Search"
+  },
+  "MAP_PAGE": {
+    "Choose Location": "Choose Location",
+    "Confirm Location": "Confirm Location"
+  },
+  "SIDE_MENU": {
+    "Dashboard": "Dashboard",
+    "Profile": "Profile",
+    "About Us": "About Us",
+    "Privacy Policy": "Privacy Policy",
+    "Hello": "Hello"
+  },
+  "RECENT_REPORT_PAGE": {
+    "It looks like you haven't created any reports yet Creating a report is just one tap away!": "It looks like you haven't created any reports yet Creating a report is just one tap away!"
+  },
+  "PROFILE_PAGE": {
+    "Your Profile": "Your Profile",
+    "Name": "Name",
+    "Email": "Email",
+    "Phone": "Phone",
+    "Update Profile": "Update Profile",
+    "Logout": "Logout",
+    "Birthday": "Birthday",
+    "Enter Your Address": "Enter your address",
+    "Address": "Address"
+  },
+  "ABOUT_US": {
+    "POINT_1": "The application is designed to improve the citizen engagement in India eventually serving as a bridge between the government and its citizens",
+    "POINT_2": "The citizens will be able to register their issues such as litter, broken footpaths, potholes etc.",
+    "POINT_3": "The application also has the potential to create employment opportunities and at the same time cater to its citizens.",
+    "POINT_4": "The application on opening will ask new users for basic information like name, email and phone number after which the app will lead the user to its homepage",
+    "POINT_5": "Once on the homepage the user can easily add reports and view reports"
   }
 }

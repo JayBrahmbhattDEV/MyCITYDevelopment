@@ -10,7 +10,7 @@
               slot="start"
             ></ion-icon>
             <ion-label
-              ><h2>Hello!</h2>
+              ><h2>{{ "SIDE_MENU.Hello" | translate }}!</h2>
               <strong>{{ userName || "guest" | titlecase }}</strong></ion-label
             >
           </ion-item>
@@ -33,7 +33,7 @@
                   [ios]="pages.icon + '-outline'"
                   [md]="pages.icon + '-sharp'"
                 ></ion-icon>
-                <ion-label>{{ pages.title }}</ion-label>
+                <ion-label>{{ pages.title | translate }}</ion-label>
               </ion-item>
             </ng-container>
           </ion-menu-toggle>
@@ -45,7 +45,7 @@
               detail="false"
             >
               <ion-icon slot="start" name="log-in-outline"></ion-icon>
-              <ion-label>Login</ion-label>
+              <ion-label>{{ "LOGIN_PAGE.LOGIN" | translate }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
