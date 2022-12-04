@@ -4,7 +4,9 @@
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      <strong class="text-white">Dashboard</strong>
+      <strong class="text-white"
+        >{{'DASHBOARD_PAGE.DASHBOARD' | translate}}</strong
+      >
     </ion-title>
     <ion-buttons slot="end">
       <ion-icon
@@ -29,20 +31,22 @@
       <ion-col class="ion-no-padding" *ngFor="let p of pages" size="6">
         <app-mc-dashboard-button
           [image]="p.image"
-          [text]="p.text"
+          [text]="p.text  | translate"
           (click)="addReport(p.text)"
         ></app-mc-dashboard-button>
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-list-header class="ion-no-margin" mode="ios">
-    <ion-label class="ion-no-margin">Recent reports</ion-label>
+    <ion-label class="ion-no-margin"
+      >{{'DASHBOARD_PAGE.Recent Reports' | translate}}</ion-label
+    >
     <ion-button
       color="dark"
       routerLink="/recent-reports"
       routerDirection="forward"
       class="ion-no-margin"
-      >View all</ion-button
+      >{{'DASHBOARD_PAGE.View All' | translate}}</ion-button
     >
   </ion-list-header>
   <ion-slides [options]="slideOpts">

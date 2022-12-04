@@ -10,5 +10,13 @@
     "Enter your mobile": "તમારો મોબાઈલ દાખલ કરો",
     "Login Now": "હવે લૉગિન કરો",
     "Already have an account?": "પહેલેથી એકાઉન્ટ છે?"
+  },
+  "DASHBOARD_PAGE": {
+    "DASHBOARD": "ડેશબોર્ડ",
+    "Add Report": "રિપોર્ટ ઉમેરો",
+    "My Reports": "મારા અહેવાલો",
+    "Recent Reports": "તાજેતરના અહેવાલો" ,
+    "Government suggestions": "સરકારી સૂચનો",
+    "View All": "બધુજ જુઓ"
   }
 }

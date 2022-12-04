@@ -19,19 +19,19 @@ export class DashboardPage implements OnInit {
   totalReports: any;
   pages = [
     {
-      text: 'Add Report',
+      text: 'DASHBOARD_PAGE.Add Report',
       image: './assets/icon/add-report.svg',
     },
     {
-      text: 'My Reports',
+      text: 'DASHBOARD_PAGE.My Reports',
       image: './assets/icon/my-reports.svg',
     },
     {
-      text: 'Recent Reports',
+      text: 'DASHBOARD_PAGE.Recent Reports',
       image: './assets/icon/recent-reports.svg',
     },
     {
-      text: 'Goverment Alerts',
+      text: 'DASHBOARD_PAGE.Goverment Alerts',
       image: './assets/icon/goverments-alerts.svg',
     },
   ];

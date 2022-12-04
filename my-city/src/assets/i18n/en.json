@@ -10,5 +10,13 @@
     "Enter your mobile": "Enter your mobile",
     "Login Now": "Login Now",
     "Already have an account?": "Already have an account?"
+  },
+  "DASHBOARD_PAGE": {
+    "DASHBOARD": "Dashboard",
+    "Add Report": "Add Report",
+    "My Reports": "My Reports",
+    "Recent Reports": "Recent Reports" ,
+    "Government suggestions": "Government suggestions",
+    "View All": "View All"
   }
 }
