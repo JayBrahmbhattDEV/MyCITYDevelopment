@@ -17,6 +17,7 @@
         name="clipboard-outline"
       ></ion-icon>
       <ion-badge
+        *ngIf="isAdmin"
         color="danger"
         style="position: absolute; right: -5px; top: -3px; font-size: 11px"
         >{{totalReports}}</ion-badge

@@ -25,12 +25,12 @@ export class DashboardPage implements OnInit {
     },
     {
       text: 'DASHBOARD_PAGE.My Reports',
-      url: '/recent-reports',
+      url: '/reports',
       image: './assets/icon/my-reports.svg',
     },
     {
       text: 'DASHBOARD_PAGE.Recent Reports',
-      url: '/reports',
+      url: '/recent-reports',
       image: './assets/icon/recent-reports.svg',
     },
     {
@@ -62,9 +62,11 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.reports.getReports().subscribe((res: any) => {
-      this.totalReports = res.data.length;
-    });
+    if(this.isAdmin){
+      this.reports.getReports().subscribe((res: any) => {
+        this.totalReports = res.data.length;
+      });
+    }
   }
 
   addReport(url: string) {

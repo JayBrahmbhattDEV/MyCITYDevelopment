@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewReportPageRoutingModule } from './view-report-routing.module';
 
@@ -13,6 +14,7 @@ import { ViewReportPage } from './view-report.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     ViewReportPageRoutingModule
   ],
   declarations: [ViewReportPage]

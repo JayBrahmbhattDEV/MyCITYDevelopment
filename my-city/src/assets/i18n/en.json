@@ -17,6 +17,7 @@
     "My Reports": "My Reports",
     "Recent Reports": "Recent Reports",
     "Government suggestions": "Government suggestions",
+    "Pending Reports": "Pending Reports",
     "View All": "View All"
   },
   "ADD_REPORT_PAGE": {
@@ -44,10 +45,13 @@
     "Profile": "Profile",
     "About Us": "About Us",
     "Privacy Policy": "Privacy Policy",
-    "Hello": "Hello"
+    "Hello": "Hello 👋"
   },
   "RECENT_REPORT_PAGE": {
     "It looks like you haven't created any reports yet Creating a report is just one tap away!": "It looks like you haven't created any reports yet Creating a report is just one tap away!"
+  },
+  "VIEW_REPORT_PAGE": {
+    "View Report": "View Report"
   },
   "PROFILE_PAGE": {
     "Your Profile": "Your Profile",

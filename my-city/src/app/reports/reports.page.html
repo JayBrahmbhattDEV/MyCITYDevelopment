@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="!adminPanel">My Reports</ion-title>
-    <ion-title *ngIf="adminPanel">Pending Reports</ion-title>
+    <ion-title *ngIf="!adminPanel">{{ 'DASHBOARD_PAGE.My Reports' | translate }}</ion-title>
+    <ion-title *ngIf="adminPanel">{{ 'DASHBOARD_PAGE.Pending Reports' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
