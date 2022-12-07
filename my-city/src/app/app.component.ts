@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Network } from '@ionic-native/network/ngx';
 import { PermissionsPage } from './shared/modals/permissions/permissions.page';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from './services/storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -52,7 +53,8 @@ export class AppComponent {
     private readonly navController: NavController,
     private readonly network: Network,
     private readonly modalController: ModalController,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly storage: StorageService
   ) {
     this.accountService.userDetails.subscribe((user: any) => {
       this.userName = user?.name;
@@ -89,7 +91,15 @@ export class AppComponent {
       }
     });
 
-    this.translateService.setDefaultLang('gu');
+    this.storage.getData('language').then((language) => {
+      if (!language) {
+        this.storage.setData('lanauge', 'gu');
+        this.translateService.setDefaultLang('gu');
+      } else {
+        this.translateService.setDefaultLang(language);
+      }
+    });
+
   }
 
   async openModal() {

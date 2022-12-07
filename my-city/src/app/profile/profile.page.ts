@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CommonService } from '../services/common.service';
 import { NavController, Platform } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -12,19 +13,19 @@ import { StorageService } from '../services/storage.service';
 })
 export class ProfilePage implements OnInit {
   profileForm: FormGroup;
-  Userdata: any;
+  userdata: any;
   dateOfBirth: any;
   maxDate: any;
   userDob: any;
-
+  selectedLanguage: string;
   constructor(
     public accountService: AccountService,
     public formBuilder: FormBuilder,
     private commonService: CommonService,
     private storageService: StorageService,
     private navController: NavController,
-    private platform: Platform,
-  ) {}
+    private translateService: TranslateService,
+  ) { }
 
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
@@ -35,20 +36,24 @@ export class ProfilePage implements OnInit {
       address: new FormControl(),
     });
 
+    this.storageService.getData('language').then(language => {
+      this.selectedLanguage = language;
+    });
+
     this.accountService.getProfile().subscribe((res: any) => {
-      this.Userdata = res;
-      this.userDob = this.Userdata.data.dob;
+      this.userdata = res;
+      this.userDob = this.userdata.data.dob;
       this.profileForm.patchValue({
-        name: this.Userdata.data.name,
-        email: this.Userdata.data.email,
-        phone: this.Userdata.data.phoneNumber,
-        dob: this.Userdata.data.dob,
+        name: this.userdata.data.name,
+        email: this.userdata.data.email,
+        phone: this.userdata.data.phoneNumber,
+        dob: this.userdata.data.dob,
       });
     });
     this.futureDisabled();
   }
 
-  logOut(){
+  logOut() {
     this.commonService.presentAlert(
       `Are you sure you want to log-out?`,
       'Alert',
@@ -57,7 +62,7 @@ export class ProfilePage implements OnInit {
           {
             text: 'Cancel',
             role: 'cancel',
-            handler: () => {},
+            handler: () => { },
           },
           {
             text: 'Log Out',
@@ -93,8 +98,8 @@ export class ProfilePage implements OnInit {
     this.accountService
       .updateProfile(this.profileForm.value)
       .subscribe((res: any) => {
-        if(res.success){
-          this.commonService.presentToaster({message: res.message + `😄`, color:'success'})
+        if (res.success) {
+          this.commonService.presentToaster({ message: res.message + `😄`, color: 'success' })
         }
       });
     this.accountService.getProfile();
@@ -102,6 +107,11 @@ export class ProfilePage implements OnInit {
 
   change(data) {
     this.dateOfBirth = new Date(data.target.value).toLocaleDateString();
-    console.log(this.dateOfBirth);
   }
+
+  setLanguage(event: any) {
+    this.storageService.setData('language', event.detail.value);
+    this.translateService.setDefaultLang(event.detail.value);
+  }
+
 }

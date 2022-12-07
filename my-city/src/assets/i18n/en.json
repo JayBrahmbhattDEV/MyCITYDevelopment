@@ -62,7 +62,12 @@
     "Logout": "Logout",
     "Birthday": "Birthday",
     "Enter Your Address": "Enter your address",
-    "Address": "Address"
+    "Address": "Address",
+    "Language": "Language",
+    "English": "English",
+    "Gujrati": "Gujrati",
+    "Set": "Set",
+    "Cancel": "Cancel"
   },
   "ABOUT_US": {
     "POINT_1": "The application is designed to improve the citizen engagement in India eventually serving as a bridge between the government and its citizens",
