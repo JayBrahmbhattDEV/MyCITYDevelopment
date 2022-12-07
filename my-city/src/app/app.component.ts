@@ -93,7 +93,7 @@ export class AppComponent {
 
     this.storage.getData('language').then((language) => {
       if (!language) {
-        this.storage.setData('lanauge', 'gu');
+        this.storage.setData('language', 'gu');
         this.translateService.setDefaultLang('gu');
       } else {
         this.translateService.setDefaultLang(language);

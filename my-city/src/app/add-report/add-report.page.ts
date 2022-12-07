@@ -235,12 +235,13 @@ export class AddReportPage implements OnInit {
       const isEnabled = await this.permissionService.enableGPS();
       if (isEnabled?.code === 4) {
         this.presentModal();
-      } else if (isEnabled?.code === 0) {
+      } else if (isEnabled?.code === 0 || isEnabled?.code === 1) {
         setTimeout(() => {
           this.getCurrentLocation(true);
         }, 100);
       }
     } catch (error) {
+      console.log({error});
       if (error?.code === 4) {
         this.presentModal();
       }
