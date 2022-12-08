@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../services/common.service';
 import { NavController, Platform } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
@@ -29,7 +29,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
-      name: [],
+      name: ['', Validators.required],
       email: [],
       phone: [],
       dob: [],
@@ -99,7 +99,7 @@ export class ProfilePage implements OnInit {
       .updateProfile(this.profileForm.value)
       .subscribe((res: any) => {
         if (res.success) {
-          this.commonService.presentToaster({ message: res.message + `😄`, color: 'success' })
+          this.commonService.presentToaster({ message: res.message + `😄`, color: 'success' });
         }
       });
     this.accountService.getProfile();

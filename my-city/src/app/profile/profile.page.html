@@ -15,7 +15,8 @@
     <ion-list>
       <ion-item class="ion-margin-vertical">
         <ion-label position="floating"
-          >{{'PROFILE_PAGE.Name' | translate}}</ion-label
+          >{{'PROFILE_PAGE.Name' | translate}}
+          <ion-text color="danger"> * </ion-text></ion-label
         >
         <ion-textarea
           formControlName="name"
@@ -92,6 +93,7 @@
         class="ion-margin"
         shape="round"
         expand="block"
+        [disabled]="profileForm.invalid"
       >
         {{'PROFILE_PAGE.Update Profile' | translate}}
       </ion-button>
