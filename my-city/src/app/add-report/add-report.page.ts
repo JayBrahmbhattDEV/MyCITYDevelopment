@@ -6,7 +6,7 @@ import {
   NavController,
 } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportsService } from '../services/reports.service';
 import { CommonService } from '../services/common.service';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
@@ -21,6 +21,7 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { AccountService } from '../services/account.service';
 import { PermissionsPage } from '../shared/modals/permissions/permissions.page';
 import { forkJoin } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-report',
   templateUrl: './add-report.page.html',
@@ -169,6 +170,7 @@ export class AddReportPage implements OnInit {
   area: any;
   isMapLoading = true;
   enablePermissionModal: HTMLIonModalElement;
+  isImageCaptured = false;
   constructor(
     private camera: Camera,
     private formBuilder: FormBuilder,
@@ -185,7 +187,8 @@ export class AddReportPage implements OnInit {
     private crop: Crop,
     public modalController: ModalController,
     private actionSheetController: ActionSheetController,
-  ) {}
+    private translateService: TranslateService
+  ) { }
 
   ngOnInit() {
     this.initReportForm();
@@ -241,7 +244,7 @@ export class AddReportPage implements OnInit {
         }, 100);
       }
     } catch (error) {
-      console.log({error});
+      console.log({ error });
       if (error?.code === 4) {
         this.presentModal();
       }
@@ -307,10 +310,10 @@ export class AddReportPage implements OnInit {
 
   initReportForm() {
     this.reportForm = this.formBuilder.group({
-      address: '',
-      description: '',
-      category: '',
-      subCategory: '',
+      address: [''],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
+      subCategory: [{ value: '', disable: true }, Validators.required],
     });
   }
 
@@ -376,7 +379,7 @@ export class AddReportPage implements OnInit {
             {
               text: 'Cancel',
               role: 'cancel',
-              handler: () => {},
+              handler: () => { },
             },
             {
               text: 'Login Now',
@@ -392,6 +395,16 @@ export class AddReportPage implements OnInit {
         },
       );
     } else {
+
+      if (!this.isImageCaptured) {
+        this.translateService.get('ADD_REPORT_PAGE.You can add picture on clicking camera').toPromise().then(message => {
+          this.commonService.presentToaster({
+            message
+          });
+        });
+        return;
+      }
+
       const blob = this.convertBase64ToBlob(this.image);
       const reportData = new FormData();
       reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
@@ -469,13 +482,11 @@ export class AddReportPage implements OnInit {
       .then((locations: NativeGeocoderResult[]) => {
         const nativeGeocoderResult = locations[0];
         this.reportForm.patchValue({
-          address: `${
-            nativeGeocoderResult.thoroughfare
-              ? nativeGeocoderResult.thoroughfare + ','
-              : nativeGeocoderResult.thoroughfare
-          } ${nativeGeocoderResult.subLocality} , ${
-            nativeGeocoderResult.locality
-          } , ${nativeGeocoderResult.postalCode} `,
+          address: `${nativeGeocoderResult.thoroughfare
+            ? nativeGeocoderResult.thoroughfare + ','
+            : nativeGeocoderResult.thoroughfare
+            } ${nativeGeocoderResult.subLocality} , ${nativeGeocoderResult.locality
+            } , ${nativeGeocoderResult.postalCode} `,
         });
         this.latLon.latitude = nativeGeocoderResult.latitude;
         this.latLon.longitude = nativeGeocoderResult.longitude;
@@ -483,7 +494,7 @@ export class AddReportPage implements OnInit {
         this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
         this.isMapLoading = false;
       })
-      .catch((e) => {});
+      .catch((e) => { });
   }
 
   cropImage(fileUrl) {
@@ -503,6 +514,7 @@ export class AddReportPage implements OnInit {
 
     this.file.readAsDataURL(filePath, imageName).then((base64) => {
       this.image = base64;
+      this.isImageCaptured = true;
     });
   }
 
