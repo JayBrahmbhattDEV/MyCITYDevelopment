@@ -73,10 +73,10 @@
       </ion-item>
       <ion-item class="ion-margin-vertical">
         <ion-icon slot="start" name="location"></ion-icon>
-        <ion-label color="medium">
+        <ion-text class="ion-text-wrap" color="medium">
           {{ this.addressVal || reportForm?.value?.address || this.longitudeVal
-          || 'Could not detect location'}}
-        </ion-label>
+          || 'ADD_REPORT_PAGE.Loading address' | translate}}
+        </ion-text>
       </ion-item>
       <ion-card *ngIf="!isMapLoading">
         <div class="map-container">
