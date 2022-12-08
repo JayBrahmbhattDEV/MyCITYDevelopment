@@ -40,6 +40,9 @@
                       [placeholder]="'LOGIN_PAGE.Enter you phone or email' | translate"
                     ></ion-input>
                   </ion-item>
+                  <span style="color: red; font-size: medium;" *ngIf="isClicked && errorControl.loginVal.errors?.required">
+                    Email or Phone number is required.
+                  </span>
                 </ion-col>
                 <ion-col size="12">
                   <app-mc-button
@@ -87,6 +90,9 @@
                       [placeholder]="'LOGIN_PAGE.Enter your name' | translate"
                     ></ion-input>
                   </ion-item>
+                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.name.errors?.required">
+                    Name is required.
+                  </span>
                 </ion-col>
                 <ion-col size="12">
                   <ion-item color="light">
@@ -96,6 +102,9 @@
                       [placeholder]="'LOGIN_PAGE.Enter your email' | translate"
                     ></ion-input>
                   </ion-item>
+                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.email.errors?.required">
+                    Email is required.
+                  </span>
                 </ion-col>
                 <ion-col size="12">
                   <ion-item color="light">
@@ -106,6 +115,9 @@
                       [placeholder]="'LOGIN_PAGE.Enter your email' | translate"
                     ></ion-input>
                   </ion-item>
+                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.number.errors?.required">
+                    Number is required.
+                  </span>
                 </ion-col>
                 <ion-col size="12">
                   <app-mc-button

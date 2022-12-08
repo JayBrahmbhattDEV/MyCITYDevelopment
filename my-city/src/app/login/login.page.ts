@@ -22,6 +22,8 @@ export class LoginPage implements OnInit {
   redirectTo: string;
   isAdmin: boolean;
   isLoading = false;
+  isClicked = false;
+  isRegisterClicked = false;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -56,6 +58,10 @@ export class LoginPage implements OnInit {
 
   submitForm() {
     this.submitted = this.loginForm.valid;
+    if(!this.loginForm.valid){
+      this.isClicked = true;
+      return;
+    }
     if (this.loginForm.valid) {
       this.accountService.login(this.loginForm.value).subscribe(
         (response: any) => {
@@ -67,6 +73,7 @@ export class LoginPage implements OnInit {
             this.accountService.userDetails = user;
             this.accountService.token = token;
             this.submitted = false;
+            this.isClicked = false;
             if(response.data.user.isAdmin){
               localStorage.setItem("isAdmin", response.data.user.isAdmin);
             }
@@ -85,6 +92,10 @@ export class LoginPage implements OnInit {
   }
 
   submitRegisterForm() {
+    if(!this.registerForm.valid){
+      this.isRegisterClicked = true;
+      return;
+    }
     if (this.registerForm.valid) {
       this.isLoading = true;
       this.accountService.register(this.registerForm.value).subscribe(
@@ -96,6 +107,7 @@ export class LoginPage implements OnInit {
               color: 'success',
             });
             this.isLoading = false;
+            this.isRegisterClicked = false;
             this.ionSlids.slidePrev();
           } else {
             this.commonService
@@ -110,7 +122,7 @@ export class LoginPage implements OnInit {
           console.log(e);
           this.isLoading = false;
           this.commonService.presentToaster({
-            message: e.error.message,
+            message: e.error.err.errors.email.message,
             color: 'danger',
           });
         }
@@ -124,5 +136,13 @@ export class LoginPage implements OnInit {
 
   login() {
     this.ionSlids.slidePrev();
+  }
+
+  get errorControl() {
+    return this.loginForm.controls;
+  }
+
+  get errorControlRegister() {
+    return this.registerForm.controls;
   }
 }
