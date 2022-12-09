@@ -8,20 +8,15 @@
         >{{'DASHBOARD_PAGE.DASHBOARD' | translate}}</strong
       >
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-icon
-        *ngIf="isAdmin"
-        (click)="adminPanel(isAdmin)"
-        slot="end"
-        class="admin-panel"
-        name="clipboard-outline"
-      ></ion-icon>
-      <ion-badge
-        *ngIf="isAdmin"
-        color="danger"
-        style="position: absolute; right: -5px; top: -3px; font-size: 11px"
-        >{{totalReports}}</ion-badge
-      >
+    <ion-buttons *ngIf="isAdmin" slot="end">
+      <ion-button (click)="adminPanel(isAdmin)">
+        <ion-icon slot="icon-only" name="clipboard-outline"></ion-icon>
+        <ion-badge
+          color="danger"
+          style="position: absolute; right: -5px; top: -3px; font-size: 11px"
+          >{{totalReports}}</ion-badge
+        >
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

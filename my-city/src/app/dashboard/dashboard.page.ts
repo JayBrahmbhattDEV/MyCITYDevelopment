@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
 export class DashboardPage implements OnInit {
   isReportLoaded = false;
   isAdmin: any;
-  totalReports: any;
+  totalReports: any = 0;
   pages = [
     {
       text: 'DASHBOARD_PAGE.Add Report',
