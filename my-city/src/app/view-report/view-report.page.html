@@ -3,9 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title><strong class="text-white"
-      >{{'VIEW_REPORT_PAGE.View Report' | translate}}</strong
-    ></ion-title>
+    <ion-title
+      ><strong class="text-white"
+        >{{'VIEW_REPORT_PAGE.View Report' | translate}}</strong
+      ></ion-title
+    >
   </ion-toolbar>
 </ion-header>
 
@@ -29,15 +31,29 @@
       <ion-icon slot="start" name="location"></ion-icon>
       <ion-text class="ion-text-wrap"> {{ report.address }} </ion-text>
     </ion-item>
-    <ion-item slot="end" lines="none" *ngIf='isPending'>
-      <ion-badge color="danger" class="ion-text-wrap">Pending</ion-badge>
+    <ion-item
+      [color]="report.isPending ? 'primary' : 'danger'"
+      slot="end"
+      lines="none"
+      class="ion-text-center ion-margin-horizontal"
+    >
+      <ion-label class="ion-text-wrap">
+        {{report.isPending ? 'Pending' : 'Closed'}}
+      </ion-label>
     </ion-item>
-    <ion-item slot="end" lines="none" *ngIf='!isPending'>
-      <ion-badge color="success" class="ion-text-wrap">Closed</ion-badge>
-    </ion-item>
-  </ion-list>
-    <ion-button class="approve-btn" *ngIf='isAdmin && isPending' (click)="approveReport()">
-      <ion-icon class="tick-icon" name="checkmark-circle-outline"></ion-icon>
+    <ion-button
+      class="ion-margin-horizontal"
+      *ngIf="isAdmin && isPending"
+      (click)="approveReport()"
+      expand="block"
+      [disabled]="!report.isPending"
+    >
+      <ion-icon
+        class="tick-icon"
+        slot="start"
+        name="checkmark-circle-outline"
+      ></ion-icon>
       Close report
     </ion-button>
+  </ion-list>
 </ion-content>
