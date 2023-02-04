@@ -15,9 +15,11 @@ export class ProfilePage implements OnInit {
   profileForm: FormGroup;
   userdata: any;
   dateOfBirth: any;
+  alertMessage: any;
   maxDate: any;
   userDob: any;
   selectedLanguage: string;
+  setLangForModal: string;
   constructor(
     public accountService: AccountService,
     public formBuilder: FormBuilder,
@@ -54,8 +56,15 @@ export class ProfilePage implements OnInit {
   }
 
   logOut() {
+    if(this.setLangForModal == "gu"){
+      this.alertMessage = 
+      `શું તમે ખરેખર લોગ-આઉટ કરવા માંગો છો?`
+    }
+    else {
+      this.alertMessage = `Are you sure you want to log-out?`
+    }
     this.commonService.presentAlert(
-      `Are you sure you want to log-out?`,
+      this.alertMessage,
       'Alert',
       {
         buttons: [
@@ -111,6 +120,7 @@ export class ProfilePage implements OnInit {
 
   setLanguage(event: any) {
     this.storageService.setData('language', event.detail.value);
+    this.setLangForModal = event.detail.value;
     this.translateService.setDefaultLang(event.detail.value);
   }
 
