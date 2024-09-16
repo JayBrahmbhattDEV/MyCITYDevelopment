@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AccountService } from './services/account.service';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -14,6 +14,8 @@ import { StorageService } from './services/storage.service';
 export class AppComponent {
   activePageTitle = 'Dashboard';
   userName: any;
+  storageService = inject(StorageService);
+  setLangForModal: any;
   pages = [
     {
       title: 'SIDE_MENU.Dashboard',
@@ -115,5 +117,11 @@ export class AppComponent {
     });
 
     this.modal.present();
+  }
+
+  setLanguage(event: any) {
+    this.storageService.setData('language', event.detail.value);
+    this.setLangForModal = event.detail.value;
+    this.translateService.setDefaultLang(event.detail.value);
   }
 }

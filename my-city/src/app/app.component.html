@@ -4,48 +4,37 @@
       <ion-content class="side-menu">
         <ion-list class="side-menu-list">
           <ion-item lines="full">
-            <ion-icon
-              name="person-circle"
-              class="fs-100"
-              slot="start"
-            ></ion-icon>
-            <ion-label
-              ><h2>{{ "SIDE_MENU.Hello" | translate }}!</h2>
-              <strong>{{ userName || "guest" | titlecase }}</strong></ion-label
-            >
+            <ion-icon name="person-circle" class="fs-100" slot="start"></ion-icon>
+            <ion-label>
+              <h2>{{ "SIDE_MENU.Hello" | translate }}!</h2>
+              <strong>{{ userName || "guest" | titlecase }}</strong>
+            </ion-label>
           </ion-item>
 
-          <ion-menu-toggle
-            auto-hide="false"
-            *ngFor="let pages of pages; let i = index"
-          >
+          <ion-menu-toggle auto-hide="false" *ngFor="let pages of pages; let i = index">
             <ng-container *ngIf="pages.show">
-              <ion-item
-                (click)="activeIndex = i"
-                routerDirection="root"
-                [routerLink]="[pages.url]"
-                lines="none"
-                detail="false"
-                [class.selected]="activeIndex === i"
-              >
-                <ion-icon
-                  slot="start"
-                  [ios]="pages.icon + '-outline'"
-                  [md]="pages.icon + '-sharp'"
-                ></ion-icon>
+              <ion-item (click)="activeIndex = i" routerDirection="root" [routerLink]="[pages.url]" lines="none" detail="false" [class.selected]="activeIndex === i">
+                <ion-icon slot="start" [ios]="pages.icon + '-outline'" [md]="pages.icon + '-sharp'"></ion-icon>
                 <ion-label>{{ pages.title | translate }}</ion-label>
               </ion-item>
             </ng-container>
           </ion-menu-toggle>
+
           <ion-menu-toggle *ngIf="!accountService.token" auto-hide="false">
-            <ion-item
-              routerDirection="root"
-              [routerLink]="['/login']"
-              lines="none"
-              detail="false"
-            >
+            <ion-item routerDirection="root" [routerLink]="['/login']" lines="none" detail="false">
               <ion-icon slot="start" name="log-in-outline"></ion-icon>
               <ion-label>{{ "LOGIN_PAGE.LOGIN" | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerDirection="root" lines="none" detail="false">
+              <ion-icon slot="start" name="globe"></ion-icon>
+              <ion-label>{{ "SIDE_MENU.Change language" | translate }}</ion-label>
+              <ion-select [okText]="'PROFILE_PAGE.Set' | translate" [value]="selectedLanguage"
+                [cancelText]="'PROFILE_PAGE.Cancel' | translate" (ionChange)="setLanguage($event)">
+                <ion-select-option [value]="'en'">{{'PROFILE_PAGE.English' | translate}}</ion-select-option>
+                <ion-select-option [value]="'gu'">{{'PROFILE_PAGE.Gujarati' | translate}}</ion-select-option>
+              </ion-select>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
