@@ -2,3 +2,37 @@
   visibility: hidden;
   height: 0px;
 }
+
+.card-content {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.text-container {
+  flex-grow: 1;
+}
+
+.title {
+  display: -webkit-box;
+  font-weight: bold;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden; 
+}
+
+.description {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ion-skeleton-text {
+  height: 15.6rem;
+  width: 100%;
+}

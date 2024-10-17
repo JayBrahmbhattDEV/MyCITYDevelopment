@@ -1,4 +1,4 @@
-<ion-card (click)="viewReport()" class="ion-no-margin ion-margin-bottom">
+<ion-card mode="ios" (click)="viewReport()" class="ion-no-margin ion-margin-bottom">
   <ion-img
     [class]="report.imageLoaded ? '' : 'hide'"
     [src]="report.imgUrl"
@@ -7,24 +7,22 @@
   <ion-skeleton-text
     animated
     *ngIf="!report.imageLoaded"
-    style="width: 100%; height: 365px"
   ></ion-skeleton-text>
   <ion-card-content class="ion-no-padding ion-no-margin">
     <div class="ion-padding ion-text-left">
       <ion-label>
-        <b>
-          <ion-icon slot="start" name="location"></ion-icon>{{ report.address }}
-        </b>
-        <p>{{ report.description || "Description not available" }}</p>
+        <div class="card-content">
+          <ion-icon slot="start" name="location" class="icon"></ion-icon>
+          <div class="text-container">
+            <b class="title">{{ report.address }}</b>
+            <p class="description">{{ report.description || "Description not available" }}</p>
+          </div>
+        </div>
       </ion-label>
     </div>
-
-    <ion-item
-      [color]="report.isPending ? 'warning' : 'danger'"
-      *ngIf="report.isPending"
-      class="ion-text-center"
-      details
-    >
+  
+  
+    <ion-item [color]="report.isPending ? 'warning' : 'danger'" *ngIf="report.isPending" class="ion-text-center" details>
       <ion-label>{{ report.isPending ? "Pending" : "Closed" }}</ion-label>
     </ion-item>
   </ion-card-content>

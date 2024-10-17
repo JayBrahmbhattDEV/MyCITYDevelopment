@@ -72,17 +72,27 @@ export class AddReportPage implements OnInit {
     {
       parent: 1,
       sId: 1,
-      text: 'trash',
+      text: 'Littering',
     },
     {
       parent: 1,
       sId: 2,
-      text: 'litter',
+      text: 'Overflowing bins',
+    },
+    {
+      parent: 1,
+      sId: 3,
+      text: 'Illegal dumping',
+    },
+    {
+      parent: 1,
+      sId: 4,
+      text: 'Hazardous waste disposal',
     },
     {
       parent: 2,
       sId: 1,
-      text: 'Mosquitoes',
+      text: 'Pest infestations',
     },
     {
       parent: 2,
@@ -90,24 +100,24 @@ export class AddReportPage implements OnInit {
       text: 'Dead animal pickup',
     },
     {
+      parent: 2,
+      sId: 3,
+      text: 'Contaminated water',
+    },
+    {
       parent: 3,
       sId: 1,
-      text: 'Pothole',
+      text: 'Potholes',
     },
     {
       parent: 3,
       sId: 2,
-      text: 'Damaged sign',
+      text: 'Broken sidewalks',
     },
     {
       parent: 3,
       sId: 3,
-      text: 'Broken equipments',
-    },
-    {
-      parent: 3,
-      sId: 4,
-      text: 'Broken sidewalk',
+      text: 'Graffiti or vandalism',
     },
     {
       parent: 4,
@@ -117,37 +127,47 @@ export class AddReportPage implements OnInit {
     {
       parent: 4,
       sId: 2,
-      text: 'Vehicle breakdown',
+      text: 'Abandoned vehicles',
+    },
+    {
+      parent: 4,
+      sId: 3,
+      text: 'Missing or damaged signage',
     },
     {
       parent: 5,
       sId: 1,
-      text: 'Street light',
+      text: 'Streetlight outages',
     },
     {
       parent: 5,
       sId: 2,
-      text: 'Traffic signal',
+      text: 'Insufficient lighting in areas',
     },
     {
       parent: 6,
       sId: 1,
-      text: 'Plant new tree request',
+      text: 'Plant New tree',
     },
     {
       parent: 6,
       sId: 2,
-      text: 'Dead tree removal',
+      text: 'Tree removal requests',
     },
     {
       parent: 6,
       sId: 3,
-      text: 'Tree pruning',
+      text: 'Overgrown vegetation',
     },
     {
       parent: 7,
       sId: 1,
-      text: 'Other',
+      text: 'Noise complaints',
+    },
+    {
+      parent: 7,
+      sId: 2,
+      text: 'Maintenance requests',
     },
   ];
 
@@ -161,7 +181,7 @@ export class AddReportPage implements OnInit {
     cameraDirection: 1,
   };
 
-  image = './assets/images/add-photo.png';
+  image = './assets/images/add-image.svg';
   reportForm: FormGroup;
   latLon = {
     latitude: '',
@@ -397,7 +417,7 @@ export class AddReportPage implements OnInit {
     } else {
 
       if (!this.isImageCaptured) {
-        this.translateService.get('ADD_REPORT_PAGE.You can add picture on clicking camera').toPromise().then(message => {
+        this.translateService.get('ADD_REPORT_PAGE. You can add picture by clicking camera').toPromise().then(message => {
           this.commonService.presentToaster({
             message
           });

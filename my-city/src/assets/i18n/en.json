@@ -16,7 +16,7 @@
     "Add Report": "Add Report",
     "My Reports": "My Reports",
     "Recent Reports": "Recent Reports",
-    "Government suggestions": "Government suggestions",
+    "Government suggestions": "Govt. suggestions",
     "Pending Reports": "Pending Reports",
     "View All": "View All"
   },
@@ -30,12 +30,12 @@
     "Please describe your problem": "Please describe you problem",
     "Select Sub category": "Select Sub category",
     "Select Category": "Select Category",
-    "You can add picture on clicking camera": "You can add picture on clicking camera",
+    "You can add picture on clicking camera": "You can add picture by clicking on camera",
     "Loading address": "Loading address"
   },
   "SEARCH_FOR_YOUR_LOCATION": {
     "Search for your location": "Search for your location",
-    "Choose location on map": "choose location on map",
+    "Choose location on map": "Choose location on map",
     "Search": "Search"
   },
   "MAP_PAGE": {
