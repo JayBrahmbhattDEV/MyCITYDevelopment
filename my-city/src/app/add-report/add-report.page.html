@@ -15,7 +15,7 @@
       [src]="image"
     ></ion-img>
     <ion-list>
-      <ion-item class="ion-margin-vertical">
+      <ion-item lines="none" class="ion-margin-vertical">
         <ion-label position="floating"
           >{{'ADD_REPORT_PAGE.Category' | translate}}<ion-text color="danger"
             >*</ion-text
@@ -36,7 +36,7 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item class="ion-margin-vertical">
+      <ion-item lines="none" class="ion-margin-vertical">
         <ion-label position="floating"
           >{{'ADD_REPORT_PAGE.Sub Category' | translate}}<ion-text
             color="danger"
@@ -61,9 +61,7 @@
       </ion-item>
       <ion-item lines="none" class="ion-margin-vertical">
         <ion-label position="stacked"
-          >{{'ADD_REPORT_PAGE.Description' | translate}}<ion-text color="danger"
-            >*</ion-text
-          ></ion-label
+          >{{'ADD_REPORT_PAGE.Description' | translate}}</ion-label
         >
         <ion-textarea
           formControlName="description"

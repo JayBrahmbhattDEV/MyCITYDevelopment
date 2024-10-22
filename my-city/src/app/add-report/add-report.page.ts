@@ -20,8 +20,9 @@ import { File } from '@ionic-native/file/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { AccountService } from '../services/account.service';
 import { PermissionsPage } from '../shared/modals/permissions/permissions.page';
-import { forkJoin } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { MESSAGES } from '../utils/constants';
+
 @Component({
   selector: 'app-add-report',
   templateUrl: './add-report.page.html',
@@ -331,7 +332,7 @@ export class AddReportPage implements OnInit {
   initReportForm() {
     this.reportForm = this.formBuilder.group({
       address: [''],
-      description: ['', Validators.required],
+      description: [''],
       category: ['', Validators.required],
       subCategory: [{ value: '', disable: true }, Validators.required],
     });
@@ -416,18 +417,19 @@ export class AddReportPage implements OnInit {
       );
     } else {
 
-      if (!this.isImageCaptured) {
-        this.translateService.get('ADD_REPORT_PAGE. You can add picture by clicking camera').toPromise().then(message => {
-          this.commonService.presentToaster({
-            message
-          });
-        });
-        return;
+      // if (!this.isImageCaptured) {
+      //   this.translateService.get('ADD_REPORT_PAGE. You can add picture by clicking camera').toPromise().then(message => {
+      //     this.commonService.presentToaster({
+      //       message
+      //     });
+      //   });
+      //   return;
+      // }
+      let reportData = new FormData();
+      if (this.isImageCaptured) {
+        const blob = this.convertBase64ToBlob(this.image);
+        reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
       }
-
-      const blob = this.convertBase64ToBlob(this.image);
-      const reportData = new FormData();
-      reportData.append('imgfile', blob, `${new Date().getMilliseconds()}.jpg`);
       reportData.append(
         'location',
         JSON.stringify({
@@ -451,7 +453,7 @@ export class AddReportPage implements OnInit {
             this.navController.navigateRoot('/add-report-sucess');
           } else {
             this.commonService.presentToaster({
-              message: 'Something went wrong! Please try again later.',
+              message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
             });
           }
           this.commonService.hideLoading();

@@ -95,8 +95,8 @@ export class AppComponent {
 
     this.storage.getData('language').then((language) => {
       if (!language) {
-        this.storage.setData('language', 'gu');
-        this.translateService.setDefaultLang('gu');
+        this.storage.setData('language', 'en');
+        this.translateService.setDefaultLang('en');
       } else {
         this.translateService.setDefaultLang(language);
       }
@@ -110,7 +110,7 @@ export class AppComponent {
       backdropDismiss: false,
       canDismiss: false,
       componentProps: {
-        message: 'please turn on mobile data or connect to wifi',
+        message: 'Please turn on mobile data or connect to Wi-Fi',
         type: 'internet',
         redirectTo: '',
       },
