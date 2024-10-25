@@ -1,7 +1,8 @@
 <ion-card mode="ios" (click)="viewReport()" class="ion-no-margin ion-margin-bottom">
   <ion-img
     [class]="report.imageLoaded ? '' : 'hide'"
-    [src]="report.imgUrl"
+    [ngClass]="!report.imgUrl ? 'def-padding' : ''"
+    [src]="report.imgUrl ? report.imgUrl : './assets/images/citiconn-default.svg'"
     (ionImgDidLoad)="onLoaded()"
   ></ion-img>
   <ion-skeleton-text
@@ -22,7 +23,7 @@
     </div>
   
   
-    <ion-item [color]="report.isPending ? 'warning' : 'danger'" *ngIf="report.isPending" class="ion-text-center" details>
+    <ion-item [color]="report.isPending ? 'warning' : 'success'" class="ion-text-center" details>
       <ion-label>{{ report.isPending ? "Pending" : "Closed" }}</ion-label>
     </ion-item>
   </ion-card-content>

@@ -23,7 +23,7 @@
   font-weight: bold;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .description {
@@ -33,6 +33,24 @@
 }
 
 ion-skeleton-text {
-  height: 15.6rem;
-  width: 100%;
+  height: 15rem;
+  width: 90%;
+  border-radius: 1.5rem 1.5rem 10px 10px;
+  margin: 0 12px;
+}
+
+ion-img {
+  padding: 0.5rem;
+}
+
+ion-img::part(image) {
+  border-radius: 1.5rem 1.5rem 10px 10px;
+}
+
+.def-padding {
+  padding: 1rem;
+}
+
+ion-card {
+  border-radius: 1.5rem 1.5rem 10px 10px;
 }

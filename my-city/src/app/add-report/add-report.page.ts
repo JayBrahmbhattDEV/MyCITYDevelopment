@@ -304,6 +304,8 @@ export class AddReportPage implements OnInit {
         lon: location.y,
         address: location.label,
       },
+    }).then((resp) => {
+      this.getAddress(location.x, location.y);
     });
     this.modalController.dismiss(null, 'cancel');
   }
@@ -516,7 +518,9 @@ export class AddReportPage implements OnInit {
         this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
         this.isMapLoading = false;
       })
-      .catch((e) => { });
+      .catch((e) => {
+        console.error("Error in reverse geocode:", e);
+       });
   }
 
   cropImage(fileUrl) {
