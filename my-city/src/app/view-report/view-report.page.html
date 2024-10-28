@@ -31,6 +31,11 @@
       <ion-icon slot="start" name="location"></ion-icon>
       <ion-text class="ion-text-wrap"> {{ report.address }} </ion-text>
     </ion-item>
+    <ion-card *ngIf="!isMapLoading">
+      <div class="map-container">
+        <app-mc-map [disabled]="true" [latLong]="latLong"></app-mc-map>
+      </div>
+    </ion-card>
     <ion-item
       [color]="report.isPending ? 'warning' : 'primary'"
       slot="end"

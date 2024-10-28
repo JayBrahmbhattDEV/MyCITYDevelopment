@@ -8,3 +8,12 @@ export const STORAGE_KEYS = {
   USER: 'user',
   TOKEN: 'token',
 };
+
+export function getLatLong(location: string): { latitude: number; longitude: number } {
+  const data = JSON.parse(location);
+  return {
+    latitude: data.latitude,
+    longitude: data.longitude
+  };
+}
+

@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ViewReportPageRoutingModule } from './view-report-routing.module';
 
 import { ViewReportPage } from './view-report.page';
+import { SharedModule } from '../shared/modules/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ViewReportPage } from './view-report.page';
     FormsModule,
     IonicModule,
     TranslateModule,
-    ViewReportPageRoutingModule
+    ViewReportPageRoutingModule,
+    SharedModule
   ],
   declarations: [ViewReportPage]
 })
