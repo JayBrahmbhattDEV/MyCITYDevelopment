@@ -47,9 +47,11 @@ export class McMapComponent implements AfterViewInit, OnChanges {
     this.map.removeControl(this.map.zoomControl);
     if (this.disabled) {
       this.map.dragging.disable();
+      this.map.zoomControl = false;
     }
     new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
+      zoomControl: false,
       attribution: '© OpenStreetMap',
     }).addTo(this.map);
     this.addMarkder();
