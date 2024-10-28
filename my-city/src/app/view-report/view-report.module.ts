@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { ViewReportPageRoutingModule } from './view-report-routing.module';
-
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ViewReportPage } from './view-report.page';
 import { SharedModule } from '../shared/modules/shared/shared.module';
 
@@ -19,6 +19,7 @@ import { SharedModule } from '../shared/modules/shared/shared.module';
     ViewReportPageRoutingModule,
     SharedModule
   ],
-  declarations: [ViewReportPage]
+  declarations: [ViewReportPage],
+  providers: [Geolocation]
 })
 export class ViewReportPageModule {}
