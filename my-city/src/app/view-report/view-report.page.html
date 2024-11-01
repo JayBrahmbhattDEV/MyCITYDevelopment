@@ -6,29 +6,27 @@
     <ion-title
       ><strong class="text-white"
         >{{'VIEW_REPORT_PAGE.View Report' | translate}}</strong
-      ></ion-title
-    >
+      ></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-img class="add-report-image" [src]="report.imgUrl"></ion-img>
   <ion-list>
-    <ion-item class="ion-margin-vertical">
-      <ion-label>Category</ion-label>
-      <ion-text>{{ report.category }}</ion-text>
+    <ion-item lines="none">
+      <div class="category-container">
+        <h1 class="category-title">{{ report.category }}</h1>
+        <h2 class="subcategory">{{ report.subCategory }}</h2>
+      </div>
     </ion-item>
-    <ion-item class="ion-margin-vertical">
-      <ion-label>Sub Category</ion-label>
-      <ion-text>{{ report.subCategory }}</ion-text>
+
+    <ion-item lines="none">
+      <ion-icon slot="start" name="reader-outline"></ion-icon>
+      <p class="description">{{ report.description }}</p>
     </ion-item>
-    <ion-item class="ion-margin-vertical">
-      <ion-text disabled class="ion-text-wrap"
-        >{{ report.description }}</ion-text
-      >
-    </ion-item>
-    <ion-item class="ion-margin-vertical">
-      <ion-icon slot="start" name="location"></ion-icon>
+    
+    <ion-item lines="none" class="ion-margin-vertical">
+      <ion-icon slot="start" name="location-outline"></ion-icon>
       <ion-text class="ion-text-wrap"> {{ report.address }} </ion-text>
     </ion-item>
     <ion-item

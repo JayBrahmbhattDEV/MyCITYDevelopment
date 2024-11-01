@@ -1,16 +1,47 @@
-.approve-btn{
+.approve-btn {
     margin-left: 60%;
 }
 
-.tick-icon{
+.tick-icon {
     padding-right: 10px;
 }
 
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-{
-    .approve-btn{
+.add-report-image {
+    padding: 1rem 1rem;
+}
+
+ion-img::part(image) {
+    border-radius: 1.5rem 1.5rem 10px 10px;
+}
+
+.category-container {
+    padding: 12px 0 16px;
+}
+
+.category-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.subcategory {
+    font-size: 20px;
+    color: #666;
+}
+
+.description {
+    font-size: 18px;
+    color: #444;
+    margin: 4px 0;
+}
+
+h1, h2 {
+    margin-top: 0;
+}
+
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .approve-btn {
         margin-left: 80%;
     }
 }
