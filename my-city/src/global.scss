@@ -29,6 +29,16 @@
 // @import url("https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner&family=Saira:wght@100&display=swap");
 
 @font-face {
+  font-family: "redhat";
+  src: url("./assets/fonts/RedHatDisplay-Regular.ttf") format("woff2");
+}
+
+@font-face {
+  font-family: "redhat-bold";
+  src: url("./assets/fonts/RedHatDisplay-Bold.ttf") format("woff2");
+}
+
+@font-face {
   font-family: "roboto-bold";
   src: url("./assets/fonts/Roboto-Bold.ttf") format("woff2");
 }
@@ -44,7 +54,7 @@
 }
 
 * {
-  font-family: "roboto-regular";
+  font-family: "redhat";
 }
 
 ion-button {
