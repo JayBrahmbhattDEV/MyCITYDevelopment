@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CheckAuthGuard } from './guards/check-auth.guard';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
     path: 'privacy',
     loadChildren: () =>
       import('./privacy/privacy.module').then((m) => m.PrivacyPageModule),
+  },
+  {
+    path: 'admin-panel',
+    component: AdminPanelComponent
   },
   {
     path: 'profile',
@@ -82,13 +87,14 @@ const routes: Routes = [
       import('./enable-permission/enable-permission.module').then(
         (m) => m.EnablePermissionPageModule
       ),
-  },  {
+  },
+  {
     path: 'add-report-sucess',
-    loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then( m => m.AddReportSucessPageModule)
+    loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then(m => m.AddReportSucessPageModule)
   },
   {
     path: 'permissions',
-    loadChildren: () => import('./shared/modals/permissions/permissions.module').then( m => m.PermissionsPageModule)
+    loadChildren: () => import('./shared/modals/permissions/permissions.module').then(m => m.PermissionsPageModule)
   },
 
 
@@ -100,4 +106,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
