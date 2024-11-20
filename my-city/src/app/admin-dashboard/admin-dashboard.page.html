@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{"ADMIN_PANEL.Admin panel" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-content>
+            <div id="doughnut-chart" style="width: 400px; height: 300px;"></div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-card (click)="adminPanel(isAdmin)">
+          <ion-card-content>
+            <ion-row class="total-reps">
+              <ion-col size="12">
+                <div class="container">
+                  <div class="left-container">
+                    <div class="top-div">
+                      <h2>Pending</h2>
+                    </div>
+                    <div class="bottom-div">{{"ADMIN_PANEL.Pending reports" | translate }} :
+                      <strong>{{adminData?.pending}}</strong>
+                    </div>
+                  </div>
+                  <div class="right-div">
+                    <ion-icon name="chevron-forward" size="large"></ion-icon>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-card button class="pin-card" (click)="navigateToMap()">
+          <ion-card-content>
+            <div class="card-text">
+              <div>
+                <p>{{"ADMIN_PANEL.View map" | translate }}</p>
+              </div>
+              <div class="arrow-i">
+                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+
+      <ion-col size="6">
+        <ion-card button class="pin-card" (click)="navigateToUserList()">
+          <ion-card-content>
+            <div class="card-text">
+              <div>
+                <p>{{"ADMIN_PANEL.View users" | translate }}</p>
+              </div>
+              <div class="arrow-i">
+                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+</ion-content>

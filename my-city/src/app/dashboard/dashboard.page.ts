@@ -62,7 +62,7 @@ export class DashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if(this.isAdmin){
+    if (this.isAdmin) {
       this.reports.getReports().subscribe((res: any) => {
         this.totalReports = res.data.length;
       });
@@ -104,7 +104,7 @@ export class DashboardPage implements OnInit {
   }
 
   adminPanel(isAdmin) {
-    this.router.navigateByUrl('/reports', { state: isAdmin });
+    this.router.navigateByUrl('/reports', { state: { isAdmin: isAdmin } });
   }
 
   getReports() {

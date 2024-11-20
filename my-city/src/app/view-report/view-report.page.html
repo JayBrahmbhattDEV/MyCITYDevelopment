@@ -3,15 +3,19 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title
-      ><strong class="text-white"
-        >{{'VIEW_REPORT_PAGE.View Report' | translate}}</strong
-      ></ion-title>
+    <ion-title><strong class="text-white">{{'VIEW_REPORT_PAGE.View Report' | translate}}</strong></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-img class="add-report-image" [src]="report.imgUrl"></ion-img>
+  <div class="image-container">
+    <ion-img class="add-report-image"
+      [src]="report.imgUrl ? report.imgUrl : './assets/images/citiconn-def-view.svg'"></ion-img>
+    <span *ngIf="!report.imgUrl" class="image-data-not-available">
+      Image data not available
+    </span>
+  </div>
+
   <ion-list>
     <ion-item lines="none">
       <div class="category-container">
@@ -22,36 +26,30 @@
 
     <ion-item lines="none">
       <ion-icon slot="start" name="reader-outline"></ion-icon>
-      <p class="description">{{ report.description }}</p>
+      <p class="description">{{ report.description || "Description not available" }}</p>
     </ion-item>
-    
+
     <ion-item lines="none" class="ion-margin-vertical">
       <ion-icon slot="start" name="location-outline"></ion-icon>
-      <ion-text class="ion-text-wrap"> {{ report.address }} </ion-text>
+      <ion-text class="ion-text-wrap"> {{ report.address || "Location data not available" }} </ion-text>
     </ion-item>
-    <ion-item
-      [color]="report.isPending ? 'warning' : 'primary'"
-      slot="end"
-      lines="none"
-      class="ion-text-center ion-margin-horizontal"
-    >
-      <ion-label class="ion-text-wrap">
-        {{report.isPending ? 'Pending' : 'Closed'}}
-      </ion-label>
+    <ion-card *ngIf="!isMapLoading">
+      <div class="map-container">
+        <app-mc-map [disabled]="true" [latLong]="latLong"></app-mc-map>
+      </div>
+    </ion-card>
+    <ion-item slot="end" lines="none" class="ion-text-center ion-margin-horizontal">
+      <ion-text>{{'VIEW_REPORT_PAGE.Report status' | translate}} :</ion-text>
+      <ion-chip [color]="report.isPending ? 'warning' : 'primary'">
+        <ion-label class="ion-text-wrap">
+          {{report.isPending ? 'Pending' : 'Closed'}}
+        </ion-label>
+      </ion-chip>
     </ion-item>
-    <ion-button
-      class="ion-margin-horizontal"
-      *ngIf="isAdmin && isPending"
-      (click)="approveReport()"
-      expand="block"
-      [disabled]="!report.isPending"
-    >
-      <ion-icon
-        class="tick-icon"
-        slot="start"
-        name="checkmark-circle-outline"
-      ></ion-icon>
-      Close report
+    <ion-button class="ion-margin-horizontal" *ngIf="isAdmin && isPending" (click)="approveReport()" expand="block"
+      [disabled]="!report.isPending">
+      <ion-icon class="tick-icon" slot="start" name="checkmark-circle-outline"></ion-icon>
+      {{'VIEW_REPORT_PAGE.Close report' | translate}}
     </ion-button>
   </ion-list>
 </ion-content>

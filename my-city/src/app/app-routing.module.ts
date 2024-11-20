@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CheckAuthGuard } from './guards/check-auth.guard';
+import { UserListPage } from './user-list/user-list.page';
+import { AdminDashboardPage } from './admin-dashboard/admin-dashboard.page';
 
 const routes: Routes = [
   {
@@ -33,6 +35,14 @@ const routes: Routes = [
     path: 'privacy',
     loadChildren: () =>
       import('./privacy/privacy.module').then((m) => m.PrivacyPageModule),
+  },
+  {
+    path: 'admin-panel',
+    component: AdminDashboardPage
+  },
+  {
+    path: 'all-users',
+    component: UserListPage
   },
   {
     path: 'profile',
@@ -82,13 +92,22 @@ const routes: Routes = [
       import('./enable-permission/enable-permission.module').then(
         (m) => m.EnablePermissionPageModule
       ),
-  },  {
+  },
+  {
     path: 'add-report-sucess',
-    loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then( m => m.AddReportSucessPageModule)
+    loadChildren: () => import('./add-report-sucess/add-report-sucess.module').then(m => m.AddReportSucessPageModule)
   },
   {
     path: 'permissions',
-    loadChildren: () => import('./shared/modals/permissions/permissions.module').then( m => m.PermissionsPageModule)
+    loadChildren: () => import('./shared/modals/permissions/permissions.module').then(m => m.PermissionsPageModule)
+  },
+  {
+    path: 'user-list',
+    loadChildren: () => import('./user-list/user-list.module').then( m => m.UserListPageModule)
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
   },
 
 
@@ -100,4 +119,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

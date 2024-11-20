@@ -37,4 +37,8 @@ export class ReportsService {
   approveReport(recordId, isPending){
     return this.http.patch(`${this.api}/record/update/${recordId}`, isPending);
   }
+
+  getAdminReportCount(){
+    return this.http.get(`${this.api}/record/report-count`);
+  }
 }

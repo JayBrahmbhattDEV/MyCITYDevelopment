@@ -45,6 +45,13 @@ export class AppComponent {
       isAuthRequired: false,
       show: true,
     },
+    {
+      title: 'SIDE_MENU.Admin Panel',
+      url: '/admin-panel',
+      icon: 'key',
+      isAuthRequired: true,
+      show: false,
+    }
   ];
   modal: HTMLIonModalElement;
   backButtonPriority = 10;

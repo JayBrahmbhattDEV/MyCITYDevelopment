@@ -6,6 +6,30 @@
     padding-right: 10px;
 }
 
+.map-container {
+    height: 9.375rem;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.image-data-not-available {
+    color: #777;
+    font-size: 16px;
+}
+
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    .approve-btn {
+        margin-left: 80%;
+    }
+}
+
 .add-report-image {
     padding: 1rem 1rem;
 }
@@ -35,8 +59,16 @@ ion-img::part(image) {
     margin: 4px 0;
 }
 
-h1, h2 {
+h1,
+h2 {
     margin-top: 0;
+}
+
+.ion-text-center {
+    display: flex;
+    align-items: baseline;
+    font-weight: bold;
+    margin: 0 5px;
 }
 
 

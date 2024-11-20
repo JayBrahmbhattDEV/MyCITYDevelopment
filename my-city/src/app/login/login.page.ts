@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonSlides, NavController } from '@ionic/angular';
@@ -8,6 +8,7 @@ import { CommonService } from '../services/common.service';
 import { StorageService } from '../services/storage.service';
 import { STORAGE_KEYS } from '../utils/constants';
 import { take } from 'rxjs/operators';
+import { ReportsService } from '../services/reports.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginPage implements OnInit {
   isLoading = false;
   isClicked = false;
   isRegisterClicked = false;
+  reportService = inject(ReportsService);
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -76,6 +78,7 @@ export class LoginPage implements OnInit {
             this.isClicked = false;
             if(response.data.user.isAdmin){
               localStorage.setItem("isAdmin", response.data.user.isAdmin);
+              this.getRepCount();
             }
             this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
           }
@@ -136,6 +139,12 @@ export class LoginPage implements OnInit {
 
   login() {
     this.ionSlids.slidePrev();
+  }
+
+  getRepCount() {
+    this.reportService.getAdminReportCount().subscribe((res: any) => {
+      if (res) localStorage.setItem("repCt", JSON.stringify(res.data));
+    })
   }
 
   get errorControl() {

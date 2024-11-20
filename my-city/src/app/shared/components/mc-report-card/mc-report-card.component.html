@@ -1,28 +1,22 @@
 <ion-card mode="ios" (click)="viewReport()" class="ion-no-margin ion-margin-bottom">
-  <ion-img
-    [class]="report.imageLoaded ? '' : 'hide'"
-    [ngClass]="!report.imgUrl ? 'def-padding' : ''"
-    [src]="report.imgUrl ? report.imgUrl : './assets/images/citiconn-default.svg'"
-    (ionImgDidLoad)="onLoaded()"
-  ></ion-img>
-  <ion-skeleton-text
-    animated
-    *ngIf="!report.imageLoaded"
-  ></ion-skeleton-text>
+  <ion-img [class]="report.imageLoaded ? '' : 'hide'" [ngClass]="!report.imgUrl ? 'def-padding' : ''"
+    [src]="report.imgUrl ? report.imgUrl : './assets/images/citiconn-default.svg'" (ionImgDidLoad)="onLoaded()"
+    class="img-container"></ion-img>
+  <ion-skeleton-text animated *ngIf="!report.imageLoaded" class="img-container"></ion-skeleton-text>
+
   <ion-card-content class="ion-no-padding ion-no-margin">
     <div class="ion-padding ion-text-left">
       <ion-label>
         <div class="card-content">
           <ion-icon slot="start" name="location-outline" class="icon"></ion-icon>
           <div class="text-container">
-            <b class="title">{{ report.address }}</b>
+            <b class="title">{{ report.address || "Location data not available" }}</b>
             <p class="description">{{ report.description || "Description not available" }}</p>
           </div>
         </div>
       </ion-label>
     </div>
-  
-  
+
     <ion-item [color]="report.isPending ? 'warning' : 'success'" class="ion-text-center" details>
       <ion-label>{{ report.isPending ? "Pending" : "Closed" }}</ion-label>
     </ion-item>

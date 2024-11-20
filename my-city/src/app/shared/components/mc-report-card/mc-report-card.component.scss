@@ -18,7 +18,8 @@
   flex-grow: 1;
 }
 
-.title {
+.title,
+p {
   display: -webkit-box;
   font-weight: bold;
   -webkit-box-orient: vertical;
@@ -34,13 +35,17 @@
 
 ion-skeleton-text {
   height: 15rem;
-  width: 90%;
+  /* JB: Follows ion-img */
+  width: 100%;
   border-radius: 1.5rem 1.5rem 10px 10px;
   margin: 0 12px;
 }
 
 ion-img {
   padding: 0.5rem;
+  height: 15rem;
+  /* JB: Set fixed height for images for all cards*/
+  object-fit: cover;
 }
 
 ion-img::part(image) {
