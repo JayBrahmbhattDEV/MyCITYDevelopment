@@ -27,8 +27,12 @@
               <ion-col size="12">
                 <div class="container">
                   <div class="left-container">
-                    <div class="top-div"><h2>Pending</h2></div>
-                    <div class="bottom-div">The total reports pending in your city are: <strong>231</strong></div>
+                    <div class="top-div">
+                      <h2>Pending</h2>
+                    </div>
+                    <div class="bottom-div">The total reports pending in your city are:
+                      <strong>{{adminData?.pending}}</strong>
+                    </div>
                   </div>
                   <div class="right-div">
                     <ion-icon name="chevron-forward" size="large"></ion-icon>
@@ -41,16 +45,30 @@
       </ion-col>
     </ion-row>
 
-
-    <!-- Third Row: One More Long Card -->
     <ion-row>
-      <ion-col size="12">
-        <ion-card>
+      <ion-col size="6">
+        <ion-card button class="pin-card" (click)="navigateToMap()">
           <ion-card-content>
-            Content for Long Card 2
+            <div class="card-text">
+              <p>View all pins in your city</p>
+              <ion-icon name="map-outline"></ion-icon>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button class="pin-card" (click)="navigateToUserList()">
+          <ion-card-content>
+            <div class="card-text">
+              <p>View all users</p>
+              <ion-icon name="map-outline"></ion-icon>
+            </div>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
+
+
   </ion-grid>
 </ion-content>

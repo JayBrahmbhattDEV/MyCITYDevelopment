@@ -50,7 +50,7 @@ export class AppComponent {
       url: '/admin-panel',
       icon: 'key',
       isAuthRequired: true,
-      show: true,
+      show: false,
     }
   ];
   modal: HTMLIonModalElement;

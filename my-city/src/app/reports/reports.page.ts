@@ -22,14 +22,14 @@ export class ReportsPage implements OnInit {
     private reportService: ReportsService,
     private commonService: CommonService,
     private navController: NavController,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   ngOnInit() {
-    this.adminPanel = this.router.getCurrentNavigation().extras.state;
+    this.adminPanel = this.router.getCurrentNavigation().extras.state || history.state.isAdmin;
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     if (this.adminPanel) {
       this.getAllPendingReports();
     } else {
@@ -52,15 +52,14 @@ export class ReportsPage implements OnInit {
         this.commonService.hideLoading();
       },
       (e) => {
-        this.commonService.presentToaster({message:"Something went wrong!", color:'danger'})
+        this.commonService.presentToaster({ message: "Something went wrong!", color: 'danger' })
         this.commonService.hideLoading();
       }
     );
   }
 
-  getAllPendingReports(){
-    this.commonService.presentLoading();
-    this.reportService.getReports().subscribe((response:any) => {
+  getAllPendingReports() {
+    this.reportService.getReports().subscribe((response: any) => {
       if (response.success) {
         this.allPendingReports = response.data;
         console.log(this.allPendingReports);

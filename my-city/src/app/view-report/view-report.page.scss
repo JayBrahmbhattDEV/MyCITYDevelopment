@@ -10,6 +10,20 @@
     height: 9.375rem;
 }
 
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.image-data-not-available {
+    color: #777;
+    font-size: 16px;
+}
+
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .approve-btn {
         margin-left: 80%;
