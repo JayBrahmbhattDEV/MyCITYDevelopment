@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title><strong class="text-white">{{'USER_LIST.User list' | translate}}</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-card *ngFor="let user of users">
+      <ion-card-header>
+        <ion-card-title>{{ user.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-icon name="mail" slot="start"></ion-icon>
+          <p>{{ user.email }}</p>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="call" slot="start"></ion-icon>
+          <p>{{ user.phoneNumber }}</p>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <p>{{ user.dob || 'Date of birth not available' }}</p>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="person" slot="start"></ion-icon>
+          <p>Account Type: {{ user.isAdmin ? 'Admin' : 'User' }}</p>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+
+</ion-content>

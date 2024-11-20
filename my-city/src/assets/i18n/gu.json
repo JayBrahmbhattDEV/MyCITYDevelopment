@@ -55,7 +55,9 @@
     "It looks like you haven't created any reports yet Creating a report is just one tap away!": "એવું લાગે છે કે તમે હજી સુધી કોઈ રિપોર્ટ્સ બનાવ્યા નથી, રિપોર્ટ બનાવવાનું માત્ર એક ટૅપ દૂર છે!"
   },
   "VIEW_REPORT_PAGE": {
-    "View Report": "અહેવાલ જુઓ"
+    "View Report": "અહેવાલ જુઓ",
+    "Report status": "અહેવાલ સ્થિતિ",
+    "Close report": "અહેવાલ મંજૂર કરો"
   },
   "PROFILE_PAGE": {
     "Your Profile": "તમારી પ્રોફાઇલ",
@@ -72,6 +74,15 @@
     "Gujarati": "ગુજરાતી",
     "Set": "સેટ કરો",
     "Cancel": "રદ કરો"
+  },
+  "USER_LIST": {
+    "User list": "વપરાશકર્તાઓ"
+  },
+  "ADMIN_PANEL": {
+    "Admin panel": "એડમિન પેનલ",
+    "Pending reports": "તમારા શહેરમાં કુલ અહેવાલો બાકી છે",
+    "View map": "શહેરનો નકશો જુઓ",
+    "View users": "બધા વપરાશકર્તાઓ જુઓ"
   },
   "ABOUT_US": {
     "POINT_1": "આ એપ્લિકેશન ભારતમાં નાગરિકોની સંલગ્નતાને સુધારવા માટે બનાવવામાં આવી છે જે આખરે સરકાર અને તેના નાગરિકો વચ્ચે સેતુ તરીકે સેવા આપે છે.",

@@ -55,7 +55,9 @@
     "It looks like you haven't created any reports yet Creating a report is just one tap away!": "It looks like you haven't created any reports yet Creating a report is just one tap away!"
   },
   "VIEW_REPORT_PAGE": {
-    "View Report": "View Report"
+    "View Report": "View Report",
+    "Report status": "Report status",
+    "Close report": "Close report"
   },
   "PROFILE_PAGE": {
     "Your Profile": "Your Profile",
@@ -72,6 +74,15 @@
     "Gujarati": "Gujarati",
     "Set": "Set",
     "Cancel": "Cancel"
+  },
+  "USER_LIST": {
+    "User list": "Users"
+  },
+  "ADMIN_PANEL": {
+    "Admin panel": "Admin panel",
+    "Pending reports": "The total reports pending in your city are",
+    "View map": "View city map",
+    "View users": "View all users"
   },
   "ABOUT_US": {
     "POINT_1": "The application is designed to improve the citizen engagement in India eventually serving as a bridge between the government and its citizens",

@@ -40,4 +40,9 @@ export class AccountService {
     return this.http.patch(api, data)
   }
 
+  getAllUsers() {
+    const api = `${this.api}/user/getAllUsers`
+    return this.http.get(api);
+  }
+
 }

@@ -1,14 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import * as echarts from 'echarts';
 import { CommonService } from '../services/common.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-admin-panel',
-  templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.scss'],
+  selector: 'cc-admin-dashboard',
+  templateUrl: './admin-dashboard.page.html',
+  styleUrls: ['./admin-dashboard.page.scss'],
 })
-export class AdminPanelComponent implements OnInit {
+export class AdminDashboardPage implements OnInit {
+  navController = inject(NavController);
   router = inject(Router);
   common = inject(CommonService);
   adminData: any;
@@ -69,15 +71,17 @@ export class AdminPanelComponent implements OnInit {
   }
 
   adminPanel(isAdmin) {
-    this.common.presentLoading();
-    this.router.navigateByUrl('/reports', { state: { isAdmin: true } });
+    this.navController.navigateForward('/reports', {
+      state: { isAdmin: true },
+    });
   }
 
   navigateToMap() {
-    
+
   }
 
   navigateToUserList() {
-    
+    this.router.navigateByUrl('/all-users', { state: { isAdmin: true } })
   }
+
 }

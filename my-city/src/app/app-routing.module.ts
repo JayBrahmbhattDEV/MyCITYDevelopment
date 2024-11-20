@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CheckAuthGuard } from './guards/check-auth.guard';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UserListPage } from './user-list/user-list.page';
+import { AdminDashboardPage } from './admin-dashboard/admin-dashboard.page';
 
 const routes: Routes = [
   {
@@ -37,7 +38,11 @@ const routes: Routes = [
   },
   {
     path: 'admin-panel',
-    component: AdminPanelComponent
+    component: AdminDashboardPage
+  },
+  {
+    path: 'all-users',
+    component: UserListPage
   },
   {
     path: 'profile',
@@ -95,6 +100,14 @@ const routes: Routes = [
   {
     path: 'permissions',
     loadChildren: () => import('./shared/modals/permissions/permissions.module').then(m => m.PermissionsPageModule)
+  },
+  {
+    path: 'user-list',
+    loadChildren: () => import('./user-list/user-list.module').then( m => m.UserListPageModule)
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
   },
 
 

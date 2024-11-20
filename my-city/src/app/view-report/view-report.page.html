@@ -38,16 +38,18 @@
         <app-mc-map [disabled]="true" [latLong]="latLong"></app-mc-map>
       </div>
     </ion-card>
-    <ion-item [color]="report.isPending ? 'warning' : 'primary'" slot="end" lines="none"
-      class="ion-text-center ion-margin-horizontal">
-      <ion-label class="ion-text-wrap">
-        {{report.isPending ? 'Pending' : 'Closed'}}
-      </ion-label>
+    <ion-item slot="end" lines="none" class="ion-text-center ion-margin-horizontal">
+      <ion-text>{{'VIEW_REPORT_PAGE.Report status' | translate}} :</ion-text>
+      <ion-chip [color]="report.isPending ? 'warning' : 'primary'">
+        <ion-label class="ion-text-wrap">
+          {{report.isPending ? 'Pending' : 'Closed'}}
+        </ion-label>
+      </ion-chip>
     </ion-item>
     <ion-button class="ion-margin-horizontal" *ngIf="isAdmin && isPending" (click)="approveReport()" expand="block"
       [disabled]="!report.isPending">
       <ion-icon class="tick-icon" slot="start" name="checkmark-circle-outline"></ion-icon>
-      Close report
+      {{'VIEW_REPORT_PAGE.Close report' | translate}}
     </ion-button>
   </ion-list>
 </ion-content>

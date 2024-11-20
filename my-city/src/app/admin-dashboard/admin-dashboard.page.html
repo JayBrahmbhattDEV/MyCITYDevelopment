@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Admin Panel</ion-title>
+    <ion-title>{{"ADMIN_PANEL.Admin panel" | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -30,7 +30,7 @@
                     <div class="top-div">
                       <h2>Pending</h2>
                     </div>
-                    <div class="bottom-div">The total reports pending in your city are:
+                    <div class="bottom-div">{{"ADMIN_PANEL.Pending reports" | translate }} :
                       <strong>{{adminData?.pending}}</strong>
                     </div>
                   </div>
@@ -50,19 +50,28 @@
         <ion-card button class="pin-card" (click)="navigateToMap()">
           <ion-card-content>
             <div class="card-text">
-              <p>View all pins in your city</p>
-              <ion-icon name="map-outline"></ion-icon>
+              <div>
+                <p>{{"ADMIN_PANEL.View map" | translate }}</p>
+              </div>
+              <div class="arrow-i">
+                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              </div>
             </div>
           </ion-card-content>
         </ion-card>
       </ion-col>
 
+
       <ion-col size="6">
         <ion-card button class="pin-card" (click)="navigateToUserList()">
           <ion-card-content>
             <div class="card-text">
-              <p>View all users</p>
-              <ion-icon name="map-outline"></ion-icon>
+              <div>
+                <p>{{"ADMIN_PANEL.View users" | translate }}</p>
+              </div>
+              <div class="arrow-i">
+                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              </div>
             </div>
           </ion-card-content>
         </ion-card>

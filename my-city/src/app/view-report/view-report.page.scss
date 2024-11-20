@@ -64,6 +64,13 @@ h2 {
     margin-top: 0;
 }
 
+.ion-text-center {
+    display: flex;
+    align-items: baseline;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .approve-btn {
