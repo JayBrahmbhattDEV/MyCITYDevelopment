@@ -14,38 +14,26 @@
     </div>
     <ion-list>
       <ion-item class="ion-margin-vertical">
-        <ion-label position="floating"
-          >{{'PROFILE_PAGE.Name' | translate}}
-          <ion-text color="danger"> * </ion-text></ion-label
-        >
-        <ion-textarea
-          formControlName="name"
-          [placeholder]="'LOGIN_PAGE.Enter your name' | translate"
-        ></ion-textarea>
+        <ion-label position="floating">{{'PROFILE_PAGE.Name' | translate}}
+          <ion-text color="danger"> * </ion-text></ion-label>
+        <ion-input id="cc-name" formControlName="name"
+          [placeholder]="'LOGIN_PAGE.Enter your name' | translate"></ion-input>
       </ion-item>
 
       <ion-item disabled class="ion-margin-vertical">
-        <ion-label position="floating"
-          >{{'PROFILE_PAGE.Name' | translate}}</ion-label
-        >
+        <ion-label position="floating">{{'PROFILE_PAGE.Name' | translate}}</ion-label>
         <ion-textarea formControlName="email"></ion-textarea>
       </ion-item>
 
       <ion-item disabled class="ion-margin-vertical">
-        <ion-label position="floating"
-          >{{'PROFILE_PAGE.Phone' | translate}}</ion-label
-        >
+        <ion-label position="floating">{{'PROFILE_PAGE.Phone' | translate}}</ion-label>
         <ion-textarea formControlName="phone"></ion-textarea>
       </ion-item>
 
-      <ion-item class="ion-margin-vertical">
-        <ion-label position="stacked"
-          >{{'PROFILE_PAGE.Address' | translate}}</ion-label
-        >
-        <ion-textarea
-          formControlName="address"
-          [placeholder]="'PROFILE_PAGE.Enter Your Address' | translate"
-        ></ion-textarea>
+      <ion-item class="ion-margin-vertical" lines="none">
+        <ion-label position="stacked">{{'PROFILE_PAGE.Address' | translate}}</ion-label>
+        <ion-textarea id="cc-address" formControlName="address"
+          [placeholder]="'PROFILE_PAGE.Enter Your Address' | translate"></ion-textarea>
       </ion-item>
 
       <ion-item button="true" id="open-datetime">
@@ -54,17 +42,9 @@
         <ion-modal class="datetime-modal" trigger="open-datetime">
           <ng-template>
             <ion-content>
-              <ion-datetime
-                max="2022-08-21"
-                formControlName="dob"
-                presentation="date"
-                size="cover"
-                (ionChange)="change($event)"
-                #datetimeId
-                show-default-buttons="true"
-                cancel-text="Back"
-                done-text="Done"
-              >
+              <ion-datetime max="2022-08-21" formControlName="dob" presentation="date" size="cover"
+                (ionChange)="change($event)" #datetimeId show-default-buttons="true" cancel-text="Back"
+                done-text="Done">
               </ion-datetime>
             </ion-content>
           </ng-template>
@@ -73,39 +53,21 @@
 
       <ion-item class="ion-margin-vertical">
         <ion-label>{{'PROFILE_PAGE.Language' | translate}}</ion-label>
-        <ion-select
-          [okText]="'PROFILE_PAGE.Set' | translate"
-          [value]="selectedLanguage"
-          [cancelText]="'PROFILE_PAGE.Cancel' | translate"
-          (ionChange)="setLanguage($event)"
-        >
-          <ion-select-option [value]="'en'"
-            >{{'PROFILE_PAGE.English' | translate}}</ion-select-option
-          >
-          <ion-select-option [value]="'gu'"
-            >{{'PROFILE_PAGE.Gujarati' | translate}}</ion-select-option
-          >
+        <ion-select [okText]="'PROFILE_PAGE.Set' | translate" [value]="selectedLanguage"
+          [cancelText]="'PROFILE_PAGE.Cancel' | translate" (ionChange)="setLanguage($event)">
+          <ion-select-option [value]="'en'">{{'PROFILE_PAGE.English' | translate}}</ion-select-option>
+          <ion-select-option [value]="'gu'">{{'PROFILE_PAGE.Gujarati' | translate}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-      <ion-button
-        (click)="save()"
-        class="ion-margin"
-        shape="round"
-        expand="block"
-        [disabled]="profileForm.invalid"
-      >
-        {{'PROFILE_PAGE.Update Profile' | translate}}
-      </ion-button>
-      <ion-button
-        (click)="logOut()"
-        class="ion-margin"
-        shape="round"
-        expand="block"
-        color="danger"
-      >
-        {{'PROFILE_PAGE.Logout' | translate}}
-      </ion-button>
+      <div class="profile-btns">
+        <ion-button (click)="save()" class="ion-margin" shape="round" expand="block" [disabled]="profileForm.invalid">
+          {{'PROFILE_PAGE.Update Profile' | translate}}
+        </ion-button>
+        <ion-button (click)="logOut()" class="ion-margin" shape="round" expand="block" color="danger">
+          {{'PROFILE_PAGE.Logout' | translate}}
+        </ion-button>
+      </div>
     </ion-list>
   </form>
 </ion-content>

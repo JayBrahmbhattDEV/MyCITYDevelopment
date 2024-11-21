@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { AccountService } from '../services/account.service';
 import { CommonService } from '../services/common.service';
+import { MESSAGES } from '../utils/constants';
 
 @Component({
   selector: 'app-register',
@@ -66,7 +67,7 @@ export class RegisterPage implements OnInit {
           this.commonService.presentToaster({
             message:
               e?.error.message ||
-              'Something went wrong please try again later.',
+              MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
             color: 'danger',
             duration: 3000,
           });

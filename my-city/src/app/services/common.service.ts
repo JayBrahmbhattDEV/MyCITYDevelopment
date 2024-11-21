@@ -18,7 +18,7 @@ export class CommonService {
     private loadingController: LoadingController,
     private toasterContrller: ToastController,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async presentLoading(message = 'Please wait') {
     if (!this.loading) {
@@ -26,6 +26,12 @@ export class CommonService {
         message,
       });
       this.loading.present();
+
+      setTimeout(async () => {
+        if (this.loading) {
+          await this.loading.dismiss();
+        }
+      }, 7000);
     }
   }
 

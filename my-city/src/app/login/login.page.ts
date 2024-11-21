@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
     private accountService: AccountService,
     public commonService: CommonService,
     private storageService: StorageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {

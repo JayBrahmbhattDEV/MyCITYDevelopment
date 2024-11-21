@@ -6,6 +6,7 @@ ion-content {
   position: relative;
   background-color: var(----ion-color-light-shade);
   --background: var(--ion-color-light);
+
   .profile {
     font-size: 200px;
     background-color: var(--ion-color-primary);
@@ -14,6 +15,7 @@ ion-content {
     justify-content: center;
     align-items: center;
   }
+
   .container {
     position: absolute;
     background-color: var(--ion-color-primary);
@@ -24,8 +26,25 @@ ion-content {
     border-radius: 50%/0 0 50px 50px;
   }
 
-  .log-out-confirmed{
+  .log-out-confirmed {
     color: white;
     background: red;
   }
+}
+
+ion-item {
+  max-width: 95%;
+}
+
+ion-textarea#cc-address {
+  border-radius: 5px;
+  border: 0.5px solid #25b791;
+  padding: 4px 10px;
+  width: 95% !important;
+  min-height: 75px;
+}
+
+.profile-btns{
+  display: flex;
+  justify-content: space-evenly;
 }

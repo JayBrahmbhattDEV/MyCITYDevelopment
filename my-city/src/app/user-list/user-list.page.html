@@ -3,12 +3,14 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title><strong class="text-white">{{'USER_LIST.User list' | translate}}</strong></ion-title>
+    <ion-title *ngIf="!showGovtSugg"><strong class="text-white">{{'USER_LIST.User list' |
+        translate}}</strong></ion-title>
+    <ion-title *ngIf="showGovtSugg"><strong class="text-white">{{'USER_LIST.Govt' | translate}}</strong></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="!showGovtSugg">
     <ion-card *ngFor="let user of users">
       <ion-card-header>
         <ion-card-title>{{ user.name }}</ion-card-title>
@@ -34,5 +36,14 @@
     </ion-card>
   </ion-list>
 
+  <ion-list *ngIf="showGovtSugg">
+    <ion-card *ngFor="let alert of govtAlerts">
+      <ion-img [src]="alert.image" class="alert-image"></ion-img>
+      <ion-card-content id="govt-card">
+        <ion-card-title>{{ alert.title }}</ion-card-title>
+        <p *ngIf="alert.description">{{ alert.description }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 
 </ion-content>

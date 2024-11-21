@@ -21,7 +21,7 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { AccountService } from '../services/account.service';
 import { PermissionsPage } from '../shared/modals/permissions/permissions.page';
 import { TranslateService } from '@ngx-translate/core';
-import { MESSAGES } from '../utils/constants';
+import { Categories, MESSAGES, SubCategories } from '../utils/constants';
 
 @Component({
   selector: 'app-add-report',
@@ -38,140 +38,8 @@ export class AddReportPage implements OnInit {
   latitudeVal: any;
   combVal: any;
   latLong = [23.049736, 72.511726];
-  categories = [
-    {
-      id: 1,
-      text: 'Trash & Issue',
-    },
-    {
-      id: 2,
-      text: 'Health hazards',
-    },
-    {
-      id: 3,
-      text: 'Street and Park damage',
-    },
-    {
-      id: 4,
-      text: 'Vehicle/Parking',
-    },
-    {
-      id: 5,
-      text: 'Lights',
-    },
-    {
-      id: 6,
-      text: 'Trees',
-    },
-    {
-      id: 7,
-      text: 'General',
-    },
-  ];
-
-  subCategories = [
-    {
-      parent: 1,
-      sId: 1,
-      text: 'Littering',
-    },
-    {
-      parent: 1,
-      sId: 2,
-      text: 'Overflowing bins',
-    },
-    {
-      parent: 1,
-      sId: 3,
-      text: 'Illegal dumping',
-    },
-    {
-      parent: 1,
-      sId: 4,
-      text: 'Hazardous waste disposal',
-    },
-    {
-      parent: 2,
-      sId: 1,
-      text: 'Pest infestations',
-    },
-    {
-      parent: 2,
-      sId: 2,
-      text: 'Dead animal pickup',
-    },
-    {
-      parent: 2,
-      sId: 3,
-      text: 'Contaminated water',
-    },
-    {
-      parent: 3,
-      sId: 1,
-      text: 'Potholes',
-    },
-    {
-      parent: 3,
-      sId: 2,
-      text: 'Broken sidewalks',
-    },
-    {
-      parent: 3,
-      sId: 3,
-      text: 'Graffiti or vandalism',
-    },
-    {
-      parent: 4,
-      sId: 1,
-      text: 'Illegal parking',
-    },
-    {
-      parent: 4,
-      sId: 2,
-      text: 'Abandoned vehicles',
-    },
-    {
-      parent: 4,
-      sId: 3,
-      text: 'Missing or damaged signage',
-    },
-    {
-      parent: 5,
-      sId: 1,
-      text: 'Streetlight outages',
-    },
-    {
-      parent: 5,
-      sId: 2,
-      text: 'Insufficient lighting in areas',
-    },
-    {
-      parent: 6,
-      sId: 1,
-      text: 'Plant New tree',
-    },
-    {
-      parent: 6,
-      sId: 2,
-      text: 'Tree removal requests',
-    },
-    {
-      parent: 6,
-      sId: 3,
-      text: 'Overgrown vegetation',
-    },
-    {
-      parent: 7,
-      sId: 1,
-      text: 'Noise complaints',
-    },
-    {
-      parent: 7,
-      sId: 2,
-      text: 'Maintenance requests',
-    },
-  ];
-
+  categories = Categories;
+  subCategories = SubCategories;
   subCategoriesTemp = [];
 
   cameraOptions: CameraOptions = {
@@ -418,7 +286,6 @@ export class AddReportPage implements OnInit {
         },
       );
     } else {
-
       // if (!this.isImageCaptured) {
       //   this.translateService.get('ADD_REPORT_PAGE. You can add picture by clicking camera').toPromise().then(message => {
       //     this.commonService.presentToaster({
@@ -445,7 +312,6 @@ export class AddReportPage implements OnInit {
       Object.keys(this.reportForm.value).forEach((key) => {
         reportData.append(key, this.reportForm.value[key]);
       });
-      this.commonService.presentLoading();
       this.reportService.addReport(reportData).subscribe(
         (response: any) => {
           if (response.success) {
@@ -520,7 +386,7 @@ export class AddReportPage implements OnInit {
       })
       .catch((e) => {
         console.error("Error in reverse geocode:", e);
-       });
+      });
   }
 
   cropImage(fileUrl) {

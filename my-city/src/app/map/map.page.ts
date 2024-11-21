@@ -4,6 +4,7 @@ import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { CommonService } from '../services/common.service';
 import { NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
+import { MESSAGES } from '../utils/constants';
 
 @Component({
   selector: 'app-map',
@@ -32,7 +33,7 @@ export class MapPage {
         this.latLong = [response.coords.latitude, response.coords.longitude];
       })
       .catch((e) =>
-        this.commonService.presentToaster({ message: 'Something went wrong!' })
+        this.commonService.presentToaster({ message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER })
       );
   }
 

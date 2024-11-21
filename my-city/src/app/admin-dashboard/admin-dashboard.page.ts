@@ -81,6 +81,7 @@ export class AdminDashboardPage implements OnInit {
   }
 
   navigateToUserList() {
+    this.common.presentLoading();
     this.router.navigateByUrl('/all-users', { state: { isAdmin: true } })
   }
 

@@ -19,7 +19,7 @@ export class RecentReportsPage implements OnInit {
     private reportService: ReportsService,
     private commonService: CommonService,
     private navController: NavController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getReports();
@@ -40,7 +40,7 @@ export class RecentReportsPage implements OnInit {
       },
       (e) => {
         this.commonService.presentToaster({
-          message: 'Something went wrong!',
+          message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER,
           color: 'danger',
         });
         this.isReportLoaded = true;

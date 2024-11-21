@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ReportActions } from 'src/app/constants/enums';
 
 @Component({
   selector: 'app-mc-dashboard-button',
@@ -6,11 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./mc-dashboard-button.component.scss'],
 })
 export class McDashboardButtonComponent implements OnInit {
-
   @Input() text: string;
   @Input() image: string;
+  reportActions: any;
+
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.reportActions = ReportActions;
+  }
 
 }

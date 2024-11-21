@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { CommonService } from '../services/common.service';
 import { ReportsService } from '../services/reports.service';
@@ -18,15 +17,15 @@ export class ReportsPage implements OnInit {
   isReportLoaded = false;
   adminPanel: any;
   pageNumber: any;
+  loadData: any = true;
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
     private navController: NavController,
-    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.adminPanel = this.router.getCurrentNavigation().extras.state || history.state.isAdmin;
+    this.adminPanel = history.state.isAdmin;
   }
 
   ionViewWillEnter() {
@@ -52,13 +51,14 @@ export class ReportsPage implements OnInit {
         this.commonService.hideLoading();
       },
       (e) => {
-        this.commonService.presentToaster({ message: "Something went wrong!", color: 'danger' })
+        this.commonService.presentToaster({ message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER, color: 'danger' })
         this.commonService.hideLoading();
       }
     );
   }
 
   getAllPendingReports() {
+    this.pageNumber = 1;
     this.reportService.getReports().subscribe((response: any) => {
       if (response.success) {
         this.allPendingReports = response.data;
@@ -72,6 +72,20 @@ export class ReportsPage implements OnInit {
     this.navController.navigateForward('/view-report', {
       state: report,
     });
+  }
+
+  loadmore(ev) {
+    this.pageNumber += 1;
+    this.reportService
+      .getReportsWithPagination(this.pageNumber)
+      .subscribe((res: any) => {
+        if (res.data.length > 0) {
+          this.allPendingReports.push(...res.data);
+          ev.target.complete();
+        } else {
+          this.loadData = false;
+        }
+      });
   }
 
 }

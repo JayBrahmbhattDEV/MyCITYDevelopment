@@ -6,7 +6,6 @@ import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
 import { MESSAGES } from '../utils/constants';
 import { ReportsService } from '../services/reports.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,7 +34,7 @@ export class DashboardPage implements OnInit {
     },
     {
       text: 'DASHBOARD_PAGE.Government suggestions',
-      url: '/recent-reports',
+      url: '/all-users',
       image: './assets/icon/goverments-alerts.svg',
     },
   ];
@@ -58,15 +57,10 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.storage.create();
-    this.getReports();
   }
 
   ionViewWillEnter() {
-    if (this.isAdmin) {
-      this.reports.getReports().subscribe((res: any) => {
-        this.totalReports = res.data.length;
-      });
-    }
+    this.getReports();
   }
 
   addReport(url: string) {
@@ -100,11 +94,7 @@ export class DashboardPage implements OnInit {
       }
       return;
     }
-    this.router.navigateByUrl(url);
-  }
-
-  adminPanel(isAdmin) {
-    this.router.navigateByUrl('/reports', { state: { isAdmin: isAdmin } });
+    this.router.navigateByUrl(url, { state: { fromGtSugg: url === '/all-users' ? 'gt-sugg' : undefined } });
   }
 
   getReports() {

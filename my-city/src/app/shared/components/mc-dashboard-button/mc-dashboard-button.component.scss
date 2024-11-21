@@ -2,7 +2,17 @@ ion-card {
   --background: #ffffff;
   --color: #3880ff;
   border-radius: 13%;
-  ion-img {
-    min-height: 138.44px;
-  }
+  position: relative;
+}
+
+ion-img {
+  min-height: 138.44px;
+}
+
+.warning-icon {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 24px;
+  z-index: 10;
 }

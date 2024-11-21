@@ -2,7 +2,7 @@
   "LOGIN_PAGE": {
     "LOGIN": "Login",
     "Enter you phone or email": "Enter your phone or email",
-    "Register Me": "Register Me",
+    "Register Me": "Register Here!",
     "Register": "Register",
     "Don't have an account?": "Don't have an account?",
     "Enter your name": "Enter your name",
@@ -76,7 +76,8 @@
     "Cancel": "Cancel"
   },
   "USER_LIST": {
-    "User list": "Users"
+    "User list": "Users",
+    "Govt": "Govt. Alerts"
   },
   "ADMIN_PANEL": {
     "Admin panel": "Admin panel",

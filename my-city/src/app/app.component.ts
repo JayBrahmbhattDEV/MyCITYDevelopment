@@ -6,6 +6,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { PermissionsPage } from './shared/modals/permissions/permissions.page';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './services/storage.service';
+import { adminObj } from './utils/constants';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -23,6 +24,7 @@ export class AppComponent {
       icon: 'albums',
       isAuthRequired: true,
       show: false,
+      forAdmin: false
     },
     {
       title: 'SIDE_MENU.Profile',
@@ -30,6 +32,7 @@ export class AppComponent {
       icon: 'person',
       isAuthRequired: true,
       show: false,
+      forAdmin: false
     },
     {
       title: 'SIDE_MENU.About Us',
@@ -37,6 +40,7 @@ export class AppComponent {
       icon: 'information',
       isAuthRequired: false,
       show: true,
+      forAdmin: false
     },
     {
       title: 'SIDE_MENU.Privacy Policy',
@@ -44,14 +48,8 @@ export class AppComponent {
       icon: 'document-lock',
       isAuthRequired: false,
       show: true,
+      forAdmin: false
     },
-    {
-      title: 'SIDE_MENU.Admin Panel',
-      url: '/admin-panel',
-      icon: 'key',
-      isAuthRequired: true,
-      show: false,
-    }
   ];
   modal: HTMLIonModalElement;
   backButtonPriority = 10;
@@ -69,10 +67,17 @@ export class AppComponent {
       this.userName = user?.name;
       this.pages
         .filter((x) => x.isAuthRequired)
-        .map((x) => {
+        .forEach((x) => {
           x.show = user;
         });
+
+      if (user && user.isAdmin && !this.pages.some((x: any) => x.forAdmin)) {
+        this.pages.push(adminObj);
+      } else if (user && !user.isAdmin) {
+        this.pages = this.pages.filter((x: any) => x.url !== '/admin-panel');
+      }
     });
+
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       const url = this.location.path();
       if (url === '/enable-permission' || url === '/add-report') {
