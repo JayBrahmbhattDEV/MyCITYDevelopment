@@ -28,7 +28,7 @@
                 <div class="container">
                   <div class="left-container">
                     <div class="top-div">
-                      <h2>Pending</h2>
+                      <h2>{{"ADMIN_PANEL.Pending" | translate }}</h2>
                     </div>
                     <div class="bottom-div">{{"ADMIN_PANEL.Pending reports" | translate }} :
                       <strong>{{adminData?.pending}}</strong>
@@ -51,10 +51,10 @@
           <ion-card-content>
             <div class="card-text">
               <div>
-                <p>{{"ADMIN_PANEL.View map" | translate }}</p>
+                <p class="card-inner-txt">{{ "ADMIN_PANEL.View map" | translate }}</p>
               </div>
-              <div class="arrow-i">
-                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              <div class="earth-icon">
+                <ion-icon name="earth-outline" size="large"></ion-icon>
               </div>
             </div>
           </ion-card-content>
@@ -67,10 +67,10 @@
           <ion-card-content>
             <div class="card-text">
               <div>
-                <p>{{"ADMIN_PANEL.View users" | translate }}</p>
+                <p class="card-inner-txt">{{"ADMIN_PANEL.View users" | translate }}</p>
               </div>
-              <div class="arrow-i">
-                <ion-icon name="chevron-forward" size="small"></ion-icon>
+              <div class="earth-icon">
+                <ion-icon name="people-outline" size="large"></ion-icon>
               </div>
             </div>
           </ion-card-content>

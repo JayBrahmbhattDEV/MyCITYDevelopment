@@ -1,3 +1,7 @@
+h2 {
+    font-size: 5vw;
+}
+
 ion-card {
     margin: 10px;
 }
@@ -45,7 +49,6 @@ ion-row.total-reps {
     top: 1.5rem;
 }
 
-/* Centering only the doughnut chart */
 #doughnut-chart {
     display: flex;
     justify-content: center;
@@ -56,18 +59,26 @@ ion-row.total-reps {
 }
 
 .pin-card {
-    height: 3rem;
+    height: 4rem;
 }
 
 .card-text {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .arrow-i {
     display: flex;
     align-items: center;
+}
+
+.earth-icon {
+    color: var(--ion-color-primary);
+}
+
+.bottom-div, .card-inner-txt {
+    font-size: 3.7vw;
 }
 
 @media (min-width: 768px) {

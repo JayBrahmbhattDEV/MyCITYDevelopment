@@ -60,14 +60,20 @@
         </ion-select>
       </ion-item>
 
-      <div class="profile-btns">
-        <ion-button (click)="save()" class="ion-margin" shape="round" expand="block" [disabled]="profileForm.invalid">
-          {{'PROFILE_PAGE.Update Profile' | translate}}
-        </ion-button>
-        <ion-button (click)="logOut()" class="ion-margin" shape="round" expand="block" color="danger">
-          {{'PROFILE_PAGE.Logout' | translate}}
-        </ion-button>
-      </div>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button (click)="save()" class="ion-margin" shape="round" expand="block" [disabled]="profileForm.invalid">
+            {{'PROFILE_PAGE.Update Profile' | translate}}
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-button (click)="logOut()" class="ion-margin" shape="round" expand="block" color="danger">
+            {{'PROFILE_PAGE.Logout' | translate}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
     </ion-list>
   </form>
 </ion-content>

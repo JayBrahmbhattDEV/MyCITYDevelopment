@@ -16,12 +16,12 @@ ion-icon {
 
 ion-select {
   max-width: 95%;
-  border-bottom: 1px solid #25b791;
+  border-bottom: 1px solid var(--ion-color-primary);
 }
 
 ion-textarea {
   border-radius: 5px;
-  border: 0.5px solid #25b791;
+  border: 0.5px solid var(--ion-color-primary);
   padding: 4px 10px;
   width: 95% !important;
   min-height: 75px;

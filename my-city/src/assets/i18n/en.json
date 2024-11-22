@@ -83,7 +83,8 @@
     "Admin panel": "Admin panel",
     "Pending reports": "The total reports pending in your city are",
     "View map": "View city map",
-    "View users": "View all users"
+    "View users": "View all users",
+    "Pending": "Total Pending reports"
   },
   "ABOUT_US": {
     "POINT_1": "The application is designed to improve the citizen engagement in India eventually serving as a bridge between the government and its citizens",

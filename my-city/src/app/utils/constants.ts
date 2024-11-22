@@ -2,6 +2,11 @@ export const MESSAGES = {
   SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER:
     'Something went wrong! Please try again later.',
   FETCHING_REPORTS: 'Fetching Reports',
+  LOG_OUT: 'Are you sure you want to log out?',
+  GUJ_LOG_OUT: 'શું તમે ખરેખર લોગ-આઉટ કરવા માંગો છો?',
+  DELETE_USER: 'Are you sure you want to delete this user? This action is irreversible.',
+  GUJ_DELETE_USER: 'શું તમે ખાતરી રાખો છો કે આ વપરાશકર્તાને ડિલીટ કરવા માંગો છો?',
+  USER_DELETED_SUCCESS: 'User deleted successfully'
 };
 
 export const STORAGE_KEYS = {

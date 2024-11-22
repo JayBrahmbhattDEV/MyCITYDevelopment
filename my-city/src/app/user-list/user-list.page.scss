@@ -7,7 +7,8 @@ ion-card-content {
 }
 
 ion-card {
-    margin: 10px;
+    margin: 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .alert-image {
@@ -16,7 +17,7 @@ ion-card {
 }
 
 ion-card-title {
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 
@@ -32,4 +33,14 @@ ion-img {
 
 ion-img::part(image) {
     border-radius: 1.5rem 1.5rem 10px 10px;
+}
+
+.ulist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ellipsis-i {
+    font-size: 28px;
 }

@@ -45,4 +45,9 @@ export class AccountService {
     return this.http.get(api);
   }
 
+  deleteUser(_id: string) {
+    const api = `${this.api}/user/deleteUser`;
+    return this.http.delete(api + `?id=${_id}`);
+  }
+
 }

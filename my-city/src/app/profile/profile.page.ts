@@ -5,6 +5,7 @@ import { CommonService } from '../services/common.service';
 import { NavController, Platform } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MESSAGES } from '../utils/constants';
 
 @Component({
   selector: 'app-profile',
@@ -58,10 +59,10 @@ export class ProfilePage implements OnInit {
   logOut() {
     if(this.setLangForModal == "gu"){
       this.alertMessage = 
-      `શું તમે ખરેખર લોગ-આઉટ કરવા માંગો છો?`
+      `${MESSAGES.GUJ_LOG_OUT}`
     }
     else {
-      this.alertMessage = `Are you sure you want to log-out?`
+      this.alertMessage = `${MESSAGES.LOG_OUT}`
     }
     this.commonService.presentAlert(
       this.alertMessage,

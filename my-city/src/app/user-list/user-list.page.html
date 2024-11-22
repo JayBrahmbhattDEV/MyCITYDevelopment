@@ -12,8 +12,14 @@
 <ion-content>
   <ion-list *ngIf="!showGovtSugg">
     <ion-card *ngFor="let user of users">
-      <ion-card-header>
-        <ion-card-title>{{ user.name }}</ion-card-title>
+      <ion-card-header class="ulist-header">
+        <div>
+          <ion-card-title>{{ user.name }}</ion-card-title>
+        </div>
+        <div class="ellipsis-i" (click)="presentActionSheet(user._id)">
+          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </div>
+
       </ion-card-header>
       <ion-card-content>
         <ion-item lines="none">
@@ -45,5 +51,7 @@
       </ion-card-content>
     </ion-card>
   </ion-list>
+
+  <code *ngIf="result && !showGovtSugg"> {{ result }} </code>
 
 </ion-content>
