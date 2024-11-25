@@ -6,6 +6,10 @@
     height: 9.375rem;
 }
 
+.map-holder {
+    margin: 24px;
+}
+
 .image-container {
     display: flex;
     flex-direction: column;
@@ -67,8 +71,22 @@ h2 {
     margin: 0 5px;
 }
 
-ion-button[color="light"]::part(native){
-    --ion-color-contrast: var(--ion-color-primary); 
+ion-button[color="light"]::part(native) {
+    --ion-color-contrast: var(--ion-color-primary);
+}
+
+.scroll-content {
+    position: relative;
+}
+
+.down-arrow {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 60px;
+    color: #000;
+    cursor: pointer;
+    z-index: 10;
 }
 
 @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {

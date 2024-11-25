@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../services/common.service';
 import { ReportsService } from '../services/reports.service';
 import { NativeGeocoder, NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { getLatLong, STORAGE_KEYS } from '../utils/constants';
 import { PermissionService } from '../enable-permission/permission.service';
-import { ModalController, NavController, Platform } from '@ionic/angular';
+import { IonContent, ModalController, NavController, Platform } from '@ionic/angular';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { StorageService } from '../services/storage.service';
 
@@ -15,6 +15,8 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./view-report.page.scss'],
 })
 export class ViewReportPage implements OnInit {
+  @ViewChild('content', { static: false }) content: IonContent;
+  showDownArrow = false;
   report: any;
   isPending: any;
   userId: any;
@@ -103,4 +105,21 @@ export class ViewReportPage implements OnInit {
     window.open(url, '_system');
   }
 
+  onScroll(eve: any) {
+    this.content.ionScroll.subscribe(async (event: CustomEvent) => {
+      const scrollElement = await this.content.getScrollElement();
+
+      if (scrollElement) {
+        const scrollTop = scrollElement.scrollTop;
+        const scrollHeight = scrollElement.scrollHeight;
+        const clientHeight = scrollElement.clientHeight;
+
+        this.showDownArrow = scrollTop === scrollHeight - clientHeight;
+      }
+    });
+  }
+
+  scrollToBottom(content: IonContent) {
+    content.scrollToBottom(300);
+  }
 }

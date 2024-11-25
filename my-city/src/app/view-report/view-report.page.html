@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content class="scroll-content" [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <div class="image-container">
     <ion-img class="add-report-image"
       [src]="report.imgUrl ? report.imgUrl : './assets/images/citiconn-def-view.svg'"></ion-img>
@@ -33,9 +33,9 @@
       <ion-icon slot="start" name="location-outline"></ion-icon>
       <ion-text class="ion-text-wrap"> {{ report.address || "Location data not available" }} </ion-text>
     </ion-item>
-    <ion-card *ngIf="!isMapLoading">
+    <ion-card class="map-holder">
       <div class="map-container">
-        <app-mc-map [disabled]="true" [latLong]="latLong"></app-mc-map>
+        <app-mc-map [disabled]="true" [latLong]="[23.049736, 72.511726]"></app-mc-map>
       </div>
     </ion-card>
     <ion-item slot="end" lines="none" class="ion-text-center ion-margin-horizontal">
@@ -67,4 +67,6 @@
     </ion-row>
 
   </ion-list>
+
+  <ion-icon *ngIf="!showDownArrow" name="arrow-down-circle" class="down-arrow" (click)="scrollToBottom(content)"></ion-icon>
 </ion-content>
