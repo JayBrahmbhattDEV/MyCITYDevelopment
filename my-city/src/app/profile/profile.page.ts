@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../services/common.service';
-import { NavController, Platform } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MESSAGES } from '../utils/constants';

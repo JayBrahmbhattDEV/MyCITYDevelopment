@@ -14,7 +14,6 @@ import { ReportsService } from '../services/reports.service';
 })
 export class DashboardPage implements OnInit {
   isReportLoaded = false;
-  isAdmin: any;
   totalReports: any = 0;
   pages = [
     {
@@ -51,9 +50,7 @@ export class DashboardPage implements OnInit {
     private navController: NavController,
     private commonService: CommonService,
     private readonly reports: ReportsService
-  ) {
-    this.isAdmin = localStorage.getItem('isAdmin');
-  }
+  ) {}
 
   ngOnInit() {
     this.storage.create();
@@ -100,7 +97,7 @@ export class DashboardPage implements OnInit {
   getReports() {
     this.reports.geRecentReports().subscribe((response: any) => {
       this.allReports = response.data;
-      this.isReportLoaded = true;
+      this.isReportLoaded = true;      
     });
   }
 }

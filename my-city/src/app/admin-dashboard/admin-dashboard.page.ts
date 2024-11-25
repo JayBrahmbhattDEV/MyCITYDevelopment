@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import * as echarts from 'echarts';
 import { CommonService } from '../services/common.service';
 import { NavController } from '@ionic/angular';
+import { StorageService } from '../services/storage.service';
+import { STORAGE_KEYS } from '../utils/constants';
 
 @Component({
   selector: 'cc-admin-dashboard',
@@ -13,6 +15,7 @@ export class AdminDashboardPage implements OnInit {
   navController = inject(NavController);
   router = inject(Router);
   common = inject(CommonService);
+  storageService = inject(StorageService);
   adminData: any;
 
   ngOnInit() { }
@@ -21,8 +24,9 @@ export class AdminDashboardPage implements OnInit {
     this.renderDoughnutChart();
   }
 
-  renderDoughnutChart() {
-    this.adminData = JSON.parse(localStorage.getItem("repCt"));
+  async renderDoughnutChart() {
+    const adminReportData: any = await this.storageService.getData(STORAGE_KEYS.ADMIN_REP_DT);
+    this.adminData = JSON.parse(adminReportData);
     const chartDom = document.getElementById('doughnut-chart');
     const myChart = echarts.init(chartDom);
 

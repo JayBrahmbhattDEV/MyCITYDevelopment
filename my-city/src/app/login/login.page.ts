@@ -77,7 +77,7 @@ export class LoginPage implements OnInit {
             this.submitted = false;
             this.isClicked = false;
             if(response.data.user.isAdmin){
-              localStorage.setItem("isAdmin", response.data.user.isAdmin);
+              this.storageService.setData(STORAGE_KEYS.IS_ADMIN, response.data.user.isAdmin);
               this.getRepCount();
             }
             this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
@@ -143,7 +143,7 @@ export class LoginPage implements OnInit {
 
   getRepCount() {
     this.reportService.getAdminReportCount().subscribe((res: any) => {
-      if (res) localStorage.setItem("repCt", JSON.stringify(res.data));
+      if (res) this.storageService.setData(STORAGE_KEYS.ADMIN_REP_DT, JSON.stringify(res.data));
     })
   }
 

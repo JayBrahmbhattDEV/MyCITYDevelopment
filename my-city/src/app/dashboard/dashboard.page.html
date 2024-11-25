@@ -40,6 +40,8 @@
       <ng-container *ngIf="allReports.length">
         <app-mc-report-card [report]="report"></app-mc-report-card>
       </ng-container>
+    </ion-slide>
+    <ion-slide>
       <ng-container *ngIf="!isReportLoaded">
         <app-report-card-skeleton
           *ngFor="let item of [1,2,3,4,5]"

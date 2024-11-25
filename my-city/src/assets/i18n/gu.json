@@ -57,7 +57,9 @@
   "VIEW_REPORT_PAGE": {
     "View Report": "અહેવાલ જુઓ",
     "Report status": "અહેવાલ સ્થિતિ",
-    "Close report": "અહેવાલ મંજૂર કરો"
+    "Close report": "અહેવાલ મંજૂર કરો",
+    "View in Maps": "મેપ્સમાં જુઓ",
+    "View in GMaps": "ગૂગલ મેપ્સમાં જુઓ"
   },
   "PROFILE_PAGE": {
     "Your Profile": "તમારી પ્રોફાઇલ",

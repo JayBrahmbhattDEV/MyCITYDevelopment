@@ -15,7 +15,6 @@ import { adminObj } from './utils/constants';
 export class AppComponent {
   activePageTitle = 'Dashboard';
   userName: any;
-  storageService = inject(StorageService);
   setLangForModal: any;
   pages = [
     {
@@ -132,7 +131,7 @@ export class AppComponent {
   }
 
   setLanguage(event: any) {
-    this.storageService.setData('language', event.detail.value);
+    this.storage.setData('language', event.detail.value);
     this.setLangForModal = event.detail.value;
     this.translateService.setDefaultLang(event.detail.value);
   }

@@ -16,7 +16,7 @@
     "Add Report": "Add Report",
     "My Reports": "My Reports",
     "Recent Reports": "Recent Reports",
-    "Government suggestions": "Govt. suggestions",
+    "Government suggestions": "Govt. news",
     "Pending Reports": "Pending Reports",
     "View All": "View All"
   },
@@ -57,7 +57,9 @@
   "VIEW_REPORT_PAGE": {
     "View Report": "View Report",
     "Report status": "Report status",
-    "Close report": "Close report"
+    "Close report": "Close report",
+    "View in Maps" : "View in Maps",
+    "View in GMaps": "View in Google Maps" 
   },
   "PROFILE_PAGE": {
     "Your Profile": "Your Profile",

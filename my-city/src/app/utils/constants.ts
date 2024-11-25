@@ -12,6 +12,8 @@ export const MESSAGES = {
 export const STORAGE_KEYS = {
   USER: 'user',
   TOKEN: 'token',
+  IS_ADMIN: 'isAdmin',
+  ADMIN_REP_DT: 'repCt'
 };
 
 export const Categories = [

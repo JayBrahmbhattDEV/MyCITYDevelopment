@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { CommonService } from '../services/common.service';
 import { ReportsService } from '../services/reports.service';
 import { NativeGeocoder, NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder/ngx';
-import { getLatLong } from '../utils/constants';
+import { getLatLong, STORAGE_KEYS } from '../utils/constants';
 import { PermissionService } from '../enable-permission/permission.service';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-view-report',
@@ -25,29 +26,35 @@ export class ViewReportPage implements OnInit {
   modalController = inject(ModalController);
   navController = inject(NavController);
   geolocation = inject(Geolocation);
+  storageService = inject(StorageService);
+  platform = inject(Platform);
   enablePermissionModal: HTMLIonModalElement;
   paramsObject: any;
   latLon = {
     latitude: '',
     longitude: '',
   };
+  platformType: string;
+  locationCoords: any;
 
   constructor(
     private readonly reportService: ReportsService,
     private readonly router: Router,
     private commonService: CommonService
-  ) { }
+  ) {
+    this.platformType = this.platform.is('ios') ? 'ios' : 'android';
+  }
 
   ngOnInit() {
     this.report = this.router.getCurrentNavigation().extras.state;
-    const locationCoords = getLatLong(this.report.location);
-    this.getAddress(locationCoords.latitude, locationCoords.longitude);
+    this.locationCoords = getLatLong(this.report.location);
+    this.getAddress(this.locationCoords.latitude, this.locationCoords.longitude);
   }
 
   ionViewWillEnter() {
     this.isPending = this.report.isPending;
     this.userId = this.report._id;
-    this.isAdmin = localStorage.getItem("isAdmin");
+    this.isAdmin = this.storageService.getData(STORAGE_KEYS.IS_ADMIN);
   }
 
   getReportDetails(reportId: string) {
@@ -81,6 +88,19 @@ export class ViewReportPage implements OnInit {
       .catch((e) => {
         console.error("Error in reverse geocode:", e);
       });
+  }
+
+  openInMaps() {
+    const { latitude, longitude } = this.locationCoords;
+    let url = '';
+
+    if (this.platformType === 'ios') {
+      url = `maps:${latitude},${longitude}`;
+    } else {
+      url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    }
+
+    window.open(url, '_system');
   }
 
 }
