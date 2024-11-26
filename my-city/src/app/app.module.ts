@@ -24,7 +24,9 @@ const httpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(http, '.
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      backButtonText: ''
+    }),
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,

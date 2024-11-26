@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      <ion-segment (ionChange)="pinViewToggle($event)" swipeGesture="true" value="default">
+        <ion-segment-button value="default">
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Pending">
+          <ion-label>Pending</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <div id="map"></div>
+</ion-content>

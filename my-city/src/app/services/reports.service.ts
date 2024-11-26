@@ -41,4 +41,8 @@ export class ReportsService {
   getAdminReportCount(){
     return this.http.get(`${this.api}/record/report-count`);
   }
+
+  getAllAdminPins() {
+    return this.http.get(`${this.api}/record/admin-pins`);
+  }
 }

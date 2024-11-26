@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CheckAuthGuard } from './guards/check-auth.guard';
 import { UserListPage } from './user-list/user-list.page';
 import { AdminDashboardPage } from './admin-dashboard/admin-dashboard.page';
+import { AdminCityMapPage } from './admin-city-map/admin-city-map.page';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'all-users',
     component: UserListPage
+  },
+  {
+    path: 'admin-map-view',
+    component: AdminCityMapPage
   },
   {
     path: 'profile',
@@ -108,6 +113,10 @@ const routes: Routes = [
   {
     path: 'admin-dashboard',
     loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+  },
+  {
+    path: 'admin-city-map',
+    loadChildren: () => import('./admin-city-map/admin-city-map.module').then( m => m.AdminCityMapPageModule)
   },
 
 
