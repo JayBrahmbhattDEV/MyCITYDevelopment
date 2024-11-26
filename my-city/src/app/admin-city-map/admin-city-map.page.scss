@@ -7,11 +7,12 @@
 }
 
 ion-segment {
-    --background: var(--ion-color-primary);
+    --background: #187a65;
 }
 
 ion-segment-button{
     min-height: 2rem;
+    font-size: medium;
 }
 
 .segment-button-has-label, .segment-button-checked {
