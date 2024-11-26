@@ -33,9 +33,9 @@
       <ion-icon slot="start" name="location-outline"></ion-icon>
       <ion-text class="ion-text-wrap"> {{ report.address || "Location data not available" }} </ion-text>
     </ion-item>
-    <ion-card class="map-holder" *ngIf="!isMapLoading">
+    <ion-card class="map-holder">
       <div class="map-container">
-        <app-mc-map [disabled]="true" [latLong]="latLong"></app-mc-map>
+        <app-mc-map [disabled]="true" [latLong]="locationCoords"></app-mc-map>
       </div>
     </ion-card>
     <ion-item slot="end" lines="none" class="ion-text-center ion-margin-horizontal">

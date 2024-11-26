@@ -21,7 +21,6 @@ export class ViewReportPage implements OnInit {
   isPending: any;
   userId: any;
   isAdmin: any;
-  isMapLoading = true;
   latLong = [23.049736, 72.511726];
   nativeGeocoder = inject(NativeGeocoder);
   permissionService = inject(PermissionService);
@@ -50,7 +49,7 @@ export class ViewReportPage implements OnInit {
   ngOnInit() {
     this.report = this.router.getCurrentNavigation().extras.state;
     this.locationCoords = getLatLong(this.report.location);
-    this.getAddress(this.locationCoords.latitude, this.locationCoords.longitude);
+    this.locationCoords = [this.locationCoords['latitude'], this.locationCoords['longitude']];
   }
 
   ionViewWillEnter() {
@@ -73,33 +72,12 @@ export class ViewReportPage implements OnInit {
     });
   }
 
-  getAddress(latitude: number, longitude: number) {
-    this.nativeGeocoder
-      .reverseGeocode(latitude, longitude, {
-        useLocale: true,
-        maxResults: 1,
-        defaultLocale: 'en_IN',
-      })
-      .then((locations: NativeGeocoderResult[]) => {
-        const nativeGeocoderResult = locations[0];
-        this.latLon.latitude = nativeGeocoderResult.latitude;
-        this.latLon.longitude = nativeGeocoderResult.longitude;
-        this.latLong = [+this.latLon.latitude, +this.latLon.longitude];
-        this.isMapLoading = false;
-      })
-      .catch((e) => {
-        console.error("Error in reverse geocode:", e);
-      });
-  }
-
   openInMaps() {
-    const { latitude, longitude } = this.locationCoords;
     let url = '';
-
     if (this.platformType === 'ios') {
-      url = `maps:${latitude},${longitude}`;
+      url = `maps:${this.locationCoords[0]},${this.locationCoords[1]}`;
     } else {
-      url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+      url = `https://www.google.com/maps?q=${this.locationCoords[0]},${this.locationCoords[1]}`;
     }
 
     window.open(url, '_system');
