@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ 'ADMIN_PANEL.City View' | translate }}</ion-title>
+    <ion-buttons slot="start">
+      <!-- Back Button -->
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <!-- Segment buttons in the center -->
+    <ion-title>
+      <ion-segment value="default">
+        <ion-segment-button value="default">
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="segment">
+          <ion-label>Pending</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content fullscreen>
   <div id="map"></div>
+
+  <!-- <ion-row>
+    <ion-col size="12">
+      
+    </ion-col>
+  </ion-row> -->
 </ion-content>

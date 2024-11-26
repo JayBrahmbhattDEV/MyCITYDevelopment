@@ -81,7 +81,7 @@ export class AdminDashboardPage implements OnInit {
   }
 
   navigateToMap() {
-
+    this.navController.navigateForward('/admin-city-map');
   }
 
   navigateToUserList() {
