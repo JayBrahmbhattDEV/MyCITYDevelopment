@@ -9,11 +9,10 @@
   <div class="logo-container">
     <div class="ion-align-self-center ion-margin-vertical">
       <div class="flex-center">
-        <ion-img
-          style="height: 150px; width: 150px"
-          [src]="'./assets/images/city-2-63.svg'"
-        ></ion-img>
-        <ion-label color="light"><h1>Engage for a better city</h1></ion-label>
+        <ion-img style="height: 150px; width: 150px" [src]="'./assets/images/city-2-63.svg'"></ion-img>
+        <ion-label color="light">
+          <h1>Engage for a better city</h1>
+        </ion-label>
       </div>
     </div>
     <div class="content-container">
@@ -35,35 +34,24 @@
                   <br />
                   <ion-item color="light">
                     <ion-icon slot="start" name="at-circle-outline"></ion-icon>
-                    <ion-input
-                      formControlName="loginVal"
-                      [placeholder]="'LOGIN_PAGE.Enter you phone or email' | translate"
-                    ></ion-input>
+                    <ion-input formControlName="loginVal"
+                      [placeholder]="'LOGIN_PAGE.Enter you phone or email' | translate"></ion-input>
                   </ion-item>
-                  <span style="color: red; font-size: medium;" *ngIf="isClicked && errorControl.loginVal.errors?.required">
+                  <span style="color: red; font-size: medium;"
+                    *ngIf="isClicked && errorControl.loginVal.errors?.required">
                     Email or Phone number is required.
                   </span>
                 </ion-col>
                 <ion-col size="12">
-                  <app-mc-button
-                    [text]="'LOGIN_PAGE.LOGIN' | translate"
-                    [isLoading]="submitted"
-                    (click)="submitForm()"
-                  >
+                  <app-mc-button [text]="'LOGIN_PAGE.LOGIN' | translate" [isLoading]="submitted" (click)="submitForm()">
                   </app-mc-button>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-label
-                    >{{'LOGIN_PAGE.Don\'t have an account?' |
-                    translate}}</ion-label
-                  >
+                  <ion-label>{{'LOGIN_PAGE.Don\'t have an account?' |
+                    translate}}</ion-label>
                 </ion-col>
                 <ion-col size="12">
-                  <app-mc-button
-                    [text]="'LOGIN_PAGE.Register Me' | translate"
-                    (click)="register()"
-                    fill="outline"
-                  >
+                  <app-mc-button [text]="'LOGIN_PAGE.Register Me' | translate" (click)="register()" fill="outline">
                   </app-mc-button>
                 </ion-col>
               </ion-row>
@@ -85,47 +73,51 @@
                 <ion-col size="12">
                   <ion-item color="light">
                     <ion-icon slot="start" name="text-outline"></ion-icon>
-                    <ion-input
-                      formControlName="name"
-                      [placeholder]="'LOGIN_PAGE.Enter your name' | translate"
-                    ></ion-input>
+                    <ion-input formControlName="name"
+                      [placeholder]="'LOGIN_PAGE.Enter your name' | translate"></ion-input>
                   </ion-item>
-                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.name.errors?.required">
+                  <span style="color: red; font-size: medium;"
+                    *ngIf="isRegisterClicked && errorControlRegister.name.errors?.required">
                     Name is required.
                   </span>
                 </ion-col>
                 <ion-col size="12">
                   <ion-item color="light">
                     <ion-icon slot="start" name="at-circle-outline"></ion-icon>
-                    <ion-input
-                      formControlName="email"
-                      [placeholder]="'LOGIN_PAGE.Enter your email' | translate"
-                    ></ion-input>
+                    <ion-input formControlName="email"
+                      [placeholder]="'LOGIN_PAGE.Enter your email' | translate"></ion-input>
                   </ion-item>
-                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.email.errors?.required">
+                  <span style="color: red; font-size: medium;"
+                    *ngIf="isRegisterClicked && errorControlRegister.email.errors?.required">
                     Email is required.
                   </span>
                 </ion-col>
                 <ion-col size="12">
                   <ion-item color="light">
                     <ion-icon slot="start" name="call-outline"></ion-icon>
-                    <ion-input
-                      formControlName="number"
-                      placeholder="Enter your mobile"
-                      [placeholder]="'LOGIN_PAGE.Enter your mobile' | translate"
-                    ></ion-input>
+                    <ion-input formControlName="number" placeholder="Enter your mobile"
+                      [placeholder]="'LOGIN_PAGE.Enter your mobile' | translate"></ion-input>
                   </ion-item>
-                  <span style="color: red; font-size: medium;" *ngIf="isRegisterClicked && errorControlRegister.number.errors?.required">
+                  <span style="color: red; font-size: medium;"
+                    *ngIf="isRegisterClicked && errorControlRegister.number.errors?.required">
                     Number is required.
                   </span>
                 </ion-col>
                 <ion-col size="12">
-                  <app-mc-button
-                    [text]="'LOGIN_PAGE.Register' | translate"
-                    fill="outline"
-                    [isLoading]="isLoading"
-                    (click)="submitRegisterForm()"
-                  >
+                  <ion-item color="light">
+                    <ion-icon slot="start" name="home-outline"></ion-icon>
+                    <ion-select formControlName="cityId" class="full-width-select"
+                      [placeholder]="'LOGIN_PAGE.Select City' | translate" okText="Okay" cancelText="Cancel"
+                      [interfaceOptions]="{ header: 'Select a city' }">
+                      <ion-select-option *ngFor="let city of cities" [value]="city.id">
+                        {{ city.name }}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                  <app-mc-button [text]="'LOGIN_PAGE.Register' | translate" fill="outline" [isLoading]="isLoading"
+                    (click)="submitRegisterForm()">
                   </app-mc-button>
                 </ion-col>
                 <ion-col size="12">

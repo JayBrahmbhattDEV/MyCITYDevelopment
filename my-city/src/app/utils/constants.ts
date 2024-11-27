@@ -159,6 +159,21 @@ export const adminObj = {
   forAdmin: true
 }
 
+export const Cities = [
+  {
+    id: 1, 
+    name: 'Ahmedabad'
+  },
+  {
+    id: 2,
+    name: 'Surat'
+  },
+  {
+    id: 3,
+    name: 'Vadodara'
+  }
+]
+
 export function getLatLong(location: string): { latitude: number; longitude: number } {
   const data = JSON.parse(location);
   return {

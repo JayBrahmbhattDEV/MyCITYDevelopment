@@ -6,7 +6,7 @@ import { AccountService } from '../services/account.service';
 import { Storage } from '@ionic/storage-angular';
 import { CommonService } from '../services/common.service';
 import { StorageService } from '../services/storage.service';
-import { STORAGE_KEYS } from '../utils/constants';
+import { Cities, STORAGE_KEYS } from '../utils/constants';
 import { take } from 'rxjs/operators';
 import { ReportsService } from '../services/reports.service';
 
@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
   isClicked = false;
   isRegisterClicked = false;
   reportService = inject(ReportsService);
+  cities = Cities;
   constructor(
     public formBuilder: FormBuilder,
     public router: Router,
@@ -51,6 +52,7 @@ export class LoginPage implements OnInit {
       name: ['', [Validators.required]],
       number: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      cityId: [null, [Validators.required]]
     });
   }
 
