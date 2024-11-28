@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>
+    <ion-title *ngIf="isAdminMode">
       <ion-segment (ionChange)="pinViewToggle($event)" swipeGesture="true" value="default">
         <ion-segment-button value="default">
           <ion-label>All</ion-label>

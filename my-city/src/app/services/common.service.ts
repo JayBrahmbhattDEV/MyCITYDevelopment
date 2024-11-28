@@ -3,10 +3,12 @@ import {
   AlertController,
   AlertOptions,
   LoadingController,
-  LoadingOptions,
   ToastController,
   ToastOptions,
 } from '@ionic/angular';
+import { ReportsService } from './reports.service';
+import { StorageService } from './storage.service';
+import { STORAGE_KEYS } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +19,9 @@ export class CommonService {
   constructor(
     private loadingController: LoadingController,
     private toasterContrller: ToastController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private reportService: ReportsService,
+    private storageService: StorageService
   ) { }
 
   async presentLoading(message = 'Please wait') {
@@ -66,5 +70,11 @@ export class CommonService {
     });
 
     alert.present();
+  }
+
+  setAdminReportCount(): void {
+    this.reportService.getAdminReportCount().subscribe((res: any) => {
+      if (res) this.storageService.setData(STORAGE_KEYS.ADMIN_REP_DT, JSON.stringify(res.data));
+    });
   }
 }

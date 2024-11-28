@@ -80,7 +80,7 @@ export class LoginPage implements OnInit {
             this.isClicked = false;
             if(response.data.user.isAdmin){
               this.storageService.setData(STORAGE_KEYS.IS_ADMIN, response.data.user.isAdmin);
-              this.getRepCount();
+              this.commonService.setAdminReportCount();
             }
             this.navController.navigateForward(this.redirectTo ?? `/dashboard`);
           }

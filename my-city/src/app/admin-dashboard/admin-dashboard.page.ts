@@ -20,8 +20,12 @@ export class AdminDashboardPage implements OnInit {
 
   ngOnInit() { }
 
-  ngAfterViewInit(): void {
+  ionViewWillEnter() {
     this.renderDoughnutChart();
+  }
+
+  ngAfterViewInit(): void {
+    // this.renderDoughnutChart();
   }
 
   async renderDoughnutChart() {

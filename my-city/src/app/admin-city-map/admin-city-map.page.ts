@@ -14,13 +14,15 @@ export class AdminCityMapPage implements OnInit {
     reportService = inject(ReportsService);
     pinUrl: string = './assets/icon/pin.svg';
     pendingPin: string = './assets/icon/pending-pin.svg';
+    isAdminMode: boolean;
 
     private markersLayer: L.LayerGroup = L.layerGroup();
 
     ngOnInit() { }
 
     ionViewWillEnter() {
-        this.getAllPins();
+        if (history.state.uId) this.getUserPins();
+        else this.getAllPins();
     }
 
     ngAfterViewInit() {
@@ -54,6 +56,15 @@ export class AdminCityMapPage implements OnInit {
         this.reportService.getAllAdminPins().subscribe((res: any) => {
             this.pinsArray = res.data;
             this.pinsDefData = res.data;
+            this.isAdminMode = true;
+            if (this.pinsArray) this.addPinsToMap(this.pinsArray);
+        });
+    }
+
+    getUserPins() {
+        this.reportService.getPinsByUser(history.state.uId).subscribe((res: any) => {
+            this.pinsArray = res.data;
+            this.isAdminMode = false;
             if (this.pinsArray) this.addPinsToMap(this.pinsArray);
         });
     }

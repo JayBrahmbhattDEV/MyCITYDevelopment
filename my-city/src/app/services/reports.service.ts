@@ -45,4 +45,8 @@ export class ReportsService {
   getAllAdminPins() {
     return this.http.get(`${this.api}/record/admin-pins`);
   }
+
+  getPinsByUser(id: string) {
+    return this.http.get(`${this.api}/record/user-pins?id=${id}`);
+  }
 }

@@ -68,7 +68,8 @@ export class ViewReportPage implements OnInit {
     }).subscribe((res: any) => {
       console.log(res);
       this.commonService.presentToaster({ message: "Report closed successfully!", color: 'success' });
-      this.router.navigateByUrl('/reports');
+      this.router.navigateByUrl('/reports', { state: {isAdmin: this.isAdmin ? true : false } });
+      this.commonService.setAdminReportCount();
     });
   }
 

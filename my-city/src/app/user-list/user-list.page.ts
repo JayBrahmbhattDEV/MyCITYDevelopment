@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { CommonService } from '../services/common.service';
 import { MESSAGES } from '../utils/constants';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'cc-user-list',
@@ -12,7 +12,8 @@ import { ActionSheetController } from '@ionic/angular';
 export class UserListPage implements OnInit {
   account = inject(AccountService);
   common = inject(CommonService);
-  actionSheetCtrl = inject(ActionSheetController)
+  actionSheetCtrl = inject(ActionSheetController);
+  navController = inject(NavController);
   users: any;
   showGovtSugg: boolean;
   result: string;
@@ -58,6 +59,9 @@ export class UserListPage implements OnInit {
         },
         {
           text: 'View pins',
+          handler: () => {
+            this.routeToMapView(id);
+          },
           data: {
             action: 'view',
           },
@@ -98,6 +102,10 @@ export class UserListPage implements OnInit {
     )
   }
 
+  routeToMapView(id: string) {
+    this.navController.navigateForward('/admin-city-map', { state: { uId: id } });
+  }
+
   deleteUser(id: string) {
     this.account.deleteUser(id).subscribe((res: any) => {
       if (res.success) {
@@ -105,7 +113,7 @@ export class UserListPage implements OnInit {
         this.getAllUsersList();
       }
       else {
-        this.common.presentToaster({message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER, color: 'danger'})
+        this.common.presentToaster({ message: MESSAGES.SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER, color: 'danger' })
       }
     });
   }

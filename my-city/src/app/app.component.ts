@@ -52,6 +52,7 @@ export class AppComponent {
   ];
   modal: HTMLIonModalElement;
   backButtonPriority = 10;
+  selectedLanguage: string;
   constructor(
     public readonly accountService: AccountService,
     private readonly platform: Platform,
@@ -111,6 +112,7 @@ export class AppComponent {
       } else {
         this.translateService.setDefaultLang(language);
       }
+      this.selectedLanguage = language
     });
 
   }
