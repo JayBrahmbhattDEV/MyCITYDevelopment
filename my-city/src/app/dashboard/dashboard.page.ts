@@ -61,7 +61,7 @@ export class DashboardPage implements OnInit {
   }
 
   addReport(url: string) {
-    if (url === 'My Reports') {
+    if (url === 'My Issues') {
       if (this.accountService.token) {
         this.router.navigateByUrl('/reports');
       } else {

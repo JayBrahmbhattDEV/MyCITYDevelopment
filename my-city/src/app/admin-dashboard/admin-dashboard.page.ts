@@ -78,7 +78,7 @@ export class AdminDashboardPage implements OnInit {
     myChart.setOption(option);
   }
 
-  adminPanel(isAdmin) {
+  adminPanel() {
     this.navController.navigateForward('/reports', {
       state: { isAdmin: true },
     });

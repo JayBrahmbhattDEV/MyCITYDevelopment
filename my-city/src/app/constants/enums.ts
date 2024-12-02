@@ -1,6 +1,6 @@
 export enum ReportActions {
     AddReport = "Add Report",
-    MyReports = "My Reports",
-    RecentReports = "Recent Reports",
+    MyReports = "My Issues",
+    RecentReports = "Recent Issues",
     GovernmentSuggestions = "Govt. news"
 }

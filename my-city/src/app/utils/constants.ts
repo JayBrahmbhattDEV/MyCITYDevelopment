@@ -1,7 +1,7 @@
 export const MESSAGES = {
   SOMETHING_WENT_WRONG_PLEASE_TRY_AGAIN_LATER:
     'Something went wrong! Please try again later.',
-  FETCHING_REPORTS: 'Fetching Reports',
+  FETCHING_REPORTS: 'Fetching issues',
   LOG_OUT: 'Are you sure you want to log out?',
   GUJ_LOG_OUT: 'શું તમે ખરેખર લોગ-આઉટ કરવા માંગો છો?',
   DELETE_USER: 'Are you sure you want to delete this user? This action is irreversible.',

@@ -63,6 +63,7 @@ export class ReportsPage implements OnInit {
       if (response.success) {
         this.allPendingReports = response.data;
         console.log(this.allPendingReports);
+        this.isReportLoaded = true;
         this.commonService.hideLoading();
       }
     })
