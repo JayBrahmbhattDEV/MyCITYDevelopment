@@ -80,3 +80,21 @@
   --ion-font-bold: 'roboto-medium' !important;
   --ion-font-bold: 'roboto-bold' !important;
 }
+
+.ion-color-citiconn {
+  --ion-color-base: #25b791;
+  --ion-color-base-rgb: 37, 183, 145;
+  --ion-color-contrast: #ffffff;
+  --ion-color-contrast-rgb: 255, 255, 255;
+  --ion-color-shade: #1f9b7f;
+  --ion-color-tint: #4bc0a6;
+}
+
+.ion-color-citiconn-dark {
+  --ion-color-base: #187a65;
+  --ion-color-base-rgb: 24, 122, 101;
+  --ion-color-contrast: #ffffff;
+  --ion-color-contrast-rgb: 255, 255, 255;
+  --ion-color-shade: #12604f;
+  --ion-color-tint: #3c9982;
+}

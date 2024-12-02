@@ -1,4 +1,4 @@
-<ion-button (click)="click" [expand]="expand" [disabled]="disabled" [fill]="fill">
+<ion-button mode="ios" (click)="click" [expand]="expand" [disabled]="disabled" [fill]="fill">
   <span *ngIf="!isLoading">{{ text }}</span>
   <ion-spinner *ngIf="isLoading" name="bubbles"></ion-spinner>
 </ion-button>

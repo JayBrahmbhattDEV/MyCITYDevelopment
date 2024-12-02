@@ -34,8 +34,8 @@ export class AdminCityMapPage implements OnInit {
 
     initializeMap() {
         const abadBounds = L.latLngBounds(
-            L.latLng(22.1290, 71.4850),
-            L.latLng(23.9690, 73.6350)
+            L.latLng(22.2840, 71.6850),
+            L.latLng(23.6640, 73.4100)
         );
 
         this.map = L.map('map', {
@@ -50,6 +50,23 @@ export class AdminCityMapPage implements OnInit {
         }).addTo(this.map);
 
         this.markersLayer.addTo(this.map);
+
+        const returnControl = L.control({ position: 'topright' });
+
+        returnControl.onAdd = () => {
+            const button = L.DomUtil.create('button', 'leaflet-bar leaflet-control');
+            button.innerHTML = '<ion-icon name="locate-sharp" color="citiconn" size="large"></ion-icon>';
+            button.style.backgroundColor = 'white';
+            button.style.border = 'none';
+
+            button.onclick = () => {
+                this.map.setView([23.049736, 72.511726], 12);
+            };
+
+            return button;
+        };
+
+        returnControl.addTo(this.map);
     }
 
     getAllPins() {
