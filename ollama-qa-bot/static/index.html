@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Ollama QA Bot</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.chat-container {
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+			margin-bottom: 20px;
+			height: 400px;
+			overflow-y: auto;
+		}
+
+		.user-message {
+			background-color: #e6f7ff;
+			padding: 10px;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+
+		.bot-message {
+			background-color: #f0f0f0;
+			padding: 10px;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+
+		.input-container {
+			display: flex;
+			gap: 10px;
+		}
+
+		#question-input {
+			flex-grow: 1;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		button {
+			padding: 10px 15px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		.typing-indicator {
+			display: inline-block;
+			margin-left: 5px;
+		}
+
+		.typing-indicator span {
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			background-color: #888;
+			border-radius: 50%;
+			margin-right: 3px;
+			animation: typing 1s infinite;
+		}
+
+		.typing-indicator span:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+
+		.typing-indicator span:nth-child(3) {
+			animation-delay: 0.4s;
+		}
+
+		@keyframes typing {
+
+			0%,
+			100% {
+				transform: translateY(0);
+			}
+
+			50% {
+				transform: translateY(-5px);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Ollama QA Bot</h1>
+	<div class="chat-container" id="chat-container">
+		<div class="bot-message">Hello! I'm your QA assistant. Ask me anything about the MyCITY app.</div>
+	</div>
+	<div class="input-container">
+		<input type="text" id="question-input" placeholder="Type your question here...">
+		<button id="ask-button">Ask</button>
+		<button id="reset-button">Reset Chat</button>
+	</div>
+
+	<script>
+		// DOM elements
+		const chatContainer = document.getElementById('chat-container');
+		const questionInput = document.getElementById('question-input');
+		const askButton = document.getElementById('ask-button');
+		const resetButton = document.getElementById('reset-button');
+
+		// Session ID (you can generate a unique one or use a default)
+		const sessionId = 'user-' + Date.now();
+
+		// Function to add a message to the chat
+		function addMessage(message, isUser = false) {
+			const messageDiv = document.createElement('div');
+			messageDiv.className = isUser ? 'user-message' : 'bot-message';
+			messageDiv.textContent = message;
+			chatContainer.appendChild(messageDiv);
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+			return messageDiv;
+		}
+
+		// Function to create typing indicator
+		function createTypingIndicator() {
+			const indicator = document.createElement('div');
+			indicator.className = 'typing-indicator';
+			indicator.innerHTML = '<span></span><span></span><span></span>';
+			return indicator;
+		}
+
+		// Function to ask a question with streaming response
+		async function askQuestion(question) {
+			if (!question.trim()) return;
+
+			// Add user message to chat
+			addMessage(question, true);
+
+			// Create bot message container with typing indicator
+			const botMessageDiv = addMessage('', false);
+			const typingIndicator = createTypingIndicator();
+			botMessageDiv.appendChild(typingIndicator);
+
+			try {
+				// Make request to streaming API endpoint
+				const response = await fetch('http://localhost:5000/api/ask_stream', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						question: question,
+						session_id: sessionId
+					})
+				});
+
+				// Create reader for the stream
+				const reader = response.body.getReader();
+				const decoder = new TextDecoder();
+				let botResponse = '';
+
+				// Process the stream
+				while (true) {
+					const {
+						done,
+						value
+					} = await reader.read();
+					if (done) break;
+
+					const text = decoder.decode(value);
+					const lines = text.split('\n\n');
+
+					for (const line of lines) {
+						if (line.startsWith('data: ')) {
+							try {
+								const data = JSON.parse(line.substring(6));
+
+								if (data.chunk) {
+									botResponse += data.chunk;
+									botMessageDiv.textContent = botResponse;
+								}
+
+								if (data.done) {
+									// Remove typing indicator when done
+									if (typingIndicator.parentNode === botMessageDiv) {
+										botMessageDiv.removeChild(typingIndicator);
+									}
+									break;
+								}
+							} catch (e) {
+								console.error('Error parsing JSON:', e);
+							}
+						}
+					}
+				}
+			} catch (error) {
+				console.error('Error:', error);
+				botMessageDiv.textContent = 'Sorry, there was an error processing your request.';
+			} finally {
+				// Remove typing indicator if it's still there
+				if (typingIndicator.parentNode === botMessageDiv) {
+					botMessageDiv.removeChild(typingIndicator);
+				}
+			}
+		}
+
+		// Function to reset the conversation
+		async function resetConversation() {
+			try {
+				const response = await fetch('http://localhost:5000/api/reset', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						session_id: sessionId
+					})
+				});
+
+				const result = await response.json();
+
+				if (result.success) {
+					// Clear chat container
+					chatContainer.innerHTML = '';
+					// Add welcome message
+					addMessage('Chat has been reset. How can I help you?', false);
+				} else {
+					console.error('Failed to reset conversation:', result.message);
+				}
+			} catch (error) {
+				console.error('Error resetting conversation:', error);
+			}
+		}
+
+		// Event listeners
+		askButton.addEventListener('click', () => {
+			const question = questionInput.value;
+			askQuestion(question);
+			questionInput.value = '';
+		});
+
+		questionInput.addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				const question = questionInput.value;
+				askQuestion(question);
+				questionInput.value = '';
+			}
+		});
+
+		resetButton.addEventListener('click', resetConversation);
+	</script>
+</body>
+
+</html>

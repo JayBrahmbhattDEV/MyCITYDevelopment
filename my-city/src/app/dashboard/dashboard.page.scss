@@ -3,7 +3,7 @@ ion-header {
   --background: var(--ion-color-primary);
 }
 
-.admin-panel{
+.admin-panel {
   font-size: x-large;
   margin-right: 1%;
 }
@@ -27,26 +27,91 @@ ion-content {
   color: #ffffff !important;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px){
-    /* Ipad styles */
-    .addReport{
-        top: 37%;
-        right: 62%;
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  /* Ipad styles */
+  .addReport {
+    top: 37%;
+    right: 62%;
+  }
+
+  .recentReport {
+    position: fixed;
+    top: 37%;
+    right: 33%;
+  }
+
+  .govAlerts {
+    top: 57%;
+    right: 31%;
+  }
+
+  .myReports {
+    top: 57%;
+    right: 62%;
+  }
+}
+
+.chat-container {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 350px;
+  z-index: 1000;
+
+  .chat-window {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    .message-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      max-height: 350px;
+
+      .message {
+        margin-bottom: 12px;
+
+        &-bubble {
+          max-width: 80%;
+          padding: 8px 12px;
+          border-radius: 15px;
+          background: var(--ion-color-light);
+          position: relative;
+
+          .message-time {
+            font-size: 0.7rem;
+            color: var(--ion-color-medium);
+            text-align: right;
+          }
+        }
+
+        &.user {
+          display: flex;
+          justify-content: flex-end;
+
+          .message-bubble {
+            background: var(--ion-color-primary);
+            color: white;
+
+            .message-time {
+              color: rgba(255, 255, 255, 0.7);
+            }
+          }
+        }
+      }
     }
 
-    .recentReport{
-        position: fixed;
-        top: 37%;
-        right: 33%;
+    .message-input {
+      border-top: 1px solid var(--ion-color-light-shade);
+      padding: 8px;
     }
-
-    .govAlerts{
-        top: 57%;
-        right: 31%;
-    }
-
-    .myReports{
-        top: 57%;
-        right: 62%;
-    }
-   }
+  }
+}

@@ -49,4 +49,57 @@
       </ng-container>
     </ion-slide>
   </ion-slides>
+
+  <!-- Add this floating chat button at the end of ion-content -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="toggleChat()">
+      <ion-icon name="chatbubble-ellipses"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="chat-container" *ngIf="showChat">
+    <ion-card class="chat-window">
+      <ion-card-header>
+        <ion-toolbar>
+          <ion-title>Support Chat</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="toggleChat()">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-card-header>
+
+      <ion-card-content class="message-container">
+        <div class="message-list" #messageList>
+          <div
+            *ngFor="let message of chatMessages; let last = last"
+            class="message"
+            [class.user]="message.sender === 'user'"
+          >
+            <div
+              class="message-bubble"
+              [class.streaming]="last && message.sender === 'bot' && message.isStreaming"
+            >
+              {{ message.text }}
+              <div class="message-time">
+                {{ message.timestamp | date:'shortTime' }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ion-item class="message-input">
+          <ion-input
+            [(ngModel)]="newMessage"
+            placeholder="Type your message..."
+            (keyup.enter)="sendMessage()"
+          ></ion-input>
+          <ion-button fill="clear" (click)="sendMessage()">
+            <ion-icon name="send"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

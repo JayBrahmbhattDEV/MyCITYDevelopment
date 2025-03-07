@@ -23,7 +23,7 @@ export class AppComponent {
       icon: 'albums',
       isAuthRequired: true,
       show: false,
-      forAdmin: false
+      forAdmin: false,
     },
     {
       title: 'SIDE_MENU.Profile',
@@ -31,7 +31,7 @@ export class AppComponent {
       icon: 'person',
       isAuthRequired: true,
       show: false,
-      forAdmin: false
+      forAdmin: false,
     },
     {
       title: 'SIDE_MENU.About Us',
@@ -39,7 +39,7 @@ export class AppComponent {
       icon: 'information',
       isAuthRequired: false,
       show: true,
-      forAdmin: false
+      forAdmin: false,
     },
     {
       title: 'SIDE_MENU.Privacy Policy',
@@ -47,7 +47,7 @@ export class AppComponent {
       icon: 'document-lock',
       isAuthRequired: false,
       show: true,
-      forAdmin: false
+      forAdmin: false,
     },
   ];
   modal: HTMLIonModalElement;
@@ -112,9 +112,8 @@ export class AppComponent {
       } else {
         this.translateService.setDefaultLang(language);
       }
-      this.selectedLanguage = language
+      this.selectedLanguage = language;
     });
-
   }
 
   async openModal() {

@@ -1,0 +1,17 @@
+# MyCITY App Knowledge Base
+
+## General Information
+Is this a free service?
+Yes! Our app is completely free to download without any charges or subscriptions.
+
+## Issue Management
+Can I edit or cancel a raised issue?
+No, once an issue has been raised you can't edit or cancel it. If it is a mistake then you can contact the support team via email.
+
+## Issue Status
+What happens after submitting an issue?
+The status for the newly created issue will be Pending and will show up in yellow. Once taken into action the status will change to In-progress and blue. After resolution is met it will change to Closed and green.
+
+## Categories
+What if I can't find the right category?
+If you can not find the category you are looking for, you can add it under the Other category type and add a description as well.
