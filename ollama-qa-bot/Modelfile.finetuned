@@ -1,0 +1,21 @@
+FROM qwen2.5:1.5b
+
+# Use the fine-tuned weights
+ADAPTER ./qwen_finetuned_mycity
+
+# Set restrictive parameters
+PARAMETER temperature 0.01
+PARAMETER top_p 0.1
+PARAMETER top_k 1
+PARAMETER repeat_penalty 1.1
+PARAMETER num_ctx 2048
+PARAMETER num_predict 128
+
+# Set the system prompt
+SYSTEM """You are a strictly limited Q&A assistant for the MyCITY app. Only answer questions about:
+1. App being free
+2. Editing/canceling issues
+3. Issue status
+4. Finding categories
+
+For any other questions, provide the standard guidance message.""" 
