@@ -19,7 +19,17 @@
     </div>
   </ng-container>
   <ng-container *ngIf="allPendingReports.length && adminPanel">
-    <app-mc-report-card *ngFor="let report of allPendingReports" [report]="report"></app-mc-report-card>
+
+    <ion-item lines="full">
+      <ion-label>Filter by Dept.</ion-label>
+      <ion-select [(ngModel)]="selectedFilter" (ionChange)="applyFilter($event)">
+        <ion-select-option *ngFor="let filter of filters" [value]="filter.value">
+          {{filter.label}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <app-mc-report-card *ngFor="let report of pendingReports" [report]="report"></app-mc-report-card>
     <div *ngIf="loadData">
       <ion-infinite-scroll threshold="20%" (ionInfinite)="loadmore($event)">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>

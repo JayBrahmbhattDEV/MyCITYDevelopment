@@ -18,6 +18,16 @@ export class ReportsPage implements OnInit {
   adminPanel: any;
   pageNumber: any;
   loadData: any = true;
+
+  filters = [
+    { label: 'Health Dept', name: 'Health', value: 2 },
+    { label: 'Electric Dept', name: 'Electricity', value: 5 },
+    { label: 'Road Dept', name: 'Roads', value: 3 }
+  ];
+
+  selectedFilter = '';
+  pendingReports = [];
+
   constructor(
     private reportService: ReportsService,
     private commonService: CommonService,
@@ -34,6 +44,22 @@ export class ReportsPage implements OnInit {
     } else {
       this.getReports();
     }
+  }
+
+  applyFilter(event: any) {
+    this.pendingReports = this.allPendingReports;
+    this.pendingReports = this.pendingReports.filter(report => {
+      switch (this.selectedFilter.toString()) {
+        case '2':
+          return report.category === 'Health hazards';
+        case '5':
+          return report.category === 'Lights';
+        case '3':
+          return report.category === 'Street and Park damage';
+        default:
+          return true;
+      }
+    });
   }
 
   getReports() {
@@ -63,6 +89,7 @@ export class ReportsPage implements OnInit {
       if (response.success) {
         this.allPendingReports = response.data;
         console.log(this.allPendingReports);
+        this.pendingReports = this.allPendingReports
         this.isReportLoaded = true;
         this.commonService.hideLoading();
       }
