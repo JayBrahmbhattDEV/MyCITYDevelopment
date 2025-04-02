@@ -118,7 +118,10 @@ const routes: Routes = [
     path: 'admin-city-map',
     loadChildren: () => import('./admin-city-map/admin-city-map.module').then( m => m.AdminCityMapPageModule)
   },
-
+  {
+    path: 'gis-map',
+    loadChildren: () => import('./gis-map/gis-map.module').then( m => m.GisMapPageModule)
+  },
 
 ];
 

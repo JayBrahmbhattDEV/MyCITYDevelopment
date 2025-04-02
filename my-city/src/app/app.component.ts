@@ -6,7 +6,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { PermissionsPage } from './shared/modals/permissions/permissions.page';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './services/storage.service';
-import { adminObj } from './utils/constants';
+import { pagesData } from './utils/constants';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,40 +16,7 @@ export class AppComponent {
   activePageTitle = 'Dashboard';
   userName: any;
   setLangForModal: any;
-  pages = [
-    {
-      title: 'SIDE_MENU.Dashboard',
-      url: '/dashboard',
-      icon: 'albums',
-      isAuthRequired: true,
-      show: false,
-      forAdmin: false
-    },
-    {
-      title: 'SIDE_MENU.Profile',
-      url: '/profile',
-      icon: 'person',
-      isAuthRequired: true,
-      show: false,
-      forAdmin: false
-    },
-    {
-      title: 'SIDE_MENU.About Us',
-      url: '/about',
-      icon: 'information',
-      isAuthRequired: false,
-      show: true,
-      forAdmin: false
-    },
-    {
-      title: 'SIDE_MENU.Privacy Policy',
-      url: '/privacy',
-      icon: 'document-lock',
-      isAuthRequired: false,
-      show: true,
-      forAdmin: false
-    },
-  ];
+  pages = pagesData;
   modal: HTMLIonModalElement;
   backButtonPriority = 10;
   selectedLanguage: string;
@@ -70,12 +37,6 @@ export class AppComponent {
         .forEach((x) => {
           x.show = user;
         });
-
-      if (user && user.isAdmin && !this.pages.some((x: any) => x.forAdmin)) {
-        this.pages.push(adminObj);
-      } else if (user && !user.isAdmin) {
-        this.pages = this.pages.filter((x: any) => x.url !== '/admin-panel');
-      }
     });
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {

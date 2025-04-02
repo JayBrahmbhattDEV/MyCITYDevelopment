@@ -24,10 +24,6 @@ export class AdminDashboardPage implements OnInit {
     this.renderDoughnutChart();
   }
 
-  ngAfterViewInit(): void {
-    // this.renderDoughnutChart();
-  }
-
   async renderDoughnutChart() {
     const adminReportData: any = await this.storageService.getData(STORAGE_KEYS.ADMIN_REP_DT);
     this.adminData = JSON.parse(adminReportData);
@@ -84,8 +80,9 @@ export class AdminDashboardPage implements OnInit {
     });
   }
 
-  navigateToMap() {
-    this.navController.navigateForward('/admin-city-map');
+  navigateToMap(isGIS: boolean) {
+    if (isGIS) this.navController.navigateForward('/gis-map'); 
+    else this.navController.navigateForward('/admin-city-map');
   }
 
   navigateToUserList() {

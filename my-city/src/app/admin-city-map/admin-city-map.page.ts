@@ -99,7 +99,7 @@ export class AdminCityMapPage implements OnInit {
                 popupAnchor: [0, -50]
             });
 
-            const marker = L.marker([pin.location.latitude, pin.location.longitude], { icon: customIcon })
+            const marker = L.marker([pin?.location?.latitude, pin?.location?.longitude], { icon: customIcon })
                 .addTo(this.markersLayer)
                 .bindPopup(`<b>Location</b><br>Lat: ${pin.location.latitude}<br>Lng: ${pin.location.longitude}`);
         });

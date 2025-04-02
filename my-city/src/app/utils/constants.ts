@@ -150,15 +150,6 @@ export const SubCategories = [
   },
 ];
 
-export const adminObj = {
-  title: 'SIDE_MENU.Admin Panel',
-  url: '/admin-panel',
-  icon: 'key',
-  isAuthRequired: true,
-  show: false,
-  forAdmin: true
-}
-
 export const Cities = [
   {
     id: 1, 
@@ -171,6 +162,49 @@ export const Cities = [
   {
     id: 3,
     name: 'Vadodara'
+  }
+]
+
+export const pagesData = [
+  {
+    title: 'SIDE_MENU.Dashboard',
+    url: '/dashboard',
+    icon: 'albums',
+    isAuthRequired: true,
+    show: false,
+    forAdmin: false
+  },
+  {
+    title: 'SIDE_MENU.Profile',
+    url: '/profile',
+    icon: 'person',
+    isAuthRequired: true,
+    show: false,
+    forAdmin: false
+  },
+  {
+    title: 'SIDE_MENU.About Us',
+    url: '/about',
+    icon: 'information',
+    isAuthRequired: false,
+    show: true,
+    forAdmin: false
+  },
+  {
+    title: 'SIDE_MENU.Privacy Policy',
+    url: '/privacy',
+    icon: 'document-lock',
+    isAuthRequired: false,
+    show: true,
+    forAdmin: false
+  },
+  {
+    title: 'SIDE_MENU.Admin Panel',
+    url: '/admin-panel',
+    icon: 'key',
+    isAuthRequired: true,
+    show: false,
+    forAdmin: true
   }
 ]
 
