@@ -43,9 +43,11 @@
     </ion-slide>
     <ion-slide>
       <ng-container *ngIf="!isReportLoaded">
-        <app-report-card-skeleton
+        <div class="skeleton-wrapper">
+          <app-report-card-skeleton
           *ngFor="let item of [1,2,3,4,5]"
         ></app-report-card-skeleton>
+        </div>
       </ng-container>
     </ion-slide>
   </ion-slides>
