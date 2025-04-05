@@ -31,37 +31,56 @@ export class GisMapPage implements OnInit, AfterViewInit {
       center: [23.049736, 72.511726],
       zoom: 12,
       setMaxmaxBounds: abadBounds,
+      attributionControl: false
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.map);
 
-    this.loadKML()
+    this.loadWards()
+
   }
 
-  loadKML() {
-    const kmlUrl = './assets/ahmedabad_wards_map_2024.kml';
-  
-    fetch(kmlUrl)
-      .then((res) => res.text())
-      .then((kmlText) => {
-        const parser = new DOMParser();
-        const kml = parser.parseFromString(kmlText, 'text/xml');
-        const kmlLayer = new L.KML(kml);
-        this.map.addLayer(kmlLayer);
-  
-        const kmlBounds = kmlLayer.getBounds();
-        if (kmlBounds.isValid()) {
-          this.map.fitBounds(kmlBounds);
-        }
-  
-        setTimeout(() => {
-          this.map.setView([23.0225, 72.5714], 11);
-        }, 1000);
+  loadWards() {
+    fetch('./assets/ahmedabad_wards_map_2024.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load GeoJSON file');
+        return response.json();
       })
-      .catch((err) => console.error('Error loading KML:', err));
+      .then(geojsonData => {
+        const getRandomColor = () => {
+          return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+        };
+
+        L.geoJSON(geojsonData, {
+          style: () => ({
+            color: getRandomColor(),
+            weight: 2,
+            fillColor: getRandomColor(),
+            fillOpacity: 0.6
+          }),
+          onEachFeature: (feature, layer) => {
+            layer.on('click', (e) => {
+              const wardName = feature.properties.ward_lgd_name || 'Unknown';
+              layer.bindPopup(wardName, {
+                closeButton: true
+              }).openPopup(e.latlng);
+            });
+
+            this.map.on('popupopen', (e) => {
+              const closeBtn = document.querySelector('.leaflet-popup-close-button') as HTMLAnchorElement;
+              if (closeBtn) {
+                closeBtn.removeAttribute('href');
+              }
+            });
+          }
+        }).addTo(this.map);
+      })
+      .catch(error => {
+        console.error('Error loading GeoJSON:', error);
+      });
   }
-  
+
 
 }

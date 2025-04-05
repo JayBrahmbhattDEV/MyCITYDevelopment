@@ -42,7 +42,8 @@ export class AdminCityMapPage implements OnInit {
             center: [23.049736, 72.511726],
             zoom: 12,
             maxBounds: abadBounds,
-            minZoom: 12
+            minZoom: 12,
+            attributionControl: false
         });
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
